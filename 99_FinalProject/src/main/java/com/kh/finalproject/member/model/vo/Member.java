@@ -19,14 +19,12 @@ public class Member {
 	private String role;
 
 	private String name;
+	
+	private String nickname;
 
 	private String phone;
 
-	private String email;
-
 	private String address;
-
-	private String hobby;
 
 	private String status;
 
