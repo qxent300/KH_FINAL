@@ -39,26 +39,29 @@
 		- 서블릿에서의 Filter와 같은 역할로 특정 URL의 요청이 왔을 경우 선처리나 후처리를 지원하기 위한 기능
 		-->
 	<!-- 인터셉터 사용을 위한 선언 -->
-	<!-- <interceptors>
+	<interceptors>
 	 	<interceptor>
-	 		인터셉터를 적용시켜야 할 URL(컨트롤러) 선택
-		<mapping path="/member/view"/>
-			<mapping path="/member/update"/>
+	 		<!-- 인터셉터를 적용시켜야 할 URL(컨트롤러) 선택 -->
+<!-- 		<mapping path="/member/view"/>
+			<mapping path="/member/update"/> -->
 			
 			<mapping path="/member/**"/>
+			<mapping path="/bookboard/**"/>
 			<mapping path="/freeboard/**"/>
 			
-			인터셉터를 제외할 URL(컨트롤) 선택
-			로그인이 없이도 사용할수 있는 기능
+			<!-- 인터셉터를 제외할 URL(컨트롤) 선택 -->
+			<!-- 로그인이 없이도 사용할수 있는 기능 -->
 			<exclude-mapping path="/member/login"/>
 			<exclude-mapping path="/member/enroll"/>
 			<exclude-mapping path="/member/idCheck"/>
+			<exclude-mapping path="/bookboard/list"/>
+			<exclude-mapping path="/bookboard/view"/>
 			<exclude-mapping path="/freeboard/list"/>
 			<exclude-mapping path="/freeboard/view"/>
 			<exclude-mapping path="/freeboard/fileDown"/>
 			
-			인터셉터 등록
+			<!-- 인터셉터 등록 -->
 			<beans:bean id="loginCheckInterceptor" class="com.kh.finalproject.common.interceptor.LoginCheckInterceptor" />
 	 	</interceptor>
-	 </interceptors> -->
+	 </interceptors>
 </beans:beans>

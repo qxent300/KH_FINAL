@@ -31,7 +31,7 @@
                             <div class="col-lg-1 d-flex align-items-center form-group no-divider">
                             </div>
                             <div class="col-lg-2 d-grid">
-                                <button onclick="location.href='#'" class="btn btn-primary rounded-pill h-100 fw-bold" type="submit">검색</button>
+                                <button onclick="location.href='#'" class="btn btn-primary rounded-pill h-100 fw-bold bi-search" type="submit">&nbsp;검색</button>
                             </div>
                         </div>
                     </form>

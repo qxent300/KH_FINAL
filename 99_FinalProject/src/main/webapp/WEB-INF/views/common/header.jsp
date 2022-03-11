@@ -10,8 +10,6 @@
 <head>
 <meta charset="UTF-8">
 <title>${param.title}</title>
-    <!-- Price Slider Stylesheets -->
-    <link rel="stylesheet" href="${path}/css/nouislider.css">
     <!-- Google fonts - Playfair Display-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Playfair+Display:400,400i,700">
     <!-- Google fonts - Poppins-->
@@ -24,6 +22,7 @@
 	<link rel="stylesheet" href="${path}/css/style.default.css">
 	<!-- Font Awesome CSS-->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <link rel="stylesheet" href="${path}/css/bootstrap-icons/font/bootstrap-icons.css">
         <!-- jQuery-->
     <script src="${path}/js/jquery.min.js"></script>
     <!-- Bootstrap JS bundle - Bootstrap + PopperJS-->
@@ -57,10 +56,9 @@
 						<a class="nav-link dropdown-toggle" style="font-size: medium;" type="button"
 							data-bs-toggle="dropdown" aria-haspopup="true" role="button">커뮤니티</a>
 						<div class="dropdown-menu megamenu py-lg-2" style="min-width: 107px;">
-							<a class="dropdown-item" href="#"
-								style="background-color: rgb(255, 255, 255)">독서일지</a> <a
-								class="dropdown-item" href="${path}/freeboard/list"
-								style="background-color: rgb(255, 255, 255)">자유공간</a>
+							<a class="dropdown-item" href="${path}/bookboard/list"
+								style="background-color: rgb(255, 255, 255)">독서일기</a>
+								<a class="dropdown-item" href="${path}/freeboard/list" style="background-color: rgb(255, 255, 255)">자유공간</a>
 						</div>
 					</div>
 					<!-- /dropdown menu end -->
@@ -69,9 +67,9 @@
 						<a class="nav-link dropdown-toggle" style="font-size: medium;" type="button"
 							data-bs-toggle="dropdown" aria-haspopup="true" role="button">마이페이지</a>
 						<div class="dropdown-menu megamenu py-lg-2" style="min-width: 107px;">
-							<a class="dropdown-item" href="#"
+							<a class="dropdown-item" href="${path}/mypage/rent"
 								style="background-color: rgb(255, 255, 255)">대여현황</a> <a
-								class="dropdown-item" href="#"
+								class="dropdown-item" href="${path}/member/view"
 								style="background-color: rgb(255, 255, 255)">회원정보</a> <a
 								class="dropdown-item" href="#"
 								style="background-color: rgb(255, 255, 255)">내 활동</a>
@@ -80,10 +78,10 @@
 					<!-- /dropdown menu end -->
 					<li class="nav-item"><a class="nav-link" href="#"
 						style="font-size: medium;">고객센터</a></li>
-					<li class="nav-item"><a class="nav-link" href="${path}/book/cart"
+					<li class="nav-item"><a class="nav-link" href="${path}/mypage/cart"
 						style="font-size: medium;">장바구니</a></li>
 					<c:if test="${ loginMember == null }">
-						<li class="nav-item"><a class="nav-link" href="${path}/member/loginPage"
+						<li class="nav-item"><a class="nav-link" href="${path}/login"
 							style="font-size: medium;">로그인</a></li>
 					</c:if>
 					<c:if test="${ loginMember != null }">

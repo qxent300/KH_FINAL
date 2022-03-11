@@ -18,7 +18,7 @@
 	<div class="container content-space-t-3 content-space-t-lg-3 content-space-b-2 text-center text-truncate">
 		<h1>자유공간</h1>
 		<!-- Table -->
-		<table class="table table-thead-bordered mt-5">
+		<table class="table table-thead-bordered mt-3">
 			<thead class="thead-light">
 				<tr>
 					<th id="tdWidth1">번호(임시)</th>
@@ -31,7 +31,7 @@
 			<tbody>
 				<c:if test="${list == null}">
 					<tr>
-						<td colspan="6">조회된 게시글이 없습니다.</td>
+						<td colspan="6">등록된 게시글이 없습니다.</td>
 					</tr>
 				</c:if>
 
@@ -50,7 +50,14 @@
 					</c:forEach>
 				</c:if>
 			</tbody>
+			<tr></tr>
 		</table>
+		<c:if test="${loginMember != null}">
+			<div class="mb-2 text-end">
+				<button type="button" class="btn btn-sm btn-primary fw-bold bi-pencil-fill"
+					onclick="location.href='${path}/freeboard/write'">&nbsp;글쓰기</button>
+			</div>
+		</c:if>
 		<div class="pagination justify-content-center">
 			<!-- 맨 처음으로 -->
 			<button class="page-link page-item"
@@ -95,16 +102,10 @@
                         <option value="writer">글쓴이</option>
 					</select>
                     <input name="searchValue" type="text" class="form-control-sm">
-                    <button class="btn btn-primary fw-bold rounded-end" type="submit">검색</button>
+                    <button class="btn btn-primary fw-bold rounded-end bi-search" type="submit">&nbsp;검색</button>
                 </div>
 			</div>
 		</form>
-		<c:if test="${loginMember != null}">
-			<div class="mb-2 text-end">
-				<button type="button" class="btn btn-sm btn-primary fw-bold"
-					onclick="location.href='${path}/freeboard/write'">글쓰기</button>
-			</div>
-		</c:if>
 	</div>
 </div>
 <!-- End Hero -->

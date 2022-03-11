@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kh.finalproject.book.model.mapper.BookMapper">
+	<resultMap type="Board" id="boardListResultMap">
+		<id property="no" column="NO"/>
+		<result property="title" column="TITLE"/>
+		<result property="writerId" column="ID"/>
+		<result property="writerNo" column="WRITER_NO"/>
+		<result property="readCount" column="READCOUNT"/>
+		<result property="originalFileName" column="ORIGINAL_FILENAME"/>
+		<result property="renamedFileName" column="RENAMED_FILENAME"/>
+		<result property="content" column="CONTENT"/>
+		<result property="type" column="TYPE"/>
+		<result property="createDate" column="CREATE_DATE"/>
+		<result property="modifyDate" column="MODIFY_DATE"/>
+	</resultMap>
+</mapper>

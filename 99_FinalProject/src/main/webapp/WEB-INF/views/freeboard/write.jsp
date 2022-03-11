@@ -29,11 +29,11 @@
                                 <!-- Form -->
                                 <input type="hidden" name="writerId" value="${ loginMember.id }" readonly>
                                 <span class="d-block">
-                                <input type="text" class="form-control form-control-lg" name="title" id="title" placeholder="제목을 입력해주세요...">
+                                <input type="text" class="form-control form-control-lg" name="title" id="title" placeholder="제목을 입력해주세요.">
                             </span>
                                 <!-- End Form -->
                                 
-                                <textarea name="content" id="content" class="form-control" cols="30" rows="12" placeholder="내용을 입력해주세요..."></textarea>
+                                <textarea name="content" id="content" class="form-control" cols="30" rows="12" placeholder="내용을 입력해주세요."></textarea>
                                 <!-- Form -->
                                 <span class="d-block">
                   <input type="file" class="form-control form-control-lg" name="upfile" id="upfile">
@@ -72,4 +72,3 @@
     </script>
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
-	

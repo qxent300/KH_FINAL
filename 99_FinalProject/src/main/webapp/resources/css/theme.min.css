@@ -3313,7 +3313,8 @@
    }
    
    .btn:hover {
-       color: #677788
+  color: #212529;
+  text-decoration: none;
    }
    
    .btn-check:focus+.btn,

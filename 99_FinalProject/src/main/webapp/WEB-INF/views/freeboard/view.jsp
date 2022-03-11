@@ -80,7 +80,10 @@
 	<div class="mb-2"></div>
 	<!-- 리플리스트 출력 시작-->
 	<table id="tbl-comment">
-	<c:if test="${ replyList != null }">
+	<c:if test="${ empty replyList}">
+					<div class="text-center">등록된 댓글이 없습니다.</div>
+				</c:if>
+	<c:if test="${ !empty replyList }">
 		<c:forEach var="reply" items="${ replyList }">
 			<tr>
 				<td>
@@ -98,6 +101,7 @@
 				</td>
 			</tr>
 			</c:forEach>
+			<tr></tr>
 			</c:if>
 	</table>
 	<!-- 리플리스트 출력 종료 -->

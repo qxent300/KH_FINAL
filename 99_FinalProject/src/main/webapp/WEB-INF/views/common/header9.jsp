@@ -66,7 +66,7 @@
                             <a id="pagesMegaMenu" class="hs-mega-menu-invoker nav-link dropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">커뮤니티</a>
                             <!-- Mega Menu -->
                             <div class="dropdown-menu" aria-labelledby="pagesMegaMenu" style="min-width: 5rem;">
-                                <a class="dropdown-item" href="#">독서일지</a>
+                                <a class="dropdown-item" href="${path}/bookboard/list">독서일기</a>
                                 <a class="dropdown-item" href="${path}/freeboard/list">자유공간</a>
                             </div>
                             <!-- End Mega Menu -->
@@ -78,8 +78,8 @@
                             <a id="pagesMegaMenu2" class="hs-mega-menu-invoker nav-link dropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">마이페이지</a>
                             <!-- Mega Menu -->
                             <div class="dropdown-menu" aria-labelledby="pagesMegaMenu" style="min-width: 5rem;">
-                                <a class="dropdown-item" href="#">대여현황</a>
-                                <a class="dropdown-item" href="#">회원정보</a>
+                                <a class="dropdown-item" href="${path}/mypage/rent">대여현황</a>
+                                <a class="dropdown-item" href="${path}/member/view">회원정보</a>
                                 <a class="dropdown-item" href="#">내 활동</a>
                             </div>
                             <!-- End Mega Menu -->
@@ -94,7 +94,7 @@
 
                         <!-- Account -->
                         <li class="nav-item">
-                            <a id="MegaMenu3" class="nav-link" href="${path}/book/cart" role="button">장바구니</a>
+                            <a id="MegaMenu3" class="nav-link" href="${path}/mypage/cart" role="button">장바구니</a>
                         </li>
                         <!-- End Account -->
 

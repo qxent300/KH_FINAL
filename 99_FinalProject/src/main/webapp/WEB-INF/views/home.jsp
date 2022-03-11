@@ -11,12 +11,11 @@
 
 <section class="hero-home">
         <div class="swiper-container hero-slider">
-        
             <div class="swiper-wrapper dark-overlay">
-                <div class="swiper-slide" style="background-image:url(${path}/images/book1.jpg)"></div>
+                <div class="swiper-slide" style="background-image:url(${path}/images/book_1.jpg)"></div>
                 <div class="swiper-slide" style="background-image:url(${path}/images/read.jpg)"></div>
                 <div class="swiper-slide" style="background-image:url(${path}/images/library.jpg)"></div>
-                <div class="swiper-slide" style="background-image:url(${path}/images/book2.jpg)"></div>
+                <div class="swiper-slide" style="background-image:url(${path}/images/book_2.jpg)"></div>
             </div>
         </div>
         <div class="container py-6 py-md-7 text-white z-index-20">
