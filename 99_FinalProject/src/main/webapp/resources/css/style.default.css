@@ -16740,3 +16740,9 @@ STYLE SWITCHER FOR DEMO
 #style-switch h4, #style-switch .h4 {
   color: #495057;
 }
+
+   .footerfp {
+       width: 100%;
+       max-width: 20rem;
+       margin-left: -.3rem;
+   }
