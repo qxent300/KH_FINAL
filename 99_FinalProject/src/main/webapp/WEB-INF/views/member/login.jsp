@@ -42,10 +42,10 @@
         <div class="w-75 container">
             <div class="w-50 container px-0 align-items-center">
                 <div class="w-100 py-5 px-md-5 px-xxl-6 position-relative ">
-                    <div class="container  d-flex justify-content-between " style="text-align: center; align-items: center;"><img class="img-fluid mb-3 float-left" src="${path}/resources/img/logo-square.svg " alt="... " style="max-width: 4rem; ">
+                    <div class="container  d-flex justify-content-between " style="text-align: center; align-items: center;"><img class="img-fluid mb-3 float-left" src="${path}/images/booklogo.jpg " alt="... " style="max-width: 5rem; ">
                         <h2>로그인 페이지</h2>
                         <div class="col-auto">
-                            <a class="form-text text-primary " href="${path}/home "><img src="${path}/resources/img/x.PNG" alt="" style="max-width: 3rem;"></a>
+                            <a class="form-text text-primary " href="${path}/"><img src="${path}/resources/img/x.PNG" alt="" style="max-width: 3rem;"></a>
                         </div>
                     </div>
                     <form class="form-validate " action="${path}/member/login" method="post">

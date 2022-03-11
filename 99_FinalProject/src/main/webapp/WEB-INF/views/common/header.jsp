@@ -83,7 +83,7 @@
 					<li class="nav-item"><a class="nav-link" href="${path}/book/cart"
 						style="font-size: medium;">장바구니</a></li>
 					<c:if test="${ loginMember == null }">
-						<li class="nav-item"><a class="nav-link" href="${path}/login"
+						<li class="nav-item"><a class="nav-link" href="${path}/member/loginPage"
 							style="font-size: medium;">로그인</a></li>
 					</c:if>
 					<c:if test="${ loginMember != null }">

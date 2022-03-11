@@ -38,10 +38,10 @@
 
 <body style="padding-top: 130px;">
     <form class="form-validate" action="${path}/member/enroll">
-        <div class="container-fluid px-10 w-75 ">
-            <div class="container col-md-4 col-lg-4 col-xl-4 d-flex justify-content-between" style="text-align: center; align-items: center;"><img class="img-fluid mb-4" src="${path}/resources/img/photo/logo.png" alt="..." style="max-width: 4rem;">
+        <div class="container-fluid px-10 w-75 min-vh-100 ">
+            <div class="container col-md-4 col-lg-4 col-xl-4 d-flex justify-content-between" style="text-align: center; align-items: center;"><img class="img-fluid mb-4" src="${path}/images/booklogo.jpg" alt="..." style="max-width: 5rem;">
                 <h2>회원 가입 페이지</h2>
-                <div class="col-auto "><a class="form-text small text-primary " href="${path}/home "><img src="${path}/resources/img/x.PNG" alt="" style="max-width: 3rem;"></a></div>
+                <div class="col-auto "><a class="form-text small text-primary " href="${path}/"><img src="${path}/resources/img/x.PNG" alt="" style="max-width: 3rem;"></a></div>
             </div>
             <div class="container w-50">
                 <div class="row min-vh-80 w-100 ">
@@ -301,5 +301,6 @@
     <script src="js/theme.js"></script>
 </body>
 
-</html><jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
+</html>
+<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 	

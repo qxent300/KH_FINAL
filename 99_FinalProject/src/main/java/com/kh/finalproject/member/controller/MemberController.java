@@ -43,9 +43,9 @@ public class MemberController {
 	public ModelAndView login(ModelAndView model, String U_ID, String U_PW) {
 		log.info("{},{}", U_ID,U_PW);
 		
-		Member loginMember = service.login(U_ID, U_PW);
+//		Member loginMember = service.login(U_ID, U_PW);
 		//test
-//		Member loginMember = new Member(0, "admin", "1234", U_PW, U_PW, U_PW, U_PW, U_PW);
+		Member loginMember = new Member(0, "admin", "1234", U_PW, U_PW, U_PW, U_PW, U_PW);
 		if(loginMember != null) {
 			model.addObject("loginMember",loginMember); // 어노테이션을 통해 SEssion으로 처리되는 코드
 			model.setViewName("redirect:/");
@@ -58,7 +58,7 @@ public class MemberController {
 		return model;
 	}
 	
-	@RequestMapping("member/logout")
+	@RequestMapping("/logout")
 	public String logout(SessionStatus status) {
 		log.info("status : " + status.isComplete());
 		status.setComplete(); // 세션을 종료하는 코드!
