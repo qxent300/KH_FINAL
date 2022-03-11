@@ -1,24 +1,36 @@
 package com.kh.finalproject.member.model.vo;
 
+import java.util.Date;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 @Data
-@ToString
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 public class Member {
-	private int U_NO;
-	private String U_ID;
-	private String U_PW;
-	private String U_NAME;
-	private String U_NICKNAME;
-	private String U_ADDRESS;
-	private String U_PHONE;
-	private String U_STATUS;
+	private int no;
 
-	
+	private String id;
+
+	private String password;
+
+	private String role;
+
+	private String name;
+
+	private String phone;
+
+	private String email;
+
+	private String address;
+
+	private String hobby;
+
+	private String status;
+
+	private Date enrollDate;
+
+	private Date modifyDate;
 }

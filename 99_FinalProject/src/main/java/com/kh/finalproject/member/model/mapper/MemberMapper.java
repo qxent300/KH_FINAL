@@ -1,13 +1,20 @@
 package com.kh.finalproject.member.model.mapper;
 
+import java.util.List;
+import java.util.Map;
+
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
 import com.kh.finalproject.member.model.vo.Member;
 
+@Mapper
 public interface MemberMapper {
-	int insertUser(Member member);
-	int updateUser(Member member);
-	Member findById(String U_ID);
-	Member findByNickName(String U_NICKNAME);
-	int deleteUser(int U_NO);
-	String FindUserPwd(String U_ID, String U_NAME);
-
+	int selectCount();
+	List<Member> selectAll();
+	Member selectMember(@Param("id") String id);
+	int insertMember(Member Member);
+	int updateMember(Member Member);
+	int deleteMember(@Param("no") int no);
+	int updatePwd(Map<String, String> map);
 }
