@@ -6,7 +6,7 @@
 <c:set var="path" value="${pageContext.request.contextPath}"/>
 
 <jsp:include page="/WEB-INF/views/common/header9.jsp">
-	<jsp:param value="게시판" name="title"/>
+	<jsp:param value="자유공간" name="title"/>
 </jsp:include>
 	<style>
 	div#pageBar{margin-top:10px; text-align:center; background-color:rgba(0, 188, 212, 0.3);}
@@ -21,7 +21,7 @@
 		<table class="table table-thead-bordered mt-3">
 			<thead class="thead-light">
 				<tr>
-					<th id="tdWidth1">번호(임시)</th>
+					<th id="tdWidth1">분류</th>
 					<th>제목</th>
 					<th id="tdWidth3">글쓴이</th>
 					<th id="tdWidth4">날짜</th>
@@ -38,8 +38,8 @@
 				<c:if test="${list != null}">
 					<c:forEach var="board" items="${list}">
 						<tr>
-							<td><c:out value="${board.no}" /></td>
-							<td class="text-truncate" id="tdWidth2"><a
+							<td><c:out value="${board.type}"/></td>
+							<td class="text-truncate text-start" id="tdWidth2"><a
 								href="${path}/freeboard/view?no=${board.no}"> <c:out
 										value="${board.title}" />
 							</a></td>

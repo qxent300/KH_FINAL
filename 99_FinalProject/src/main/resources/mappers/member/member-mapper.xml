@@ -12,10 +12,9 @@
 			    PASSWORD, 
 			    ROLE,
 			    NAME, 
+			    NICKNAME, 
 			    PHONE, 
-			    EMAIL, 
 			    ADDRESS, 
-			    HOBBY, 
 			    STATUS, 
 			    ENROLL_DATE, 
 			    MODIFY_DATE
@@ -28,10 +27,9 @@
  		<result property="password" column="PASSWORD"/>
  		<result property="role" column="ROLE"/>
  		<result property="name" column="NAME"/>
+ 		<result property="nickname" column="NICKNAME"/>
  		<result property="phone" column="PHONE"/>
- 		<result property="email" column="EMAIL"/>
  		<result property="address" column="ADDRESS"/>
- 		<result property="hobby" column="HOBBY"/>
  		<result property="status" column="STATUS"/>
  		<result property="enrollDate" column="ENROLL_DATE"/>
  		<result property="modifyDate" column="MODIFY_DATE"/>
@@ -62,10 +60,9 @@
 		    PASSWORD, 
 		    ROLE,
 		    NAME, 
+		    NICKNAME, 
 		    PHONE, 
-		    EMAIL, 
 		    ADDRESS, 
-		    HOBBY, 
 		    STATUS, 
 		    ENROLL_DATE, 
 		    MODIFY_DATE
@@ -75,10 +72,9 @@
 		    #{password},
 		    DEFAULT,
 		    #{name},
+		    #{nickname},
 		    #{phone},
-		    #{email},
 		    #{address},
-		    #{hobby},
 		    DEFAULT,
 		    DEFAULT,
 		    DEFAULT
@@ -89,10 +85,9 @@
  		UPDATE MEMBER 
  		SET 
  			NAME = #{name},
+ 			NICKNAME = #{nickname},
  			PHONE = #{phone},
- 			EMAIL = #{email},
  			ADDRESS = #{address},
- 			HOBBY = #{hobby},
  			MODIFY_DATE = SYSDATE 
 		WHERE NO = #{no}
  	</update>

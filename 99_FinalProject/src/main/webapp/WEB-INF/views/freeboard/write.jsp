@@ -7,7 +7,7 @@
 <c:set var="path" value="${pageContext.request.contextPath}"/>
 
 <jsp:include page="/WEB-INF/views/common/header9.jsp">
-	<jsp:param value="글쓰기" name="title"/>
+	<jsp:param value="자유공간" name="title"/>
 </jsp:include>
 
 <div class="bg-img-start" style="background-image: url(${path}/images/card-11.svg);">
@@ -25,9 +25,17 @@
                 <div class="card card-lg border shadow-none">
                     <div class="card-body">
                         <form action="${path}/freeboard/write" method="POST" enctype="multipart/form-data" onsubmit="return check()">
+                            <select name="type" id="type" class="mb-2">
+                                        <option value="">분류 선택</option>
+                                        <option value="질문">질문</option>
+                                        <option value="잡담">잡담</option>
+										<c:if test="${loginMember.role == 'ROLE_ADMIN'}">
+                                	        <option value="공지">공지</option>
+										</c:if>
+                                    </select>
                             <div class="d-grid gap-4">
                                 <!-- Form -->
-                                <input type="hidden" name="writerId" value="${ loginMember.id }" readonly>
+                                <input type="hidden" name="writerId" value="${loginMember.id}" readonly>
                                 <span class="d-block">
                                 <input type="text" class="form-control form-control-lg" name="title" id="title" placeholder="제목을 입력해주세요.">
                             </span>
@@ -56,19 +64,20 @@
     </div>
     <!-- End Post a Comment -->
     </div>
-    <script>
-    function check()
-    {
-    	if($("#title").val() == "") {
-    		alert("제목을 입력해주세요!");
-    		return false;
-    	}
-    	
-        if($('#content').val() == "") {
-    		alert("내용을 입력해주세요!");
-    		return false;
-        }
-    }
-    </script>
-
+<script>
+	function check() {
+		if ($('#type').val() == "") {
+			alert("분류를 선택해주세요!");
+			return false;
+		}
+		if ($("#title").val() == "") {
+			alert("제목을 입력해주세요!");
+			return false;
+		}
+		if ($('#content').val() == "") {
+			alert("내용을 입력해주세요!");
+			return false;
+		}
+	}
+</script>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>

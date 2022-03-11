@@ -41,7 +41,7 @@
                     <!-- Title -->
                     <div class="row justify-content-sm-between align-items-sm-center mb-3">
                                        <div class="col-sm mb-3 mb-sm-0">
-                        <h1>${board.title}</h1>
+                        <h2>${board.type}) ${board.title}</h2>
                         <div id="bg" class="border border-dark border-1 border-start-0 border-end-0 text-dark">
                       　글쓴이&nbsp;<span id="font">${board.writerId}</span>&nbsp;&nbsp;<span class="line"></span>&nbsp;&nbsp;조회&nbsp;<span id="font">${board.readCount}</span>&nbsp;&nbsp;<span class="line"></span>&nbsp;&nbsp;날짜&nbsp;<span id="font"><fmt:formatDate pattern="yy-MM-dd hh:mm" value="${board.createDate}"/></span>
                         </div>
@@ -49,7 +49,7 @@
                     </div>
                     <!-- End Title -->
 					<div class="text-end">
-					<c:if test="${ !empty loginMember && (loginMember.id == board.writerId 
+					<c:if test="${ !empty loginMember && (loginMember.nickname == board.writerId 
 									|| loginMember.role == 'ROLE_ADMIN') }">
 						<button type="button" class="btn btn-sm btn-primary" onclick="location.href='${path}/freeboard/update?no=${board.no}'">수정</button>
 						<button type="button" class="btn btn-sm btn-primary" id="btnDelete">삭제</button>
@@ -59,10 +59,10 @@
                     <div class="mb-5 ms-3 text-dark">
 					${fn:replace(board.content, BR, "<br/>")}
                     </div>
-							<c:if test="${ !empty board.originalFileName }">
-					<a href="javascript:fileDownload('${ board.originalFileName }', '${ board.renamedFileName }')">
-						<img src="${ path }/images/file.png" width="20" height="20"/>
-						<c:out value="${ board.originalFileName }"></c:out>						
+							<c:if test="${!empty board.originalFileName}">
+					<a href="javascript:fileDownload('${board.originalFileName}', '${board.renamedFileName}')">
+						<img src="${path}/images/file.png" width="20" height="20"/>
+						<c:out value="${board.originalFileName}"></c:out>						
 					</a>
 					<script>
 						function fileDownload(oriname, rename) {
@@ -89,13 +89,13 @@
 				<td>
 					<sub class="comment-writer">${reply.writerId}</sub>
 					<sub class="comment-date">
-					<fmt:formatDate pattern="yy-MM-dd hh:mm" value="${reply.createDate}"/>
-					<%-- <%if (!reply.getModifyTime().equals(reply.getCreateTime())){out.append("(수정됨)");}%> --%></sub>
+						<fmt:formatDate pattern="yy-MM-dd hh:mm:ss" value="${reply.createDate}"/>
+					</sub>
 					<br>
 					<span class="text-dark">${fn:replace(reply.content, BR, "<br/>")}</span>
 				</td>
 				<td>
-					<c:if test="${ !empty loginMember && (loginMember.id == reply.writerId 	|| loginMember.role == 'ROLE_ADMIN') }">
+					<c:if test="${!empty loginMember && (loginMember.nickname == reply.writerId || loginMember.role == 'ROLE_ADMIN') }">
 							<button class="btn btn-sm btn-primary" onclick="deleteReply('${reply.no}');" >삭제</button>
 					</c:if>
 				</td>

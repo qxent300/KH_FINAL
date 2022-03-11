@@ -44,8 +44,8 @@ public class MemberController {
 			model.addObject("loginMember",loginMember); // 어노테이션을 통해 Session으로 처리되는 코드 
 			model.setViewName("redirect:/");
 		}else {
-			model.addObject("msg","아이디나 패스워드가 일치하지 않습니다!");
-			model.addObject("location", "/");
+			model.addObject("msg","아이디 혹은 비밀번호가 일치하지 않습니다!");
+			model.addObject("location", "/login");
 			model.setViewName("common/msg");
 		}
 		return model;

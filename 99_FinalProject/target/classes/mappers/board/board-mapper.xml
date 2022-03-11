@@ -7,7 +7,7 @@
 	<resultMap type="Board" id="boardListResultMap">
 		<id property="no" column="NO"/>
 		<result property="title" column="TITLE"/>
-		<result property="writerId" column="ID"/>
+		<result property="writerId" column="NICKNAME"/>
 		<result property="writerNo" column="WRITER_NO"/>
 		<result property="readCount" column="READCOUNT"/>
 		<result property="originalFileName" column="ORIGINAL_FILENAME"/>
@@ -26,7 +26,7 @@
 		<id property="no" column="NO"/>
 		<result property="boardNo" column="BOARD_NO"/>
 		<result property="writerNo" column="WRITER_NO"/>
-		<result property="writerId" column="ID"/>
+		<result property="writerId" column="NICKNAME"/>
 		<result property="content" column="CONTENT"/>
 		<result property="createDate" column="CREATE_DATE"/>
 		<result property="modifyDate" column="MODIFY_DATE"/>
@@ -36,7 +36,7 @@
 	<select id="selectBoardList" resultMap="boardListResultMap" parameterType="map">
 		SELECT  B.NO,
 				B.TITLE, 
-				M.ID, 
+				M.NICKNAME, 
 				B.READCOUNT, 
 				B.ORIGINAL_FILENAME, 
 				B.RENAMED_FILENAME, 
@@ -49,7 +49,7 @@
 		WHERE B.STATUS = 'Y'
 		<!-- WHERE 1=1 -->
 		<if test="writerKeyword != null">
-			AND M.ID LIKE '%'||#{writerKeyword}||'%' 
+			AND M.NICKNAME LIKE '%'||#{writerKeyword}||'%' 
 		</if>
 		<if test="titleKeyword != null">
 			AND B.TITLE LIKE '%'||#{titleKeyword}||'%' 
@@ -64,13 +64,13 @@
 	</select>
 	
 	<select id="selectBoardCount" resultType="_int" parameterType="map">
-		SELECT  COUNT(*)
+		SELECT COUNT(*)
 		FROM BOARD B
 		JOIN MEMBER M ON(B.WRITER_NO = M.NO)
 		WHERE B.STATUS = 'Y'
 		<!-- WHERE 1=1 -->
 		<if test="writerKeyword != null">
-			AND M.ID LIKE '%' || #{writerKeyword} || '%' 
+			AND M.NICKNAME LIKE '%' || #{writerKeyword} || '%' 
 		</if>
 		<if test="titleKeyword != null">
 			AND B.TITLE LIKE '%' || #{titleKeyword} || '%' 
@@ -87,7 +87,7 @@
  		SELECT B.NO,
 		       B.TITLE,
 		       B.WRITER_NO, 
-		       M.ID, 
+		       M.NICKNAME, 
 		       B.READCOUNT, 
 		       B.ORIGINAL_FILENAME, 
 		       B.RENAMED_FILENAME, 
@@ -98,7 +98,7 @@
 		       R.NO AS R_NO, 
 		       R.BOARD_NO AS R_BOARD_NO, 
 		       R.CONTENT AS R_CONTENT, 
-		       M2.ID AS R_ID, 
+		       M2.NICKNAME AS R_NICKNAME, 
 		       R.CREATE_DATE AS R_CREATE_DATE, 
 		       R.MODIFY_DATE AS R_MODIFY_DATE
 		FROM BOARD B
@@ -133,7 +133,7 @@
 			DEFAULT,
 			DEFAULT,
 			DEFAULT,
-			DEFAULT
+			#{type}
 		)
 	</insert>
 	
@@ -146,6 +146,7 @@
 	<update id="updateBoard" parameterType="map">
 		UPDATE BOARD
 		SET
+			TYPE=#{type},
 			TITLE=#{title},
 			CONTENT=#{content},
 			<if test="originalFileName != null">

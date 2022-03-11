@@ -32,9 +32,9 @@
 	        text-align: left;
 	    }
 	</style>
-	
+<br><br><br><br>
 <section id="content">
-	<h3 align="center">회원정보 조회/수정</h3>
+	<h3 align="center">내 정보 수정</h3>
 	<div id="view-container">
 		<form id="memberFrm" action="${ path }/member/update" method="POST">
 			<table>
@@ -43,6 +43,13 @@
 					<td>
 						<input type="text" name="id" id="newId" 
 							value="${ loginMember.id }" readonly required >
+					</td> 	
+	            </tr>
+	            <tr>
+	                <th>닉네임</th>
+					<td>
+						<input type="text" name="nickname" id="nickname" 
+							value="${ loginMember.nickname }" required>				
 					</td> 	
 	            </tr>
 	            <tr>
@@ -60,33 +67,11 @@
 	                </td>
 	            </tr>
 	            <tr>
-	                <th>이메일</th>
-					<td>
-						<input type="email" placeholder="abc@abc.com" name="email" id="email"
-							 value="${ loginMember.email }">												
-					</td> 	
-	            </tr>
-	            <tr>
 	                <th>주소</th>
 						<td>
 							<input type="text" name="address" id="address" 
 								value="${ loginMember.address }">
 						</td> 	
-	            </tr>
-	            <tr>
-	               	<th>취미</th>
-					<td>
-						<label><input type="checkbox" name="hobby" id="hobby0" 
-									value="운동" ${ fn:contains(loginMember.hobby, '운동') ? 'checked' : '' }>운동</label>
-						<label><input type="checkbox" name="hobby" id="hobby1" 
-									value="등산" ${ fn:contains(loginMember.hobby, '등산') ? 'checked' : '' }>등산</label>
-						<label><input type="checkbox" name="hobby" id="hobby2" 
-									value="독서" ${ fn:contains(loginMember.hobby, '독서') ? 'checked' : '' }>독서</label>
-						<label><input type="checkbox" name="hobby" id="hobby3" 
-									value="게임" ${ fn:contains(loginMember.hobby, '게임') ? 'checked' : '' }>게임</label>
-						<label><input type="checkbox" name="hobby" id="hobby4" 
-									value="여행" ${ fn:contains(loginMember.hobby, '여행') ? 'checked' : '' }>여행</label>
-					</td> 		
 	            </tr>
 	        </table>
 	        <input type="button" id="updatePwd" value="비밀번호변경" />
@@ -108,10 +93,11 @@
 	});
 	
 	$("#updatePwd").on("click", (e) => {
-		const url = "${ path }/member/updatePwd";
+		const url = "${path}/member/updatePwd";
 		const status = "left=500px,top=200px,width=400px,height=210px"
 		
 		open(url, "", status);
 	});
 	</script>
+<br><br>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>

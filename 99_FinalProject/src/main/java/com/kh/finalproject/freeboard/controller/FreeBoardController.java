@@ -221,7 +221,7 @@ public class FreeBoardController {
 
 		log.info("게시글 업데이트 요청");
 
-		if (loginMember.getId().equals(board.getWriterId()) == false) {
+		if (loginMember.getNickname().equals(board.getWriterId()) == false) {
 			model.addObject("msg", "잘못된 접근입니다");
 			model.addObject("location", "/freeboard/list");
 			model.setViewName("/common/msg");

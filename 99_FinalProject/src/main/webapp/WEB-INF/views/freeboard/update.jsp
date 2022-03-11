@@ -3,7 +3,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-
 <c:set var="path" value="${pageContext.request.contextPath}"/>
 
 <jsp:include page="/WEB-INF/views/common/header9.jsp">
@@ -25,12 +24,20 @@
                 <div class="card card-lg border shadow-none">
                     <div class="card-body">
                         <form action="${path}/freeboard/update" method="POST" enctype="multipart/form-data" onsubmit="return check()">
+                            <select name="type" id="type" class="mb-2">
+                                        <option value="">분류 선택</option>
+                                        <option value="질문">질문</option>
+                                        <option value="잡담">잡담</option>
+										<c:if test="${loginMember.role == 'ROLE_ADMIN'}">
+                                	        <option value="공지">공지</option>
+										</c:if>
+                                    </select>
                             <div class="d-grid gap-4">
                                 <!-- Form -->
-                                <input type="hidden" name="no" value="${ board.no }" />
-								<input type="hidden" name="originalFileName" value="${ board.originalFileName }" />
+                                <input type="hidden" name="no" value="${board.no}" />
+								<input type="hidden" name="originalFileName" value="${board.originalFileName}" />
 								<input type="hidden" name="renamedFileName" value="${board.renamedFileName}" />
-                                <input type="hidden" name="writerId" value="${ board.writerId }" readonly>
+                                <input type="hidden" name="writerId" value="${board.writerId}" readonly>
                                 <span class="d-block">
                                 <input type="text" class="form-control form-control-lg" name="title" value="${board.title}" id="title" placeholder="제목을 입력해주세요...">
                             </span>
@@ -65,20 +72,17 @@
     </div>
     <!-- End Post a Comment -->
     </div>
-    <script>
-    function check()
-    {
-    	if($("#title").val() == "") {
-    		alert("제목을 입력해주세요!");
-    		return false;
-    	}
-    	
-        if($('#content').val() == "") {
-    		alert("내용을 입력해주세요!");
-    		return false;
-        }
-    }
-    </script>
-
+<script>
+	function check() {
+		if ($("#title").val() == "") {
+			alert("제목을 입력해주세요!");
+			return false;
+		}
+		if ($('#content').val() == "") {
+			alert("내용을 입력해주세요!");
+			return false;
+		}
+	}
+document.getElementById('type').value = '${board.type}';
+</script>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
-	
