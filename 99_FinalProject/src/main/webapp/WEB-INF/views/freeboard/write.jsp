@@ -14,16 +14,13 @@
     <!-- Post a Comment -->
     <div class="container py-6">
         <!-- Heading -->
-        <div class="w-md-75 w-lg-50 text-center mx-md-auto mb-md-5">
+        <div class="text-center mb-4">
             <h2>글쓰기</h2>
         </div>
         <!-- End Heading -->
-
-        <div class="row justify-content-lg-center">
-            <div class="col-lg-8">
+        <div class="container justify-content-center col-8">
                 <!-- Card -->
-                <div class="card card-lg border shadow-none">
-                    <div class="card-body">
+                    <div class="card card-body">
                         <form action="${path}/freeboard/write" method="POST" enctype="multipart/form-data" onsubmit="return check()">
                             <select name="type" id="type" class="mb-2">
                                         <option value="">분류 선택</option>
@@ -33,18 +30,18 @@
                                 	        <option value="공지">공지</option>
 										</c:if>
                                     </select>
-                            <div class="d-grid gap-4">
+                            <div class="d-grid gap-3">
                                 <!-- Form -->
                                 <input type="hidden" name="writerId" value="${loginMember.id}" readonly>
                                 <span class="d-block">
-                                <input type="text" class="form-control form-control-lg" name="title" id="title" placeholder="제목을 입력해주세요.">
+                                <input type="text" class="form-control" name="title" id="title" placeholder="제목을 입력해주세요.">
                             </span>
                                 <!-- End Form -->
                                 
                                 <textarea name="content" id="content" class="form-control" cols="30" rows="12" placeholder="내용을 입력해주세요."></textarea>
                                 <!-- Form -->
                                 <span class="d-block">
-                  <input type="file" class="form-control form-control-lg" name="upfile" id="upfile">
+                  <input type="file" class="form-control" name="upfile" id="upfile">
                 </span>
                                 <!-- End Form -->
 
@@ -55,9 +52,7 @@
                             </div>
                         </form>
                     </div>
-                </div>
                 <!-- End Card -->
-            </div>
             <!-- End Col -->
         </div>
         <!-- End Row -->

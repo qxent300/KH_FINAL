@@ -5,24 +5,22 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <c:set var="path" value="${pageContext.request.contextPath}"/>
 
-<jsp:include page="/WEB-INF/views/common/header9.jsp">
+<jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param value="${board.title}" name="title"/>
 </jsp:include>
 
-<div class="bg-img-start" style="background-image: url(${path}/images/card-11.svg);">
+<div class="bg-cover" style="background-image: url(${path}/images/card-11.svg);">
     <!-- Post a Comment -->
-    <div class="container content-space-2">
+    <div class="container py-6">
         <!-- Heading -->
-        <div class="w-md-75 w-lg-50 text-center mx-md-auto mb-md-5">
+        <div class="text-center mb-4">
             <h2>수정하기</h2>
         </div>
         <!-- End Heading -->
 
-        <div class="row justify-content-lg-center">
-            <div class="col-lg-8">
+        <div class="container justify-content-center col-8">
                 <!-- Card -->
-                <div class="card card-lg border shadow-none">
-                    <div class="card-body">
+                <div class="card card-body">
                         <form action="${path}/freeboard/update" method="POST" enctype="multipart/form-data" onsubmit="return check()">
                             <select name="type" id="type" class="mb-2">
                                         <option value="">분류 선택</option>
@@ -32,21 +30,21 @@
                                 	        <option value="공지">공지</option>
 										</c:if>
                                     </select>
-                            <div class="d-grid gap-4">
+                            <div class="d-grid gap-3">
                                 <!-- Form -->
                                 <input type="hidden" name="no" value="${board.no}" />
 								<input type="hidden" name="originalFileName" value="${board.originalFileName}" />
 								<input type="hidden" name="renamedFileName" value="${board.renamedFileName}" />
                                 <input type="hidden" name="writerId" value="${board.writerId}" readonly>
                                 <span class="d-block">
-                                <input type="text" class="form-control form-control-lg" name="title" value="${board.title}" id="title" placeholder="제목을 입력해주세요...">
+                                <input type="text" class="form-control" name="title" value="${board.title}" id="title" placeholder="제목을 입력해주세요...">
                             </span>
                                 <!-- End Form -->
                                 
                                 <textarea name="content" id="content" class="form-control" cols="30" rows="12" placeholder="내용을 입력해주세요...">${board.content}</textarea>
                                 <!-- Form -->
                                 <span class="d-block">
-                  <input type="file" class="form-control form-control-lg" name="reloadFile" id="reloadFile">
+                  <input type="file" class="form-control" name="reloadFile" id="reloadFile">
                   <c:if test="${ !empty board.originalFileName }">
 						현재 업로드한 파일 : 
 						<a>
@@ -57,15 +55,13 @@
                                 <!-- End Form -->
 
                                 <div class="d-flex justify-content-center gap-2">
-                                    <a class="btn btn-sm btn-white" href="${path}/freeboard/list">취소</a>
-                                    <input type="submit" value="작성완료" class="btn btn-sm btn-primary">
+                                    <a class="btn btn-muted" href="${path}/freeboard/list">취소</a>
+                                    <input type="submit" value="작성완료" class="btn btn-primary">
                                 </div>
                             </div>
                         </form>
-                    </div>
                 </div>
                 <!-- End Card -->
-            </div>
             <!-- End Col -->
         </div>
         <!-- End Row -->
