@@ -2,10 +2,9 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="path" value="${pageContext.request.contextPath}"/>
-    <!-- Footer -->
-    <div class="fw-light bg-gray-800 text-gray-300 text-center pb-3">
-        <a href="#">
-            <img class="footerfp mt-3" src="${path}/resources/images/nav_logo.png">
+    <div class="fw-light bg-gray-700 text-gray-300 text-center pb-3">
+        <a href="${path}/">
+            <img class="footerfp mt-3" src="${path}/images/book_logo.png">
         </a>
         <div class="container mt-1">
             <div class="fw-bold text-uppercase text-white">KH정보교육원 826반 3조</div>

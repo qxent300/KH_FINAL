@@ -25,8 +25,8 @@
                     <div class="col-md-4 d-md-flex align-items-center justify-content-end">
                     
                     <c:if test="${loginMember != null}">
-						<a class="btn-lg btn-primary rounded-2 fw-bold fs-6"
-							href="${path}/bookboard/write"> 글쓰기</a>
+                    <button type="button" class="btn btn-primary fw-bold bi-pencil-fill"
+					onclick="location.href='${path}/bookboard/write'">&nbsp;글쓰기</button>
 					</c:if>
                     
                         </div>

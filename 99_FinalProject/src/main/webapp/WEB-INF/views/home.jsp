@@ -41,7 +41,7 @@
                                 <div class="col-lg-1 d-flex align-items-center form-group no-divider">
                                 </div>
                                 <div class="col-lg-2 d-grid">
-                                    <button onclick="location.href='bookDetail.html'" class="btn btn-primary rounded-pill h-100" type="button">Search </button>
+                                    <button onclick="location.href='bookDetail.html'" class="btn btn-primary rounded-pill h-100 bi-search" type="button">&nbsp;검색</button>
                                 </div>
                             </div>
                         </form>
@@ -59,7 +59,7 @@
             <div class="row">
                 <div class="col-lg-3 mb-3 mb-lg-0 text-center">
                     <div>
-                        <a href="./bookDetail.html"><img src="${path}/images/1.jpg" class="rounded w-85 mb-3" height="320px"></a>
+                        <a href="${path}/"><img src="${path}/images/1.jpg" class="rounded w-85 mb-3" height="320px"></a>
                     </div>
                     <h3 class="h5">책 제목</h3>
                     <p class="text-muted">저자? 간략한 설명?</p>

@@ -10,6 +10,7 @@
 <head>
 <meta charset="UTF-8">
 <title>${param.title}</title>
+	<link rel="icon" href="${path}/images/bookfav.png">
     <!-- Google fonts - Playfair Display-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Playfair+Display:400,400i,700">
     <!-- Google fonts - Poppins-->
@@ -17,12 +18,12 @@
     <!-- swiper-->
     <link rel="stylesheet" href="${path}/css/swiper.min.css">
     <!-- Magnigic Popup-->
-    <link rel="stylesheet" href="${path}/css/magnific-popup.css">
-    <!-- theme stylesheet-->
-	<link rel="stylesheet" href="${path}/css/style.default.css">
+    <%-- <link rel="stylesheet" href="${path}/css/magnific-popup.css"> --%>
 	<!-- Font Awesome CSS-->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <link rel="stylesheet" href="${path}/css/bootstrap-icons/font/bootstrap-icons.css">
+    <!-- theme stylesheet-->
+	<link rel="stylesheet" href="${path}/css/style.default.css">
         <!-- jQuery-->
     <script src="${path}/js/jquery.min.js"></script>
     <!-- Bootstrap JS bundle - Bootstrap + PopperJS-->
@@ -37,23 +38,17 @@
     <script src="${path}/js/swiper.min.js"></script>
     <!-- Main Theme JS file    -->
     <script src="${path}/js/theme.js"></script>
-       <!-- Favicon-->
-    <link rel="shortcut icon" href="images/bookfav.png">
-    
 </head>
 
 <body>
-	<header class="header">
-		<!-- Navbar-->
+    <header class="header">
         <nav class="navbar navbar-expand-lg fixed-top shadow navbar-light bg-white">
-            <div class="container-fluid col-xl-8 col-lg-10 mx-auto">
-				<a href="${path}/"><img src="${path}/images/booklogo.jpg"
-					style="width: 155px; height: 50px;"></a>
+            <div class="container col-xl-11 col-lg-10 mx-auto">
+				<a href="${path}/"><img class="navbar-brand-logo" src="${path}/images/book_logo.png"></a>
 				<ul class="navbar-nav ms-lg-auto">
 					<li class="nav-item"><a class="nav-link"
 						href="${path}/book/search" style="font-size: medium;">
 							도서검색</a></li>
-					<!-- dropdown menu-->
 					<div class="nav-item dropdown">
 						<a class="nav-link dropdown-toggle" style="font-size: medium;" type="button"
 							data-bs-toggle="dropdown" aria-haspopup="true" role="button">커뮤니티</a>
@@ -63,8 +58,6 @@
 								<a class="dropdown-item" href="${path}/freeboard/list" style="background-color: rgb(255, 255, 255)">자유공간</a>
 						</div>
 					</div>
-					<!-- /dropdown menu end -->
-					<!-- dropdown menu-->
 					<div class="nav-item dropdown">
 						<a class="nav-link dropdown-toggle" style="font-size: medium;" type="button"
 							data-bs-toggle="dropdown" aria-haspopup="true" role="button">마이페이지</a>
@@ -77,7 +70,6 @@
 								style="background-color: rgb(255, 255, 255)">내 활동</a>
 						</div>
 					</div>
-					<!-- /dropdown menu end -->
 					<li class="nav-item"><a class="nav-link" href="#"
 						style="font-size: medium;">고객센터</a></li>
 					<li class="nav-item"><a class="nav-link" href="${path}/mypage/cart"
@@ -93,6 +85,5 @@
 				</ul>
 			</div>
 		</nav>
-		<!-- /Navbar -->
 	</header>
 </body>

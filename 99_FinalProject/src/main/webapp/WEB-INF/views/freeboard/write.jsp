@@ -6,13 +6,13 @@
 
 <c:set var="path" value="${pageContext.request.contextPath}"/>
 
-<jsp:include page="/WEB-INF/views/common/header9.jsp">
+<jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param value="자유공간" name="title"/>
 </jsp:include>
 
-<div class="bg-img-start" style="background-image: url(${path}/images/card-11.svg);">
+<div class="bg-cover" style="background-image: url(${path}/images/card-11.svg);">
     <!-- Post a Comment -->
-    <div class="container content-space-2">
+    <div class="container py-6">
         <!-- Heading -->
         <div class="w-md-75 w-lg-50 text-center mx-md-auto mb-md-5">
             <h2>글쓰기</h2>
@@ -49,8 +49,8 @@
                                 <!-- End Form -->
 
                                 <div class="d-flex justify-content-center gap-2">
-                                    <a class="btn btn-sm btn-white" href="${path}/freeboard/list">취소</a>
-                                    <input type="submit" value="작성완료" class="btn btn-sm btn-primary">
+                                    <a class="btn btn-muted" href="${path}/freeboard/list">취소</a>
+                                    <input type="submit" value="작성완료" class="btn btn-primary">
                                 </div>
                             </div>
                         </form>

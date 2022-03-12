@@ -28,13 +28,13 @@
 					검색해주세요.</label>
 				<div class="input-group">
 					<button class="btn btn-primary dropdown-toggle" type="button"
-						data-bs-toggle="dropdown" aria-expanded="false">통합검색</button>
-					<ul class="dropdown-menu border" style="min-width: 6.5rem;">
+						data-bs-toggle="dropdown" aria-expanded="false">전체</button>
+					<ul class="dropdown-menu border" style="min-width: 3.2rem;">
 						<li><a class="dropdown-item" href="#">제목</a></li>
 						<li><a class="dropdown-item" href="#">저자</a></li>
 					</ul>
 					<input type="text" id="b_search" class="form-control">
-					<button class="btn btn-primary rounded-end bi-search" type="submit">검색</button>
+					<button class="btn btn-primary rounded-end bi-search" type="submit">&nbsp;검색</button>
 					<div class="col-sm-12 py-3">
 						<a
 							href="https://book.naver.com/bookdb/book_detail.naver?bid=17583399"><img

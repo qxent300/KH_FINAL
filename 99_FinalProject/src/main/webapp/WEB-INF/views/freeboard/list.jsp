@@ -5,21 +5,21 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <c:set var="path" value="${pageContext.request.contextPath}"/>
 
-<jsp:include page="/WEB-INF/views/common/header9.jsp">
+<jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param value="자유공간" name="title"/>
 </jsp:include>
 	<style>
-	div#pageBar{margin-top:10px; text-align:center; background-color:rgba(0, 188, 212, 0.3);}
-	#tdWidth1 {width: 10%;}#tdWidth2 {max-width: 10px;}#tdWidth3 {width: 15%;}#tdWidth4 {width: 15%;}#tdWidth5 {width: 10%;}
+	#tdWidth1 {width: 10%;}#tdWidth2 {max-width: 10px;}#tdWidth3 {width: 20%;}#tdWidth4 {width: 15%;}#tdWidth5 {width: 10%;}
+	.thead-light {background-color: #f8fafd;}
 	</style>
     <!-- Hero -->
-<div class="bg-img-start"
+<div class="bg-cover"
 	style="background-image: url(${path}/images/card-11.svg);">
-	<div class="container content-space-t-3 content-space-t-lg-3 content-space-b-2 text-center text-truncate">
+	<div class="container pt-7 pb-5 text-center">
 		<h1>자유공간</h1>
 		<!-- Table -->
-		<table class="table table-thead-bordered mt-3">
-			<thead class="thead-light">
+		<table class="table mt-3" style="border-top: .0625rem solid rgba(33, 50, 91, .1)">
+			<thead class="table-light">
 				<tr>
 					<th id="tdWidth1">분류</th>
 					<th>제목</th>
@@ -39,7 +39,7 @@
 					<c:forEach var="board" items="${list}">
 						<tr>
 							<td><c:out value="${board.type}"/></td>
-							<td class="text-truncate text-start" id="tdWidth2"><a
+							<td class="text-start" id="tdWidth2"><a
 								href="${path}/freeboard/view?no=${board.no}"> <c:out
 										value="${board.title}" />
 							</a></td>
@@ -54,7 +54,7 @@
 		</table>
 		<c:if test="${loginMember != null}">
 			<div class="mb-2 text-end">
-				<button type="button" class="btn btn-sm btn-primary fw-bold bi-pencil-fill"
+				<button type="button" class="btn btn-primary fw-bold bi-pencil-fill"
 					onclick="location.href='${path}/freeboard/write'">&nbsp;글쓰기</button>
 			</div>
 		</c:if>
