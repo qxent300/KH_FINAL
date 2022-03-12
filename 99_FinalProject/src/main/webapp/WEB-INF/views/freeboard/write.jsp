@@ -3,7 +3,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-
 <c:set var="path" value="${pageContext.request.contextPath}"/>
 
 <jsp:include page="/WEB-INF/views/common/header.jsp">
@@ -14,9 +13,7 @@
     <!-- Post a Comment -->
     <div class="container py-6">
         <!-- Heading -->
-        <div class="text-center mb-4">
-            <h2>글쓰기</h2>
-        </div>
+		<h2 class="text-center mb-4">글쓰기</h2>
         <!-- End Heading -->
         <div class="container justify-content-center col-7">
                 <!-- Card -->

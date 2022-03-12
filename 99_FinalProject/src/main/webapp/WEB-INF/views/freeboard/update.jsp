@@ -13,14 +13,11 @@
     <!-- Post a Comment -->
     <div class="container py-6">
         <!-- Heading -->
-        <div class="text-center mb-4">
-            <h2>수정하기</h2>
-        </div>
+		<h2 class="text-center mb-4">수정하기</h2>
         <!-- End Heading -->
-
         <div class="container justify-content-center col-7">
                 <!-- Card -->
-                <div class="row card card-body">
+                	<div class="row card card-body">
                         <form action="${path}/freeboard/update" method="POST" enctype="multipart/form-data" onsubmit="return check()">
                             <select name="type" id="type" class="mb-2">
                                         <option value="">분류 선택</option>

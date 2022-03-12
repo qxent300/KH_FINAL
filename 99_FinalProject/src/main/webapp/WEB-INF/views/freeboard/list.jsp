@@ -60,7 +60,7 @@
 		</c:if>
 		<div class="pagination justify-content-center">
 			<!-- 맨 처음으로 -->
-			<button class="page-link page-item"
+			<button class="page-link page-item rounded-start"
 				onclick="location.href='${ path }/freeboard/list?page=1'">&lt;&lt;</button>
 
 			<!-- 이전 페이지로 -->
@@ -88,12 +88,12 @@
 				onclick="location.href='${path}/freeboard/list?page=${ pageInfo.nextPage }'">&gt;</button>
 
 			<!-- 맨 끝으로 -->
-			<button class="page-link page-item"
+			<button class="page-link page-item rounded-end"
 				onclick="location.href='${path}/freeboard/list?page=${ pageInfo.maxPage }'">&gt;&gt;</button>
 		</div>
 
 		<form action="${path}/freeboard/list" method="get">
-			<div class="text-center mt-5">
+			<div class="text-center mt-4 mb-3">
 				<div class="input-group justify-content-center">
 					<select name="searchType" class="rounded-start">
                         <option value="tc">제목+내용</option>
