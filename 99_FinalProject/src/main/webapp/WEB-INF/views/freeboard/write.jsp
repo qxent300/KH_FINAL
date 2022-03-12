@@ -18,9 +18,9 @@
             <h2>글쓰기</h2>
         </div>
         <!-- End Heading -->
-        <div class="container justify-content-center col-8">
+        <div class="container justify-content-center col-7">
                 <!-- Card -->
-                    <div class="card card-body">
+                    <div class="row card card-body">
                         <form action="${path}/freeboard/write" method="POST" enctype="multipart/form-data" onsubmit="return check()">
                             <select name="type" id="type" class="mb-2">
                                         <option value="">분류 선택</option>
@@ -38,7 +38,7 @@
                             </span>
                                 <!-- End Form -->
                                 
-                                <textarea name="content" id="content" class="form-control" cols="30" rows="12" placeholder="내용을 입력해주세요."></textarea>
+                                <textarea name="content" id="content" class="form-control" cols="30" rows="14" placeholder="내용을 입력해주세요."></textarea>
                                 <!-- Form -->
                                 <span class="d-block">
                   <input type="file" class="form-control" name="upfile" id="upfile">
