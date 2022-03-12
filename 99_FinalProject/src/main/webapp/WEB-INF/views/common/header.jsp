@@ -4,7 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <c:set var="path" value="${pageContext.request.contextPath}"/>
-<!-- 커밋테스트 -->
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -37,14 +37,16 @@
     <script src="${path}/js/swiper.min.js"></script>
     <!-- Main Theme JS file    -->
     <script src="${path}/js/theme.js"></script>
+       <!-- Favicon-->
+    <link rel="shortcut icon" href="images/bookfav.png">
+    
 </head>
 
 <body>
 	<header class="header">
 		<!-- Navbar-->
-		<nav
-			class="navbar navbar-expand-lg fixed-top shadow navbar-light bg-white">
-			<div class="container-fluid col-11">
+        <nav class="navbar navbar-expand-lg fixed-top shadow navbar-light bg-white">
+            <div class="container-fluid col-xl-8 col-lg-10 mx-auto">
 				<a href="${path}/"><img src="${path}/images/booklogo.jpg"
 					style="width: 155px; height: 50px;"></a>
 				<ul class="navbar-nav ms-lg-auto">
