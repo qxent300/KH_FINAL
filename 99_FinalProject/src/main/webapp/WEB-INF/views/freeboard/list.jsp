@@ -101,7 +101,7 @@
                         <option value="content">내용</option>
                         <option value="writer">글쓴이</option>
 					</select>
-                    <input name="searchValue" type="text" class="form-control-sm">
+                    <input name="searchValue" type="text" class="form-control" style="border: 1px solid black; max-width: 200px;" placehorder="검색어를 입력해주세요.">
                     <button class="btn btn-primary fw-bold rounded-end bi-search" type="submit">&nbsp;검색</button>
                 </div>
 			</div>
