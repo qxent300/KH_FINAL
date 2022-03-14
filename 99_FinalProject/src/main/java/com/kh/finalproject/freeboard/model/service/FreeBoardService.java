@@ -5,13 +5,13 @@ import java.util.Map;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import com.kh.finalproject.freeboard.model.vo.Board;
+import com.kh.finalproject.freeboard.model.vo.FreeBoard;
 import com.kh.finalproject.freeboard.model.vo.Reply;
 import com.kh.finalproject.common.util.PageInfo;
 
 public interface FreeBoardService {
 
-	int saveBoard(Board board);
+	int saveBoard(FreeBoard board);
 
 	int saveReply(Reply reply);
 
@@ -19,9 +19,9 @@ public interface FreeBoardService {
 
 	int getBoardCount(Map<String, String> param);
 
-	List<Board> getBoardList(PageInfo pageInfo, Map<String, String> param);
+	List<FreeBoard> getBoardList(PageInfo pageInfo, Map<String, String> param);
 
-	Board findByNo(int boardNo);
+	FreeBoard findByNo(int boardNo);
 
 	void deleteFile(String filePath);
 
