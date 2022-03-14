@@ -12,23 +12,32 @@ import com.kh.finalproject.freeboard.model.vo.Reply;
 @Mapper
 public interface FreeBoardMapper {
 
-	// paging 처리를 위한 RowBounds 셋팅!
-	List<FreeBoard> selectBoardList(RowBounds rowBounds, Map<String, String> map);
+	int selectFreeBoardCount();
 	
-	int selectBoardCount(Map<String, String> map);
+	List<FreeBoard> selectAllFreeBoardList();
 	
-	FreeBoard selectBoardByNo(int boardNo);
+	int selectReplyCount(int fbNo);
 	
-	int insertBoard(FreeBoard board);
-
-	int insertReply(Reply reply);
-
-	int updateBoard(FreeBoard board);
+	int updateReplyCount(FreeBoard freeBoard);
 	
-	int updateReadCount(FreeBoard board);
+	List<FreeBoard> selectAllFreeBoardList(RowBounds rowBounds);
 	
-	int deleteReply(int no);
+	List<FreeBoard> selectFreeBoardListByCategory(String fbCategory);
 	
-	int deleteBoard(int no);
+	List<FreeBoard> selectFreeBoardList(RowBounds rowBounds);
+	
+	FreeBoard selectFreeBoardDetail(int fbNo);
+	
+	int insertFreeBoard(FreeBoard fb);
+	
+	int updateFreeBoard(FreeBoard fb);
+	
+	int insertReply(Reply r);
+	
+	int updateReply(Reply r);
+	
+	int deleteReply(Reply r);
+	
+	int deleteFreeBoard(FreeBoard fb);
 	
 }

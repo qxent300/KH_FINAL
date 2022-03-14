@@ -50,7 +50,7 @@ public class BookServiceImpl implements BookService {
 
 	@Override
 	public int getBookCount(String option, String query) {
-		Map<String, String> map = new HashMap<>();
+		Map<String, String> map = new HashMap<String, String>();
 		
 		map.put("option", option);
 		map.put("query", query);
@@ -60,7 +60,7 @@ public class BookServiceImpl implements BookService {
 
 	@Override
 	public List<Book> getBookList(String category, String option, String query, String sort, PageInfo pageInfo) {
-		Map<String, String> map = new HashMap<>();
+		Map<String, String> map = new HashMap<String, String>();
 		
 		map.put("category", category);
 		map.put("option", option);
