@@ -10,51 +10,25 @@
 	<resultMap type="Member" id="memberResultMap">
 		<id property="uNo" column="U_NO" />
 		<result property="uId" column="U_ID" />
-		<result property="uPwd" column="U_PWD" />
+		<result property="uPw" column="U_PW" />
 		<result property="uName" column="U_NAME" />
 		<result property="uNickName" column="U_NICKNAME" />
 		<result property="uAddress" column="U_ADDRESS" />
 		<result property="uPhone" column="U_PHONE" />
 		<result property="uGrade" column="U_GRADE" />
 		<result property="uStatus" column="U_STATUS" />
-		<result property="uEnrollDate" column="U_ENROLL_DATE"/>
-		<result property="uModifyDate" column="U_MODIFY_DATE"/>
 	</resultMap>
 	
 	<select id="selectMember" parameterType="string" resultMap="memberResultMap">
-		SELECT * FROM MEMBER WHERE U_STATUS = 'Y' AND U_ID = #{uId}
+		SELECT * FROM MEMBER WHERE U_STATUS = 'Y' AND U_ID = #{id}
 	</select>
-
+	
 	<insert id="insertMember" parameterType="Member">
-		INSERT INTO MEMBER (
-		U_NO,
-		U_ID,
-		U_PWD,
-		U_GRADE,
-		U_NAME,
-		U_NICKNAME,
-		U_PHONE,
-		U_ADDRESS,
-		U_STATUS,
-		U_ENROLL_DATE,
-		U_MODIFY_DATE
-		) VALUES(
-		SEQ_UNO.NEXTVAL,
-		#{uId},
-		#{uPwd},
-		DEFAULT,
-		#{uName},
-		#{uNickName},
-		#{uPhone},
-		#{uAddress},
-		DEFAULT,
-		DEFAULT,
-		DEFAULT
-		)
+		INSERT INTO MEMBER VALUES(SEQ_U_NO.NEXTVAL, #{uId}, #{uPw}, #{uName}, #{uNickName}, #{uAddress}, #{uPhone}, 1, DEFAULT)
 	</insert>
 	
 	<update id="updateMember" parameterType="Member">
-		UPDATE MEMBER SET U_PWD = #{uPwd}, U_NICKNAME = #{uNickName}, U_ADDRESS = #{uAddress}, U_PHONE = #{uPhone} WHERE U_NO = #{uNo}
+		UPDATE MEMBER SET U_PW = #{uPw}, U_NICKNAME = #{uNickName}, U_ADDRESS = #{uAddress}, U_PHONE = #{uPhone} WHERE U_NO = #{uNo}
 	</update>
 	
 	<update id="deleteMember" parameterType="Member">

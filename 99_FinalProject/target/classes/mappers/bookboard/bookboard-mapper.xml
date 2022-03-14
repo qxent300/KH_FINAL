@@ -3,7 +3,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 					"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 					
-<mapper namespace="com.kh.finalproject.bookboard.model.mapper.BookBoardMapper">
+<mapper namespace="com.kh.finalproject.book.model.mapper.BookBoardMapper">
 
 	<resultMap type="BookBoard" id="bookBoardResultMap">
 		<id property="bbNo" column="BB_NO" />
