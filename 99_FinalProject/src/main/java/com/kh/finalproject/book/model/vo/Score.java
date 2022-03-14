@@ -13,14 +13,11 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class Book {
+public class Score {
+	private int sNo;
 	private int bNo;
-	private String bName;
-	private String bWriter;
-	private String bImage;
-	private String bContent;
-	private String bCategory;
-	private Date publishDate;
-	private int bRentCount;
-	private float bAvgScore;
+	private int uNo;
+	private String sContent;
+	private Date createDate;
+	private int score;
 }

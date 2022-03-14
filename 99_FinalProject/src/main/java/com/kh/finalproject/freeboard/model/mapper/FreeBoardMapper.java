@@ -6,29 +6,38 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.session.RowBounds;
 
-import com.kh.finalproject.freeboard.model.vo.Board;
+import com.kh.finalproject.freeboard.model.vo.FreeBoard;
 import com.kh.finalproject.freeboard.model.vo.Reply;
 
 @Mapper
 public interface FreeBoardMapper {
 
-	// paging 처리를 위한 RowBounds 셋팅!
-	List<Board> selectBoardList(RowBounds rowBounds, Map<String, String> map);
+	int selectFreeBoardCount();
 	
-	int selectBoardCount(Map<String, String> map);
+	List<FreeBoard> selectAllFreeBoardList();
 	
-	Board selectBoardByNo(int boardNo);
+	int selectReplyCount(int fbNo);
 	
-	int insertBoard(Board board);
-
-	int insertReply(Reply reply);
-
-	int updateBoard(Board board);
+	int updateReplyCount(FreeBoard freeBoard);
 	
-	int updateReadCount(Board board);
+	List<FreeBoard> selectAllFreeBoardList(RowBounds rowBounds);
 	
-	int deleteReply(int no);
+	List<FreeBoard> selectFreeBoardListByCategory(String fbCategory);
 	
-	int deleteBoard(int no);
+	List<FreeBoard> selectFreeBoardList(RowBounds rowBounds);
+	
+	FreeBoard selectFreeBoardDetail(int fbNo);
+	
+	int insertFreeBoard(FreeBoard fb);
+	
+	int updateFreeBoard(FreeBoard fb);
+	
+	int insertReply(Reply r);
+	
+	int updateReply(Reply r);
+	
+	int deleteReply(Reply r);
+	
+	int deleteFreeBoard(FreeBoard fb);
 	
 }

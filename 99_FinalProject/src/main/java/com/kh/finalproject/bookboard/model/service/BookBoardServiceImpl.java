@@ -1,6 +1,5 @@
 package com.kh.finalproject.bookboard.model.service;
 
-import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,8 +10,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.finalproject.bookboard.model.mapper.BookBoardMapper;
+import com.kh.finalproject.bookboard.model.vo.BookBoard;
 import com.kh.finalproject.common.util.PageInfo;
-import com.kh.finalproject.freeboard.model.vo.Board;
 
 @Service
 public class BookBoardServiceImpl implements BookBoardService {
@@ -21,81 +20,47 @@ public class BookBoardServiceImpl implements BookBoardService {
 	private BookBoardMapper mapper;
 
 	@Override
-	@Transactional(rollbackFor = Exception.class)
-	public int saveBoard(Board board) {
-		int result = 0;
-
-		if (board.getNo() == 0) {
-			result = mapper.insertBoard(board);
-		} else {
-			result = mapper.updateBoard(board);
-		}
-		return result;
+	public int getBookBoardCount() {
+		return mapper.selectBookBoardCount();
 	}
 
 	@Override
-	public int getBoardCount(Map<String, String> param) {
-		Map<String, String> searchMap = new HashMap<String, String>();
-		String searchValue = param.get("searchValue");
-		System.out.println("searchValue : " + searchValue);
-		if (searchValue != null && searchValue.length() > 0) {
-			String type = param.get("searchType");
-			if (type.equals("title")) {
-				searchMap.put("titleKeyword", searchValue);
-			}
-			else if (type.equals("content")) {
-				searchMap.put("contentKeyword", searchValue);
-			}
-			else if(type.equals("writer")) {
-				searchMap.put("writerKeyword", searchValue);
-			}
-		}
-		System.out.println(searchMap);
-		return mapper.selectBoardCount(searchMap);
+	public List<BookBoard> getBookBoardListByRecommendCount() {
+		return mapper.selectBookBoardListByRecommendCount();
 	}
 
 	@Override
-	public List<Board> getBoardList(PageInfo pageInfo, Map<String, String> param) {
+	public List<BookBoard> getAllBookBoardList(PageInfo pageInfo, List<Integer> bbNoList) {
+		Map<String, List<Integer>> map = new HashMap<String, List<Integer>>();
+		map.put("filterList", bbNoList);
+		
 		int offset = (pageInfo.getCurrentPage() - 1) * pageInfo.getListLimit();
 		RowBounds rowBounds = new RowBounds(offset, pageInfo.getListLimit());
+		
+		return mapper.selectAllBookBoardList(map, rowBounds);
+	}
 
-		Map<String, String> searchMap = new HashMap<String, String>();
-		String searchValue = param.get("searchValue");
-		if (searchValue != null && searchValue.length() > 0) {
-			String type = param.get("searchType");
-			if (type.equals("title")) {
-				searchMap.put("titleKeyword", searchValue);
-			}
-			else if (type.equals("content")) {
-				searchMap.put("contentKeyword", searchValue);
-			}
-			else if(type.equals("writer")) {
-				searchMap.put("writerKeyword", searchValue);
-			}
-		}
-
-		return mapper.selectBoardList(rowBounds, searchMap);
+	@Override
+	public BookBoard getBookBoardByNo(int bbNo) {
+		return mapper.selectBookBoardByNo(bbNo);
 	}
 
 	@Override
 	@Transactional(rollbackFor = Exception.class)
-	public Board findByNo(int boardNo) {
-		Board board = mapper.selectBoardByNo(boardNo);
-		board.setReadCount(board.getReadCount() + 1);
-		mapper.updateReadCount(board);
-		return board;
+	public int insertBookBoard(BookBoard bb) {
+		return mapper.insertBookBoard(bb);
 	}
 
 	@Override
 	@Transactional(rollbackFor = Exception.class)
-	public int deleteBoard(int no) {
-		Board board = mapper.selectBoardByNo(no);
-		try {
-			File file = new File(board.getRenamedFileName());
-			if (file.exists()) {
-				file.delete();
-			}
-		} catch (Exception e) {}
-		return mapper.deleteBoard(no);
+	public int updateBookBoard(BookBoard bb) {
+		return mapper.updateBookBoard(bb);
 	}
+
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public int deleteBookBoard(int bbNo) {
+		return mapper.deleteBookBoard(bbNo);
+	}
+
 }

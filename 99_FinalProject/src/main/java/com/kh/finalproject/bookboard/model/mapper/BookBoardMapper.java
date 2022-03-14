@@ -6,23 +6,24 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.session.RowBounds;
 
-import com.kh.finalproject.freeboard.model.vo.Board;
+import com.kh.finalproject.bookboard.model.vo.BookBoard;
+
 
 @Mapper
 public interface BookBoardMapper {
 
-	// paging 처리를 위한 RowBounds 셋팅!
-	List<Board> selectBoardList(RowBounds rowBounds, Map<String, String> map);
-
-	int selectBoardCount(Map<String, String> map);
-
-	Board selectBoardByNo(int boardNo);
-
-	int insertBoard(Board board);
-
-	int updateBoard(Board board);
-
-	int updateReadCount(Board board);
-
-	int deleteBoard(int no);
+	int selectBookBoardCount();
+	
+	List<BookBoard> selectBookBoardListByRecommendCount();
+	
+	List<BookBoard> selectAllBookBoardList(Map<String, List<Integer>> map, RowBounds rowBounds);
+	
+	BookBoard selectBookBoardByNo(int bbNo);
+	
+	int insertBookBoard(BookBoard bb);
+	
+	int updateBookBoard(BookBoard bb);
+	
+	int deleteBookBoard(int bbNo);
+	
 }
