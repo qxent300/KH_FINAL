@@ -20,7 +20,7 @@
 	</resultMap>
 	
 	<select id="selectMember" parameterType="string" resultMap="memberResultMap">
-		SELECT * FROM MEMBER WHERE U_STATUS = 'Y' AND U_ID = #{id}
+		SELECT * FROM MEMBER WHERE U_STATUS = 'Y' AND U_ID = #{uId}
 	</select>
 	
 	<insert id="insertMember" parameterType="Member">

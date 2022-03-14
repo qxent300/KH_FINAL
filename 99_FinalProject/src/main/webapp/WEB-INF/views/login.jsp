@@ -22,7 +22,7 @@
 				<!-- Form -->
 				<div class="mb-2">
 					<input type="text" class="form-control form-control-lg"
-						name="userId" id="userId" value="admin" placeholder="아이디" required>
+						name="uId" id="uId" value="admin" placeholder="아이디" required>
 						<span class="invalid-feedback">아이디를 입력해주세요.</span>
 				</div>
 				<!-- End Form -->
@@ -32,7 +32,7 @@
 					data-hs-validation-validate-class>
 					<input type="password"
 						class="form-control form-control-lg"
-						name="userPwd" id="userPwd" value="1234" placeholder="비밀번호" required>
+						name="uPw" id="uPw" value="1234" placeholder="비밀번호" required>
 				</div>
 				<span class="invalid-feedback">비밀번호를 입력해주세요.</span>
 				<!-- End Form -->

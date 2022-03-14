@@ -4,7 +4,7 @@ import com.kh.finalproject.member.model.vo.Member;
 
 public interface MemberService {
 
-	Member login(String id, String pw);
+	Member login(String uId, String uPw);
 	
 	int save(Member member);
 	

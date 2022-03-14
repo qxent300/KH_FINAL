@@ -21,10 +21,10 @@ public class MemberServiceImpl implements MemberService {
 	private BCryptPasswordEncoder passwordEncoder; // SHA-256 Hash code 알고리즘 (일반향 암호)
 
 	@Override
-	public Member login(String id, String pw) {
-		Member member = mapper.selectMember(id);
+	public Member login(String uId, String uPw) {
+		Member member = mapper.selectMember(uId);
 		
-		if (member.getUPw().equals(pw)) {
+		if (member.getUPw().equals(uPw)) {
 			return member;
 		} else {
 			return null;			
