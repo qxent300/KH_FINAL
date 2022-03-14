@@ -21,40 +21,36 @@ public class MemberServiceImpl implements MemberService {
 	private BCryptPasswordEncoder passwordEncoder; // SHA-256 Hash code 알고리즘 (일반향 암호)
 
 	@Override
-	public Member login(String id, String pwd) {
-		// TODO Auto-generated method stub
-		return null;
+	public Member login(String id, String pw) {
+		Member member = mapper.selectMember(id);
+		
+		if (member.getUPw().equals(pw)) {
+			return member;
+		} else {
+			return null;			
+		}
 	}
 
 	@Override
+	@Transactional(rollbackFor = Exception.class)
 	public int save(Member member) {
-		// TODO Auto-generated method stub
-		return 0;
+		int result = 0;
+		
+		if (member.getUNo() != 0) {
+			result = mapper.updateMember(member);
+		} else {
+			result = mapper.insertMember(member);	// 회원가입시 비밀번호 암호화 필요..
+		}
+		
+		return result;
 	}
 
 	@Override
-	public boolean validate(String userId) {
-		// TODO Auto-generated method stub
-		return false;
+	@Transactional(rollbackFor = Exception.class)
+	public int delete(Member member) {
+		return mapper.deleteMember(member);
 	}
 
-	@Override
-	public Member findById(String id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public int delete(int no) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int updatePwd(Member loginMember, String userPwd) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 	
 
 }

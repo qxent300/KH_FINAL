@@ -10,11 +10,13 @@ import com.kh.finalproject.member.model.vo.Member;
 
 @Mapper
 public interface MemberMapper {
-	int selectCount();
-	List<Member> selectAll();
-	Member selectMember(@Param("id") String id);
-	int insertMember(Member Member);
-	int updateMember(Member Member);
-	int deleteMember(@Param("no") int no);
-	int updatePwd(Map<String, String> map);
+	
+	Member selectMember(String id);
+	
+	int insertMember(Member member);
+	
+	int updateMember(Member member);
+	
+	int deleteMember(Member member);
+	
 }
