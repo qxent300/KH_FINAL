@@ -37,7 +37,7 @@
 			<h1 class="text-center mb-4">자유공간</h1>
 			<!-- Card -->
 			<!-- Title -->
-			<div class="container justify-content-center col-10">
+			<div class="container justify-content-center col-9">
 				<div class="row card card-body">
 						<h2>${board.type})${board.title}</h2>
 						<div id="bg" class="border border-dark border-1 border-start-0 border-end-0 text-dark">
@@ -49,7 +49,7 @@
 					<!-- End Title -->
 					<div class="text-end mt-2 mb-2">
 						<c:if
-							test="${ !empty loginMember && (loginMember.nickname == board.writerId 
+							test="${ !empty loginMember && (loginMember.UNickName == board.writerId 
 									|| loginMember.UGrade == '99') }">
 							<button type="button" class="btn btn-sm btn-primary"
 								onclick="location.href='${path}/freeboard/update?no=${board.no}'">수정</button>
@@ -83,7 +83,7 @@
 					<div class="mb-2"></div>
 					<!-- 리플리스트 출력 시작-->
 						<c:if test="${ empty replyList}">
-							<div class="text-center">등록된 댓글이 없습니다.</div>
+							<div class="text-center mb-3">등록된 댓글이 없습니다.</div>
 						</c:if>
 						<c:if test="${ !empty replyList }">
 							    <div class="container justify-content-center" style="width: 97%;">

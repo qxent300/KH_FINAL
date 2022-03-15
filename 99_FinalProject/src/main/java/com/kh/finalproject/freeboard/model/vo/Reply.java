@@ -4,24 +4,17 @@ import java.util.Date;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
-@Setter
 public class Reply {
-	private int rNo;
-	private int fbNo;
-	private int uNo;
-	
-	private String uNickName;
-	
-	private String rContent;
-	private String rStatus;
+	private int no;
+	private int boardNo;
+	private int writerNo;
+	private String writerId;
+	private String content;
 	private Date createDate;
 	private Date modifyDate;
 }

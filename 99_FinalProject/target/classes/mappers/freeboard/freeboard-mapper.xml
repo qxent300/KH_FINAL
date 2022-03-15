@@ -3,103 +3,172 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.kh.finalproject.book.model.mapper.FreeBoardMapper">
+<mapper namespace="com.kh.finalproject.freeboard.model.mapper.FreeBoardMapper">
+	<resultMap type="Board" id="boardListResultMap">
+		<id property="no" column="NO"/>
+		<result property="title" column="TITLE"/>
+		<result property="writerId" column="U_NICKNAME"/>
+		<result property="writerNo" column="WRITER_NO"/>
+		<result property="readCount" column="READCOUNT"/>
+		<result property="originalFileName" column="ORIGINAL_FILENAME"/>
+		<result property="renamedFileName" column="RENAMED_FILENAME"/>
+		<result property="content" column="CONTENT"/>
+		<result property="type" column="TYPE"/>
+		<result property="createDate" column="CREATE_DATE"/>
+		<result property="modifyDate" column="MODIFY_DATE"/>
+	</resultMap>
 
-	<resultMap type="FreeBoard" id="freeBoardResultMap">
-		<id property="fbNo" column="FB_NO" />
-		<result property="uNo" column="U_NO" />
-		<result property="uNickName" column="U_NICKNAME" />
-		<result property="fbCategory" column="FB_CATEGORY" />
-		<result property="fbTitle" column="FB_TITLE" />
-		<result property="fbContent" column="FB_CONTENT" />
-		<result property="originalFileName" column="ORIGINAL_FILENAME" />
-		<result property="renamedFileName" column="RENAMED_FILENAME" />
-		<result property="fbReadCount" column="FB_READCOUNT" />
-		<result property="fbReplyCount" column="FB_REPLYCOUNT" />
-		<result property="fbStatus" column="FB_STATUS" />
-		<result property="createDate" column="CREATE_DATE" />
-		<result property="modifyDate" column="MODIFY_DATE" />
+	<resultMap type="Board" extends="boardListResultMap" id="boardDetailResultMap">
+		<collection property="replies" javaType="arraylist" columnPrefix="R_" resultMap="boardReplyResultMap"/>
 	</resultMap>
 	
-	<resultMap type="Reply" id="replyResultMap">
-		<id property="rNo" column="R_NO" />
-		<result property="fbNo" column="FB_NO" />
-		<result property="uNo" column="U_NO" />
-		<result property="uNickName" column="U_NICKNAME" />
-		<result property="rContent" column="R_CONTENT" />
-		<result property="rStatus" column="R_STATUS" />
-		<result property="createDate" column="CREATE_DATE" />
-		<result property="modifyDate" column="MODIFY_DATE" />
+	<resultMap type="Reply" id="boardReplyResultMap">
+		<id property="no" column="NO"/>
+		<result property="boardNo" column="BOARD_NO"/>
+		<result property="writerNo" column="WRITER_NO"/>
+		<result property="writerId" column="NICKNAME"/>
+		<result property="content" column="CONTENT"/>
+		<result property="createDate" column="CREATE_DATE"/>
+		<result property="modifyDate" column="MODIFY_DATE"/>
 	</resultMap>
-	
-	<resultMap type="FreeBoard" id="freeBoardDetailResultMap" extends="freeBoardResultMap">
-		<collection property="replies"
-					javaType="arrayList"
-					resultMap="replyResultMap"
-					columnPrefix="R_"
-		/>
-	</resultMap>
-	
-	<select id="selectFreeBoardCount" resultType="int">
-		SELECT COUNT(*) FROM FREEBOARD WHERE FB_STATUS = 'Y'
+	 
+
+	<select id="selectBoardList" resultMap="boardListResultMap" parameterType="map">
+		SELECT  B.NO,
+				B.TITLE, 
+				M.U_NICKNAME, 
+				B.READCOUNT, 
+				B.ORIGINAL_FILENAME, 
+				B.RENAMED_FILENAME, 
+				B.CONTENT,
+				B.TYPE,
+				B.CREATE_DATE, 
+				B.MODIFY_DATE
+		FROM BOARD B
+		JOIN MEMBER M ON(B.WRITER_NO = M.U_NO)
+		WHERE B.STATUS = 'Y'
+		<!-- WHERE 1=1 -->
+		<if test="writerKeyword != null">
+			AND M.U_NICKNAME LIKE '%'||#{writerKeyword}||'%' 
+		</if>
+		<if test="titleKeyword != null">
+			AND B.TITLE LIKE '%'||#{titleKeyword}||'%' 
+		</if>
+		<if test="contentKeyword != null">
+			AND B.CONTENT LIKE '%' || #{contentKeyword} || '%' 
+		</if>
+		<if test="tcKeyword != null">
+			AND B.CONTENT || B.TITLE LIKE '%' || #{tcKeyword} || '%' 
+		</if>
+		ORDER BY B.NO DESC
 	</select>
 	
-	<select id="selectAllFreeBoardList" resultMap="freeBoardResultMap">
-		SELECT FB.FB_NO, FB.U_NO, U.U_NICKNAME, FB.FB_CATEGORY, FB.FB_TITLE, FB.FB_CONTENT, FB.ORIGINAL_FILENAME, FB.RENAMED_FILENAME, FB.FB_READCOUNT, FB.FB_REPLYCOUNT, FB.FB_STATUS, FB.CREATE_DATE, FB.MODIFY_DATE
-		FROM FREEBOARD FB
-		JOIN MEMBER U ON (FB.U_NO = U.U_NO)
-		WHERE FB.FB_STATUS = 'Y'
+	<select id="selectBoardCount" resultType="_int" parameterType="map">
+		SELECT COUNT(*)
+		FROM BOARD B
+		JOIN MEMBER M ON(B.WRITER_NO = M.U_NO)
+		WHERE B.STATUS = 'Y'
+		<!-- WHERE 1=1 -->
+		<if test="writerKeyword != null">
+			AND M.U_NICKNAME LIKE '%' || #{writerKeyword} || '%' 
+		</if>
+		<if test="titleKeyword != null">
+			AND B.TITLE LIKE '%' || #{titleKeyword} || '%' 
+		</if>
+		<if test="contentKeyword != null">
+			AND B.CONTENT LIKE '%' || #{contentKeyword} || '%' 
+		</if>
+		<if test="tcKeyword != null">
+			AND B.CONTENT || B.TITLE LIKE '%' || #{tcKeyword} || '%' 
+		</if>
 	</select>
 	
-	<select id="selectReplyCount" parameterType="int" resultType="int">
-		SELECT COUNT(*) FROM REPLY WHERE FB_NO = #{fbNo} AND R_STATUS = 'Y'
+	<select id="selectBoardByNo" parameterType="_int" resultMap="boardDetailResultMap">
+ 		SELECT B.NO,
+		       B.TITLE,
+		       B.WRITER_NO, 
+		       M.U_NICKNAME, 
+		       B.READCOUNT, 
+		       B.ORIGINAL_FILENAME, 
+		       B.RENAMED_FILENAME, 
+		       B.CONTENT,
+		       B.TYPE,
+		       B.CREATE_DATE, 
+		       B.MODIFY_DATE,
+		       R.NO AS R_NO, 
+		       R.BOARD_NO AS R_BOARD_NO, 
+		       R.CONTENT AS R_CONTENT, 
+		       M2.U_NICKNAME AS R_NICKNAME, 
+		       R.CREATE_DATE AS R_CREATE_DATE, 
+		       R.MODIFY_DATE AS R_MODIFY_DATE
+		FROM BOARD B
+		JOIN MEMBER M ON(B.WRITER_NO = M.U_NO)
+		LEFT OUTER JOIN REPLY R ON(B.NO = R.BOARD_NO)
+		LEFT OUTER JOIN MEMBER M2 ON(R.WRITER_NO = M2.U_NO)
+		WHERE B.STATUS='Y' AND B.NO=#{boardNo}
 	</select>
 	
-	<update id="updateReplyCount" parameterType="FreeBoard">
-		UPDATE FREEBOARD SET FB_REPLYCOUNT = #{fbReplyCount} WHERE FB_NO = #{fbNo}
-	</update>
-	
-	<select id="selectFreeBoardListByCategory" parameterType="string" resultMap="freeBoardResultMap">
-		SELECT FB.*, U.U_NICKNAME FROM FREEBOARD FB, MEMBER U WHERE FB.FB_STATUS = 'Y' AND FB.FB_CATEGORY = #{fbCategory} AND FB.U_NO = U.U_NO
-	</select>
-	
-	<select id="selectFreeBoardList" resultMap="freeBoardResultMap">
-		SELECT FB.*, U.U_NICKNAME FROM FREEBOARD FB, MEMBER U WHERE FB.FB_STATUS = 'Y' AND NOT FB.FB_CATEGORY = '공지' AND FB.U_NO = U.U_NO
-	</select>
-	
-	<select id="selectFreeBoardDetail" parameterType="int" resultMap="freeBoardDetailResultMap">
-		SELECT FB.*, U.U_NICKNAME, R.R_NO AS R_R_NO, R.FB_NO AS R_FB_NO, R.U_NO AS R_U_NO, U2.U_NICKNAME AS R_U_NICKNAME, R.R_CONTENT AS R_R_CONTENT, R.R_STATUS AS R_R_STATUS, R.CREATE_DATE AS R_CREATE_DATE, R.MODIFY_DATE AS R_MODIFY_DATE 
-		FROM FREEBOARD FB
-		JOIN MEMBER U ON (FB.U_NO = U.U_NO) 
-		LEFT OUTER JOIN REPLY R ON (FB.FB_NO = R.FB_NO)
-		LEFT OUTER JOIN MEMBER U2 ON (R.U_NO = U2.U_NO)
-		WHERE FB.FB_STATUS = 'Y' 
-		AND R.R_STATUS = 'Y'
-		AND FB.FB_NO = #{fbNo}
-	</select>
-	
-	<insert id="insertFreeBoard" parameterType="FreeBoard">
-		INSERT INTO FREEBOARD VALUES(SEQ_FB_NO.NEXTVAL, #{uNo}, #{fbCategory}, #{fbTitle}, #{fbContent}, null, null, 0, 0, 'Y', SYSDATE, SYSDATE)
+	<insert id="insertBoard" parameterType="map"
+			useGeneratedKeys="true" keyProperty="no" keyColumn="NO">
+		INSERT INTO BOARD (
+			NO,
+			WRITER_NO,
+			TITLE,
+			CONTENT,
+			ORIGINAL_FILENAME,
+			RENAMED_FILENAME,
+			READCOUNT,
+			STATUS,
+			CREATE_DATE,
+			MODIFY_DATE,
+			TYPE		
+		) VALUES (
+			SEQ_BOARD_NO.NEXTVAL,
+			#{writerNo},
+			#{title},
+			#{content},
+			#{originalFileName},
+			#{renamedFileName},
+			DEFAULT,
+			DEFAULT,
+			DEFAULT,
+			DEFAULT,
+			#{type}
+		)
 	</insert>
 	
-	<update id="updateFreeBoard" parameterType="FreeBoard">
-		UPDATE FREEBOARD SET FB_CATEGORY = #{fbCategory}, FB_TITLE = #{fbTitle}, FB_CONTENT = #{fbContent}, MODIFY_DATE = SYSDATE WHERE FB_NO = #{fbNo}
-	</update>
-	
-	<insert id="insertReply" parameterType="Reply">
-		INSERT INTO REPLY VALUES(SEQ_R_NO.NEXTVAL, #{fbNo}, #{uNo}, #{rContent}, 'Y', SYSDATE, SYSDATE)
+	<insert id="insertReply" parameterType="map">
+		INSERT INTO REPLY 
+			VALUES(SEQ_REPLY_NO.NEXTVAL, 
+			#{boardNo}, #{writerNo}, #{content}, DEFAULT, DEFAULT, DEFAULT)
 	</insert>
 	
-	<update id="updateReply" parameterType="Reply">
-		UPDATE REPLY SET R_CONTENT = #{rContent}, MODIFY_DATE = SYSDATE WHERE R_NO = #{rNo} AND FB_NO = #{fbNo} AND U_NO = #{uNo}
+	<update id="updateBoard" parameterType="map">
+		UPDATE BOARD
+		SET
+			TYPE=#{type},
+			TITLE=#{title},
+			CONTENT=#{content},
+			<if test="originalFileName != null">
+				ORIGINAL_FILENAME=#{originalFileName},
+			</if>
+			<if test="renamedFileName != null">
+				RENAMED_FILENAME=#{renamedFileName},
+			</if>
+			MODIFY_DATE=SYSDATE
+		WHERE
+			NO=#{no}
 	</update>
 	
-	<update id="deleteReply" parameterType="Reply">
-		UPDATE REPLY SET R_STATUS = 'N' WHERE R_NO = #{rNo} AND FB_NO = #{fbNo} AND U_NO = #{uNo}
+	<update id="updateReadCount" parameterType="map">
+		UPDATE BOARD SET READCOUNT=#{readCount} WHERE NO=#{no}
 	</update>
 	
-	<update id="deleteFreeBoard" parameterType="FreeBoard">
-		UPDATE FREEBOARD SET FB_STATUS = 'N' WHERE FB_NO = #{fbNo} AND U_NO = #{uNo}
+	<update id="deleteBoard" parameterType="int">
+		UPDATE BOARD SET STATUS='N' WHERE NO=#{no}
 	</update>
-
+	
+	<delete id="deleteReply" parameterType="int">
+		DELETE REPLY WHERE NO=#{no}
+	</delete>
 </mapper>

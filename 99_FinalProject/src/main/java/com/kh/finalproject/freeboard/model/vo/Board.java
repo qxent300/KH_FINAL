@@ -5,30 +5,23 @@ import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
-@Setter
-public class FreeBoard {
-	private int fbNo;
-	private int uNo;
-	
-	private String uNickName;
-	
-	private String fbCategory;
-	private String fbTitle;
-	private String fbContent;
+public class Board {
+	private int no;
+	private int writerNo;
+	private String writerId;
+	private String title;
+	private String content;
 	private String originalFileName;
 	private String renamedFileName;
-	private int fbReadCount;
-	private int fbReplyCount;
+	private int readCount;
+	private String status;
+	private String type;
 	private List<Reply> replies;
-	private String fbStatus;
 	private Date createDate;
 	private Date modifyDate;
 }

@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.finalproject.freeboard.model.mapper.FreeBoardMapper;
-import com.kh.finalproject.freeboard.model.vo.FreeBoard;
+import com.kh.finalproject.freeboard.model.vo.Board;
 import com.kh.finalproject.freeboard.model.vo.Reply;
 import com.kh.finalproject.common.util.PageInfo;
 
@@ -25,111 +25,133 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 	private FreeBoardMapper mapper;
 
 	@Override
-	public int getFreeBoardCount() {
-		return mapper.selectFreeBoardCount();
+	@Transactional(rollbackFor = Exception.class)
+	public int saveBoard(Board board) {
+		int result = 0;
+
+		if (board.getNo() == 0) {
+			result = mapper.insertBoard(board);
+		} else {
+			result = mapper.updateBoard(board);
+		}
+		return result;
 	}
 
 	@Override
-	public void getAllFreeBoardList() {	// 게시글 별로 댓글 수를 업데이트하여 전체 게시글을 조회하는 코드로 반드시 먼저 실행해야 한다.
-		List<FreeBoard> list = mapper.selectAllFreeBoardList();
-		
-		for (FreeBoard freeBoard : list) {
-			int replyCount = mapper.selectReplyCount(freeBoard.getFbNo());
-			
-			freeBoard.setFbReplyCount(replyCount);
-			
-			int result = mapper.updateReplyCount(freeBoard);
-			
-			if (result > 0) {
-				System.out.println("댓글 수 업데이트 성공!");
-			} else {
-				System.out.println("댓글 수 업데이트 실패...");
+	@Transactional(rollbackFor = Exception.class)
+	public int saveReply(Reply reply) {
+		return mapper.insertReply(reply);
+	}
+
+	@Override
+	public String saveFile(MultipartFile upfile, String savePath) {
+		// 저장 경로의 폴더 생성부
+		File folder = new File(savePath);
+
+		if (folder.exists() == false) {
+			folder.mkdirs();
+		}
+
+		System.out.println("savePath : " + savePath);
+
+		String originalFileName = upfile.getOriginalFilename();
+		String reNameFileName = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmssSSS"))
+				+ originalFileName.substring(originalFileName.lastIndexOf("."));
+		String reNamePath = savePath + "/" + reNameFileName;
+
+		// 업로드 된 파일 이름을 바꾸고, 실제 디스크에 저장하는 코드부
+		try {
+			upfile.transferTo(new File(reNamePath));
+		} catch (Exception e) {
+			return null;
+		}
+
+		return reNameFileName;
+	}
+
+	@Override
+	public int getBoardCount(Map<String, String> param) {
+		Map<String, String> searchMap = new HashMap<String, String>();
+		String searchValue = param.get("searchValue");
+//		System.out.println("searchValue : " + searchValue);
+		if (searchValue != null && searchValue.length() > 0) {
+			String type = param.get("searchType");
+			if (type.equals("title")) {
+				searchMap.put("titleKeyword", searchValue);
+			}
+			else if (type.equals("content")) {
+				searchMap.put("contentKeyword", searchValue);
+			}
+			else if(type.equals("writer")) {
+				searchMap.put("writerKeyword", searchValue);
+			}
+			else if(type.equals("tc")) {
+				searchMap.put("tcKeyword", searchValue);
 			}
 		}
+//		System.out.println(searchMap);
+		return mapper.selectBoardCount(searchMap);
 	}
 
 	@Override
-	public List<FreeBoard> getFreeBoardListByCategory(String fbCategory) {
-		getAllFreeBoardList();	// 게시글 조회시 먼저 실행
-		
-		return mapper.selectFreeBoardListByCategory(fbCategory);
-	}
-
-	@Override
-	public List<FreeBoard> getFreeBoardList(PageInfo pageInfo) {
-		getAllFreeBoardList();	// 게시글 조회시 먼저 실행
-		
+	public List<Board> getBoardList(PageInfo pageInfo, Map<String, String> param) {
 		int offset = (pageInfo.getCurrentPage() - 1) * pageInfo.getListLimit();
 		RowBounds rowBounds = new RowBounds(offset, pageInfo.getListLimit());
-		
-		return mapper.selectFreeBoardList(rowBounds);
-	}
 
-	@Override
-	public FreeBoard getFreeBoardDetail(int fbNo) {
-		return mapper.selectFreeBoardDetail(fbNo);
-	}
-
-	@Override
-	@Transactional(rollbackFor = Exception.class)
-	public int insertFreeBoard(FreeBoard fb) {
-		return mapper.insertFreeBoard(fb);
-	}
-
-	@Override
-	@Transactional(rollbackFor = Exception.class)
-	public int updateFreeBoard(FreeBoard fb) {
-		return mapper.updateFreeBoard(fb);
-	}
-
-	@Override
-	@Transactional(rollbackFor = Exception.class)
-	public int insertReply(Reply r) {
-		int result = mapper.insertReply(r);
-		
-		if (result > 0) {
-			System.out.println("댓글 입력 성공!");
-		} else {
-			System.out.println("댓글 입력 실패...");
+		Map<String, String> searchMap = new HashMap<String, String>();
+		String searchValue = param.get("searchValue");
+		if (searchValue != null && searchValue.length() > 0) {
+			String type = param.get("searchType");
+			if (type.equals("title")) {
+				searchMap.put("titleKeyword", searchValue);
+			}
+			else if (type.equals("content")) {
+				searchMap.put("contentKeyword", searchValue);
+			}
+			else if(type.equals("writer")) {
+				searchMap.put("writerKeyword", searchValue);
+			}
+			else if(type.equals("tc")) {
+				searchMap.put("tcKeyword", searchValue);
+			}
 		}
-		
-		int replyCount = mapper.selectReplyCount(r.getFbNo());	// 댓글 입력 후 댓글 수 변경을 위한 코드
-		FreeBoard fb = new FreeBoard();
-		fb.setFbNo(r.getFbNo());
-		fb.setFbReplyCount(replyCount);
 
-		return mapper.updateReplyCount(fb);
+		return mapper.selectBoardList(rowBounds, searchMap);
 	}
 
 	@Override
 	@Transactional(rollbackFor = Exception.class)
-	public int updateReply(Reply r) {
-		return mapper.updateReply(r);
+	public Board findByNo(int boardNo) {
+		Board board = mapper.selectBoardByNo(boardNo);
+		board.setReadCount(board.getReadCount() + 1);
+		mapper.updateReadCount(board);
+		return board;
 	}
 
-	@Override
-	@Transactional(rollbackFor = Exception.class)
-	public int deleteReply(Reply r) {
-		int result = mapper.deleteReply(r);
-		
-		if (result > 0) {
-			System.out.println("댓글 삭제 성공!");
-		} else {
-			System.out.println("댓글 삭제 실패...");
+	public void deleteFile(String filePath) {
+		File file = new File(filePath);
+		if (file.exists()) {
+			file.delete();
 		}
-		
-		int replyCount = mapper.selectReplyCount(r.getFbNo());	// 댓글 삭제 후 댓글 수 변경을 위한 코드
-		FreeBoard fb = new FreeBoard();
-		fb.setFbNo(r.getFbNo());
-		fb.setFbReplyCount(replyCount);
-
-		return mapper.updateReplyCount(fb); 
 	}
 
 	@Override
 	@Transactional(rollbackFor = Exception.class)
-	public int deleteFreeBoard(FreeBoard fb) {
-		return mapper.deleteFreeBoard(fb);
+	public int deleteBoard(int no) {
+		Board board = mapper.selectBoardByNo(no);
+		try {
+			File file = new File(board.getRenamedFileName());
+			if (file.exists()) {
+				file.delete();
+			}
+		} catch (Exception e) {}
+		return mapper.deleteBoard(no);
 	}
-	
+
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public int deleteReply(int no) {
+		return mapper.deleteReply(no);
+	}
+
 }
