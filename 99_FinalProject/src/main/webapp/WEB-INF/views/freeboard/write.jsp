@@ -23,13 +23,13 @@
                                         <option value="">분류 선택</option>
                                         <option value="질문">질문</option>
                                         <option value="잡담">잡담</option>
-										<c:if test="${loginMember.role == 'ROLE_ADMIN'}">
+										<c:if test="${loginMember.UGrade == '99'}">
                                 	        <option value="공지">공지</option>
 										</c:if>
                                     </select>
                             <div class="d-grid gap-3">
                                 <!-- Form -->
-                                <input type="hidden" name="writerId" value="${loginMember.id}" readonly>
+                                <input type="hidden" name="writerId" value="${loginMember.UId}" readonly>
                                 <span class="d-block">
                                 <input type="text" class="form-control" name="title" id="title" placeholder="제목을 입력해주세요.">
                             </span>

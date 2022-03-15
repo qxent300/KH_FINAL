@@ -23,7 +23,7 @@
                                         <option value="">분류 선택</option>
                                         <option value="질문">질문</option>
                                         <option value="잡담">잡담</option>
-										<c:if test="${loginMember.role == 'ROLE_ADMIN'}">
+										<c:if test="${loginMember.UGrade == '99'}">
                                 	        <option value="공지">공지</option>
 										</c:if>
                                     </select>

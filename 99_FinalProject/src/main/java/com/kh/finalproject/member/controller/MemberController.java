@@ -35,10 +35,10 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value = "/login", method = {RequestMethod.POST})
-	public ModelAndView login(ModelAndView model, String uId, String uPw) {
+	public ModelAndView login(ModelAndView model, String uId, String uPwd) {
 //		log.info("{},{}",userId,userPwd);
 		
-		Member loginMember = service.login(uId, uPw);
+		Member loginMember = service.login(uId, uPwd);
 		
 		if(loginMember != null) {
 			model.addObject("loginMember",loginMember); // 어노테이션을 통해 Session으로 처리되는 코드 
@@ -86,100 +86,99 @@ public class MemberController {
 		return model;
 	}
 	
+	@GetMapping("/member/idCheck")
+	public ResponseEntity<Map<String, Object>> idCheck(String uId){
+		log.info("userId : " + uId );
+		
+		boolean result = service.validate(uId);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("validate", result);
+		
+		return new ResponseEntity<Map<String,Object>>(map, HttpStatus.OK);
+	}
 	
-//	@GetMapping("/member/idCheck")
-//	public ResponseEntity<Map<String, Object>> idCheck(String uId){
-//		log.info("userId : " + uId );
-//		
-//		boolean result = service.validate(uId);
-//		Map<String, Object> map = new HashMap<String, Object>();
-//		map.put("validate", result);
-//		
-//		return new ResponseEntity<Map<String,Object>>(map, HttpStatus.OK);
-//	}
-//	
-//	@GetMapping("/member/nicknameCheck")
-//	public ResponseEntity<Map<String, Object>> nicknameCheck(String nickname){
-//		log.info("userId : " + nickname );
-//		
-//		boolean result = service.validaten(nickname);
-//		Map<String, Object> map = new HashMap<String, Object>();
-//		map.put("validate", result);
-//		
-//		return new ResponseEntity<Map<String,Object>>(map, HttpStatus.OK);
-//	}
-//	
-//	@GetMapping("/member/view")
-//	public String view() {
-//		log.info("회원정보 페이지 요청");
-//		return "member/view";
-//	}
-//	
-//	@PostMapping("/member/update")
-//	public ModelAndView update(ModelAndView model,
-//				@ModelAttribute Member member, // @ModelAttribute 생략 가능! 
-//				@SessionAttribute(name ="loginMember", required = false) Member loginMember
-//			) {
-//		if(loginMember == null || loginMember.getUId().equals(member.getUId()) == false) {
-//			model.addObject("msg", "잘못된 접근입니다.");
-//			model.addObject("location", "/");
-//			model.setViewName("common/msg");
-//			return model;
-//		}
-//		
-//		member.setUNo(loginMember.getUNo());
-//		int result = service.save(member);
-//		
-//		if(result > 0) {
-//			model.addObject("loginMember", service.findById(member.getUId())); // 세션에 넣는 코드
-//			model.addObject("msg","회원정보를 수정하였습니다.");
-//			model.addObject("location", "/member/view");
-//		}else{
-//			model.addObject("msg", "회원정보를 수정에 실패하였습니다!");
-//			model.addObject("location", "/member/view");
-//		}
-//		
-//		model.setViewName("common/msg");
-//		return model;
-//	}
-//	
-//	@GetMapping("/member/delete")
-//	public ModelAndView delete(ModelAndView model, 
-//			@SessionAttribute(name ="loginMember", required = false) Member loginMember) {
-//		int result = service.delete(loginMember.getUNo());
-//		
-//		if(result > 0) {
-//			model.addObject("msg", "정상적으로 탈퇴되었습니다.");
-//			model.addObject("location", "/logout");
-//		} else {
-//			model.addObject("msg", "회원 탈퇴를 실패하였습니다.");
-//			model.addObject("location", "/member/view");
-//		}	
-//		
-//		model.setViewName("common/msg");
-//		return model;
-//	}
-//	
-//	@GetMapping("/member/updatePwd")
-//	public String updatePwd() {
-//		return "/member/updatePwd";
-//	}
-//	
-//	@PostMapping("/member/updatePwd")
-//	public ModelAndView updatePwd(ModelAndView model, 
-//			@SessionAttribute(name ="loginMember", required = false) Member loginMember, 
-//			String userPwd) {
-//		
-//		System.out.println(loginMember);
-//		int result = service.updatePwd(loginMember, userPwd);
-//		
-//		if(result > 0) {
-//			model.addObject("msg", "정상적으로 변경되었습니다.");
-//		} else {
-//			model.addObject("msg", "정상적으로 변경되지 않았습니다!");
-//		}	
-//		model.addObject("script", "self.close()");
-//		model.setViewName("common/msg");
-//		return model;
-//	}
+	@GetMapping("/member/nicknameCheck")
+	public ResponseEntity<Map<String, Object>> nicknameCheck(String uNickName){
+		log.info("userId : " + uNickName );
+		
+		boolean result = service.validaten(uNickName);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("validate", result);
+		
+		return new ResponseEntity<Map<String,Object>>(map, HttpStatus.OK);
+	}
+	
+	@GetMapping("/member/view")
+	public String view() {
+		log.info("회원정보 페이지 요청");
+		return "member/view";
+	}
+	
+	@PostMapping("/member/update")
+	public ModelAndView update(ModelAndView model,
+				@ModelAttribute Member member, // @ModelAttribute 생략 가능! 
+				@SessionAttribute(name ="loginMember", required = false) Member loginMember
+			) {
+		if(loginMember == null || loginMember.getUId().equals(member.getUId()) == false) {
+			model.addObject("msg", "잘못된 접근입니다.");
+			model.addObject("location", "/");
+			model.setViewName("common/msg");
+			return model;
+		}
+		
+		member.setUNo(loginMember.getUNo());
+		int result = service.save(member);
+		
+		if(result > 0) {
+			model.addObject("loginMember", service.findById(member.getUId())); // 세션에 넣는 코드
+			model.addObject("msg","회원정보를 수정하였습니다.");
+			model.addObject("location", "/member/view");
+		}else{
+			model.addObject("msg", "회원정보를 수정에 실패하였습니다!");
+			model.addObject("location", "/member/view");
+		}
+		
+		model.setViewName("common/msg");
+		return model;
+	}
+	
+	@GetMapping("/member/delete")
+	public ModelAndView delete(ModelAndView model, 
+			@SessionAttribute(name ="loginMember", required = false) Member loginMember) {
+		int result = service.delete(loginMember.getUNo());
+		
+		if(result > 0) {
+			model.addObject("msg", "정상적으로 탈퇴되었습니다.");
+			model.addObject("location", "/logout");
+		} else {
+			model.addObject("msg", "회원 탈퇴를 실패하였습니다.");
+			model.addObject("location", "/member/view");
+		}	
+		
+		model.setViewName("common/msg");
+		return model;
+	}
+	
+	@GetMapping("/member/updatePwd")
+	public String updatePwd() {
+		return "/member/updatePwd";
+	}
+	
+	@PostMapping("/member/updatePwd")
+	public ModelAndView updatePwd(ModelAndView model, 
+			@SessionAttribute(name ="loginMember", required = false) Member loginMember, 
+			String uPwd) {
+		
+		System.out.println(loginMember);
+		int result = service.updatePwd(loginMember, uPwd);
+		
+		if(result > 0) {
+			model.addObject("msg", "정상적으로 변경되었습니다.");
+		} else {
+			model.addObject("msg", "정상적으로 변경되지 않았습니다!");
+		}	
+		model.addObject("script", "self.close()");
+		model.setViewName("common/msg");
+		return model;
+	}
 }

@@ -41,36 +41,36 @@
 				<tr>
 	                <th>아이디</th>
 					<td>
-						<input type="text" name="id" id="newId" 
-							value="${ loginMember.id }" readonly required >
+						<input type="text" name="uId" id="newId" 
+							value="${ loginMember.UId }" readonly required >
 					</td> 	
 	            </tr>
 	            <tr>
 	                <th>닉네임</th>
 					<td>
-						<input type="text" name="nickname" id="nickname" 
-							value="${ loginMember.nickname }" required>				
+						<input type="text" name="uNickName" id="uNickName" 
+							value="${ loginMember.UNickName }" required>				
 					</td> 	
 	            </tr>
 	            <tr>
 	                <th>이름</th>
 					<td>
-						<input type="text" name="name" id="userName" 
-							value="${ loginMember.name }" required>				
+						<input type="text" name="uName" id="uName" 
+							value="${ loginMember.UName }" required>				
 					</td> 	
 	            </tr>
       	        <tr>
 	                <th>휴대폰</th>
 	                <td>
-	                    <input type="tel" placeholder="(-없이)01012345678" name="phone" id="phone" 
-	                    	maxlength="11" value="${ loginMember.phone }">
+	                    <input type="tel" placeholder="(-없이)01012345678" name="uPhone" id="phone" 
+	                    	maxlength="11" value="${ loginMember.UPhone }">
 	                </td>
 	            </tr>
 	            <tr>
 	                <th>주소</th>
 						<td>
-							<input type="text" name="address" id="address" 
-								value="${ loginMember.address }">
+							<input type="text" name="uAddress" id="address" 
+								value="${ loginMember.UAddress }">
 						</td> 	
 	            </tr>
 	        </table>

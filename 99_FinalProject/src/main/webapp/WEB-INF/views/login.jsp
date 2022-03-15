@@ -32,7 +32,7 @@
 					data-hs-validation-validate-class>
 					<input type="password"
 						class="form-control form-control-lg"
-						name="uPw" id="uPw" value="1234" placeholder="비밀번호" required>
+						name="uPwd" id="uPwd" value="1234" placeholder="비밀번호" required>
 				</div>
 				<span class="invalid-feedback">비밀번호를 입력해주세요.</span>
 				<!-- End Form -->

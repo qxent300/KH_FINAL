@@ -32,8 +32,8 @@
                                 <input class="form-control" name="uId" id="uId" placeholder="아이디" type="text" autocomplete="off" required data-msg="아이디를 입력해주세요">
                             </div>
                             <div class="mb-4">
-                                <label class="form-label" for="uPw"> 비밀번호</label>
-                                <input class="form-control" name="uPw" id="uPw" placeholder="비밀번호" type="password" required data-msg="Please enter your password">
+                                <label class="form-label" for="uPwd"> 비밀번호</label>
+                                <input class="form-control" name="uPwd" id="uPwd" placeholder="비밀번호" type="password" required data-msg="Please enter your password">
                             </div>
                             <div class="mb-4">
                                 <label class="form-label" for="pass2"> 비밀번호 확인</label>
@@ -117,7 +117,7 @@
 
         // 비밀번호 일치/불일치
         function test() {
-            var p1 = document.getElementById('uPw').value;
+            var p1 = document.getElementById('uPwd').value;
             var p2 = document.getElementById('pass2').value;
             
             if (p1 != p2) {
@@ -133,7 +133,7 @@
             $("#alert-success").hide();
             $("#alert-danger").hide();
             $("input").keyup(function() {
-                var pwd1 = $("#uPw").val();
+                var pwd1 = $("#uPwd").val();
                 var pwd2 = $("#pass2").val();
                 if (pwd1 != "" || pwd2 != "") {
                     if (pwd1 == pwd2) {

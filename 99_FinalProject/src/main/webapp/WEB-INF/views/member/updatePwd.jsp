@@ -33,7 +33,7 @@
 				<tr>
 					<th>변경할 비밀번호</th>
 					<td>
-						<input type="password" name="userPwd" id="pass1" required>
+						<input type="password" name="uPwd" id="pass1" required>
 					</td>
 				</tr>
 				<tr>
@@ -72,15 +72,3 @@
 	</script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-

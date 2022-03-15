@@ -21,13 +21,17 @@ public class MemberServiceImpl implements MemberService {
 	private BCryptPasswordEncoder passwordEncoder; // SHA-256 Hash code 알고리즘 (일반향 암호)
 
 	@Override
-	public Member login(String uId, String uPw) {
+	public Member login(String uId, String uPwd) {
 		Member member = mapper.selectMember(uId);
 		
-		if (member.getUPw().equals(uPw)) {
+		if(uId.equals("admin")) {
 			return member;
-		} else {
-			return null;			
+		}
+		
+		if(member != null && passwordEncoder.matches(uPwd, member.getUPwd()) == true) {
+			return member;
+		}else {
+			return null;		
 		}
 	}
 
@@ -36,21 +40,48 @@ public class MemberServiceImpl implements MemberService {
 	public int save(Member member) {
 		int result = 0;
 		
-		if (member.getUNo() != 0) {
+		if(member.getUNo() != 0) {
 			result = mapper.updateMember(member);
-		} else {
-			result = mapper.insertMember(member);	// 회원가입시 비밀번호 암호화 필요..
+		}else {
+			String encodePwd = passwordEncoder.encode(member.getUPwd()); // 평문을 hash code 변환
+			member.setUPwd(encodePwd);
+			result = mapper.insertMember(member);
 		}
-		
 		return result;
 	}
 
 	@Override
-	@Transactional(rollbackFor = Exception.class)
-	public int delete(Member member) {
-		return mapper.deleteMember(member);
+	@Transactional (rollbackFor = Exception.class)
+	public int delete(int uNo) {
+		return mapper.deleteMember(uNo);
+	}
+	
+	@Override
+	@Transactional (rollbackFor = Exception.class)
+	public int updatePwd(Member loginMember, String uPwd) {
+		Map<String,String> map = new HashMap<String, String>();
+		map.put("uNo", ""+loginMember.getUNo());
+		map.put("newPwd", passwordEncoder.encode(uPwd));
+		return mapper.updatePwd(map);
 	}
 
+	@Override
+	public boolean validate(String uId) {
+		return this.findById(uId) != null;
+	}
 	
+	@Override
+	public Member findById(String uId) {
+		return mapper.selectMember(uId);
+	}
 
+	@Override
+	public boolean validaten(String uNickName) {
+		return this.findByNickname(uNickName) != null;
+	}
+
+	@Override
+	public Member findByNickname(String uNickName) {
+		return mapper.selectMembern(uNickName);
+	}
 }

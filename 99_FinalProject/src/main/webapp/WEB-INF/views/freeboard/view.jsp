@@ -50,7 +50,7 @@
 					<div class="text-end mt-2 mb-2">
 						<c:if
 							test="${ !empty loginMember && (loginMember.nickname == board.writerId 
-									|| loginMember.role == 'ROLE_ADMIN') }">
+									|| loginMember.UGrade == '99') }">
 							<button type="button" class="btn btn-sm btn-primary"
 								onclick="location.href='${path}/freeboard/update?no=${board.no}'">수정</button>
 							<button type="button" class="btn btn-sm btn-primary"
@@ -93,7 +93,7 @@
 									<span class="text-dark">${reply.writerId}<sub class="text-dark float-end"><fmt:formatDate pattern="yy-MM-dd hh:mm:ss" value="${reply.createDate}" /></sub></span>
 									<span class="text-dark">${fn:replace(reply.content, BR, "<br/>")}</span>
 									<c:if
-											test="${!empty loginMember && (loginMember.nickname == reply.writerId || loginMember.role == 'ROLE_ADMIN') }">
+											test="${!empty loginMember && (loginMember.UNickName == reply.writerId || loginMember.UGrade == '99') }">
 											<div class="text-end pb-2">
 											<button class="btn btn-sm btn-primary"
 												onclick="deleteReply('${reply.no}');">삭제</button></div>
@@ -109,7 +109,7 @@
 							<form action="${path}/freeboard/reply" method="post"
 								onsubmit="return check()">
 								<input type="hidden" name="boardNo" value="${board.no}" /> <input
-									type="hidden" name="writerId" value="${loginMember.id }" />
+									type="hidden" name="writerId" value="${loginMember.UId }" />
 								<textarea name="content" class="rounded-2 card-bordered"
 									id="replyContent" cols="95" rows="3" style="width: 100%;"
 									placeholder="댓글 내용을 입력해주세요."></textarea>

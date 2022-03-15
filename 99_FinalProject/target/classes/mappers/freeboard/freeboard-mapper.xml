@@ -8,9 +8,7 @@
 	<resultMap type="FreeBoard" id="freeBoardResultMap">
 		<id property="fbNo" column="FB_NO" />
 		<result property="uNo" column="U_NO" />
-		
 		<result property="uNickName" column="U_NICKNAME" />
-		
 		<result property="fbCategory" column="FB_CATEGORY" />
 		<result property="fbTitle" column="FB_TITLE" />
 		<result property="fbContent" column="FB_CONTENT" />
@@ -27,9 +25,7 @@
 		<id property="rNo" column="R_NO" />
 		<result property="fbNo" column="FB_NO" />
 		<result property="uNo" column="U_NO" />
-		
 		<result property="uNickName" column="U_NICKNAME" />
-		
 		<result property="rContent" column="R_CONTENT" />
 		<result property="rStatus" column="R_STATUS" />
 		<result property="createDate" column="CREATE_DATE" />
