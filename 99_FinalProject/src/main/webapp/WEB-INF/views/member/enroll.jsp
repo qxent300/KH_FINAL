@@ -150,6 +150,11 @@
 
         function idCheck(){
         	var id = document.getElementById('checkId').value;
+        	if(id == ""){
+        		alert("아이디를 입력해주세요")
+        		return;
+        	}
+        	
 
             $.ajax({
                 type: 'get',
@@ -172,6 +177,11 @@
         function nicknameCheck(){
         	var nickname = document.getElementById('checkNickName').value;
 
+        	if(nickname == ""){
+        		alert("닉네임을 입력해주세요")
+        		return;
+        	}
+        	
             $.ajax({
                 type: 'get',
                 data: {
