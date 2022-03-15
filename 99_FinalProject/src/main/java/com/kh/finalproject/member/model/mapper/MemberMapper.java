@@ -13,7 +13,7 @@ public interface MemberMapper {
 	
 	Member selectMember(@Param("uId") String uId);
 	
-	Member selectMembern(String uNickName);
+	Member selectMembern(@Param("uNickName") String uNickName);
 	
 	int insertMember(Member member);
 	
@@ -23,5 +23,5 @@ public interface MemberMapper {
 
 	int updatePwd(Map<String, String> map);
 
-	
+	String FindUserPwd(@Param("uId") String uId,@Param("uName") String uName);
 }

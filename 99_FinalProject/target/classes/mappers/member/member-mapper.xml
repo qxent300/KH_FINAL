@@ -41,4 +41,9 @@
 		UPDATE MEMBER SET U_STATUS = 'N' WHERE U_NO = #{uNo}
 	</update>
 	
+		<select id="selectMembern" parameterType="string" resultMap="memberResultMap">
+		SELECT * FROM MEMBER WHERE U_STATUS = 'Y' AND U_NICKNAME = #{uNickName}
+	</select>
+
+	
  </mapper>

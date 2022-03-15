@@ -31,12 +31,14 @@ public class MemberController {
 	private MemberService service;
 	
 	@GetMapping("/login")
-	public void loginPage() {
+	public String loginPage() {
+		log.info("로그인페이지입니다");
+		return "member/login";
 	}
 	
 	@RequestMapping(value = "/login", method = {RequestMethod.POST})
 	public ModelAndView login(ModelAndView model, String uId, String uPwd) {
-//		log.info("{},{}",userId,userPwd);
+		log.info("{},{}",uId,uPwd);
 		
 		Member loginMember = service.login(uId, uPwd);
 		
@@ -61,7 +63,7 @@ public class MemberController {
 		return "redirect:/";
 	}
 	
-	@GetMapping("/member/enroll")
+	@GetMapping("/enroll")
 	public String enrollPage() {
 		log.info("가입 페이지 요청");
 		return "member/enroll";

@@ -29,7 +29,7 @@
                                 <a class="form-label-link" id="idCheck" href="#" onclick="idCheck()">중복 확인</a>
                             </div>
                             <div class="mb-4">
-                                <input class="form-control" name="uId" id="uId" placeholder="아이디" type="text" autocomplete="off" required data-msg="아이디를 입력해주세요">
+                                <input class="form-control" name="uId" id="checkId" placeholder="아이디" type="text" autocomplete="off" required data-msg="아이디를 입력해주세요">
                             </div>
                             <div class="mb-4">
                                 <label class="form-label" for="uPwd"> 비밀번호</label>
@@ -46,7 +46,7 @@
                                 <a class="form-label-link" id="nickname" href="#" onclick="nicknameCheck()">중복 확인</a>
                             </div>
                             <div class="mb-4">
-                                <input class="form-control" name="uNickName" id="uNickName" placeholder="닉네임" type="text" autocomplete="off" required data-msg="Please enter your email">
+                                <input class="form-control" name="uNickName" id="checkNickName" placeholder="닉네임" type="text" autocomplete="off" required data-msg="Please enter your email">
                             </div>
                         </div>
                     </div>
@@ -149,11 +149,13 @@
         })
 
         function idCheck(){
-        	var id = document.getElementById('uId').value;
+        	var id = document.getElementById('checkId').value;
 
             $.ajax({
                 type: 'get',
-                data: id,
+                data: {
+                	"uId":id
+                },
                 url: "${path}/member/idCheck",
                 dataType: "json",
                 contentType: "application/json; charset=utf-8",
@@ -168,16 +170,18 @@
         }
 
         function nicknameCheck(){
-        	var nickname = document.getElementById('uNickName').value;
+        	var nickname = document.getElementById('checkNickName').value;
 
             $.ajax({
                 type: 'get',
-                data: nickname,
+                data: {
+                	"uNickName":nickname
+                },
                 url: "${path}/member/nicknameCheck",
                 dataType: "json",
                 contentType: "application/json; charset=utf-8",
                 success: function(data) {
-                    if (data.confirm == true) {
+                    if (data.validate == true) {
                         alert("사용중인 아이디입니다.")
                     } else {
                         alert("사용가능합니다.!")
