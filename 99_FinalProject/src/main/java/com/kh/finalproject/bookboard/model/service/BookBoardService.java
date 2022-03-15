@@ -25,7 +25,8 @@ public interface BookBoardService {
 	
 	int deleteBookBoard(int bbNo);	// 독서 일기 삭제
 
-
-
+	int updateRecommendPlus(int bbNo);	// 추천하기(추천수 + 1)
+	
+	int updateRecommendMinus(int bbNo);	// 추천 취소하기(추천수 - 1)
 	
 }

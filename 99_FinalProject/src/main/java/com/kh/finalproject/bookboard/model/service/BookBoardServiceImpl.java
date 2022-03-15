@@ -76,4 +76,16 @@ public class BookBoardServiceImpl implements BookBoardService {
 		return mapper.deleteBookBoard(bbNo);
 	}
 
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public int updateRecommendPlus(int bbNo) {
+		return mapper.updateRecommendPlus(bbNo);
+	}
+
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public int updateRecommendMinus(int bbNo) {
+		return mapper.updateRecommendMinus(bbNo);		
+	}
+
 }

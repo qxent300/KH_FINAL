@@ -124,4 +124,12 @@
 		SELECT COUNT(*) FROM LIKE WHERE BB_NO = #{bbNo} AND U_NO = #{uNo}
 	</select>-->
 	
+	<update id="updateRecommendPlus" parameterType="int">
+		UPDATE BOOKBOARD SET BB_RECOMMENDCOUNT = BB_RECOMMENDCOUNT + 1 WHERE BB_NO = #{bbNo}
+	</update>
+	
+	<update id="updateRecommendMinus" parameterType="int">
+		UPDATE BOOKBOARD SET BB_RECOMMENDCOUNT = BB_RECOMMENDCOUNT - 1 WHERE BB_NO = #{bbNo}
+	</update>
+	
 </mapper>
