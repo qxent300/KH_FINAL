@@ -183,4 +183,22 @@ public class MemberController {
 		model.setViewName("common/msg");
 		return model;
 	}
+	
+	@RequestMapping(value = "/findUserPwd",method= {RequestMethod.POST})
+	public ModelAndView findUserPwd(ModelAndView model,String uId, String uName) {
+		log.info("{}, {}", uId, uName);
+		Member member = new Member();
+		member.setUId(uId);
+		member.setUName(uName);
+		String result = service.FindUserPwd(uId, uName);
+		if(result != null) {
+			model.addObject("msg",uId + "님의 비밀번호는 : "+ result + "입니다");
+			model.addObject("location", "/");
+		}else {
+			model.addObject("msg","아이디와 이름이 일치하지 않습니다.");
+			model.addObject("location", "/");
+		}
+		model.setViewName("common/msg");
+		return model;
+	}
 }

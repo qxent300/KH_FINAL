@@ -44,6 +44,10 @@
 		<select id="selectMembern" parameterType="string" resultMap="memberResultMap">
 		SELECT * FROM MEMBER WHERE U_STATUS = 'Y' AND U_NICKNAME = #{uNickName}
 	</select>
+	
+		<select id="findUserPwd" parameterType="string" resultType="string">
+		SELECT U_PWD FROM MEMBER WHERE U_ID = #{uId} AND U_NAME = #{uName}
+	</select>
 
 	
  </mapper>

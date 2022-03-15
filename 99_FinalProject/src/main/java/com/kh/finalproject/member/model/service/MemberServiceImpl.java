@@ -84,4 +84,9 @@ public class MemberServiceImpl implements MemberService {
 	public Member findByNickname(String uNickName) {
 		return mapper.selectMembern(uNickName);
 	}
+
+	@Override
+	public String FindUserPwd(String uId, String uName) {
+		return mapper.findUserPwd(uId, uName);
+	}
 }

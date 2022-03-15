@@ -23,5 +23,5 @@ public interface MemberMapper {
 
 	int updatePwd(Map<String, String> map);
 
-	String FindUserPwd(@Param("uId") String uId,@Param("uName") String uName);
+	String findUserPwd(@Param("uId") String uId,@Param("uName") String uName);
 }

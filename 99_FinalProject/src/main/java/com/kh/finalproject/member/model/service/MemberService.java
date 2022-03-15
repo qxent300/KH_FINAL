@@ -19,5 +19,7 @@ public interface MemberService {
 	int updatePwd(Member loginMember, String uPwd);
 
 	Member findByNickname(String uNickName);
+
+	String FindUserPwd(String uId, String uName);
 	
 }
