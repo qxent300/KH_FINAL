@@ -43,8 +43,10 @@ public class MemberServiceImpl implements MemberService {
 		if(member.getUNo() != 0) {
 			result = mapper.updateMember(member);
 		}else {
-			String encodePwd = passwordEncoder.encode(member.getUPwd()); // 평문을 hash code 변환
-			member.setUPwd(encodePwd);
+			if(member.getUPwd() != null) {
+				String encodePwd = passwordEncoder.encode(member.getUPwd()); // 평문을 hash code 변환
+				member.setUPwd(encodePwd);
+			}
 			result = mapper.insertMember(member);
 		}
 		return result;

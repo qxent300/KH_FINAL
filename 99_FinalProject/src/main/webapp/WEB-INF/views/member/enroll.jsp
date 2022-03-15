@@ -62,7 +62,7 @@
                             </div>
                             <div class="mb-4">
                                 <label class="form-label" for="uAddress"> 주소</label>
-                                <input class="form-control" name="uAddress" id="uAddress" placeholder="주소" type="text" required data-msg="Please enter your password">
+                                <input class="form-control" name="uAddress" id="uAddress" placeholder="주소" type="text" >
                             </div>
                         </div>
                     </div>

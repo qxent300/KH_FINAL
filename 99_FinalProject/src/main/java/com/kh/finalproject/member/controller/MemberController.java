@@ -3,10 +3,13 @@ package com.kh.finalproject.member.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.finalproject.member.model.service.MemberService;
 import com.kh.finalproject.member.model.vo.Member;
+import com.kh.finalproject.naver.member.NaverLoginBO;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -30,12 +34,25 @@ public class MemberController {
 	@Autowired
 	private MemberService service;
 	
-	@GetMapping("/login")
-	public String loginPage() {
-		log.info("로그인페이지입니다");
-		return "member/login";
+	/* NaverLoginBO */
+	private NaverLoginBO naverLoginBO;
+	private String apiResult = null;
+	@Autowired
+	private void setNaverLoginBO(NaverLoginBO naverLoginBO) {
+	this.naverLoginBO = naverLoginBO;
 	}
-	
+	//로그인 첫 화면 요청 메소드
+	@RequestMapping(value = "/login", method = { RequestMethod.GET})
+	public String login(Model model, HttpSession session) {
+	/* 네이버아이디로 인증 URL을 생성하기 위하여 naverLoginBO클래스의 getAuthorizationUrl메소드 호출 */
+	String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
+	//https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=sE***************&
+	//redirect_uri=http%3A%2F%2F211.63.89.90%3A8090%2Flogin_project%2Fcallback&state=e68c269c-5ba9-4c31-85da-54c16c658125
+	System.out.println("네이버:" + naverAuthUrl);
+	//네이버
+	model.addAttribute("url", naverAuthUrl);
+	return "member/login";
+	}
 	@RequestMapping(value = "/login", method = {RequestMethod.POST})
 	public ModelAndView login(ModelAndView model, String uId, String uPwd) {
 		log.info("{},{}",uId,uPwd);

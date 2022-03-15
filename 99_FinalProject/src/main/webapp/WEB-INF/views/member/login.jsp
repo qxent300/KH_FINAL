@@ -60,7 +60,7 @@
                     </form>
                         <div class="d-flex ">
                             <div class="w-100 float-left mb-2">
-  	                          <%
+  	                   <%--        <%
    								 String clientId = "SS0SUd6aSKQ6wcwaqtzm";//애플리케이션 클라이언트 아이디값";
     							String redirectURI = URLEncoder.encode("http://localhost/finalproject/callback", "UTF-8");
 								SecureRandom random = new SecureRandom();
@@ -70,15 +70,14 @@
     							apiURL += "&redirect_uri=" + redirectURI;
     							apiURL += "&state=" + state;
     							session.setAttribute("state", state);
- 							%>
-                                <a href="<%=apiURL%>" class="w-100"><img src="${path}/resources/img/btnG_완성형.png" height="50px" class="w-100" alt="">
+ 							%> --%>
+                                <a href="${url}" class="w-100"><img src="${path}/resources/img/btnG_완성형.png" height="50px" class="w-100" alt="">
                                 </a>
                             </div>
                         </div>
-                        <a href=""><img src="${path}/resources/img/kakao_login_medium_wide.png" height="50px" class="w-100" alt="">
-                        </a>
+                       <%--  <a href=""><img src="${path}/resources/img/kakao_login_medium_wide.png" height="50px" class="w-100" alt="">
+                        </a> --%>
                         <hr class="my-4 ">
-                        <!-- <p class="text-center "><small class="text-muted text-center "> <a href=" ">회원가입              </a></small></p> -->
                     <form class=" " action="${path}/enroll">
                         <div class="d-grid ">
                             <button class="btn btn-lg btn-primary ">회원가입

@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+ <title>네이버로그인</title>
 </head>
 <body>
 <%
@@ -17,7 +17,7 @@
     String clientSecret = "MYkkj5EKtm";//애플리케이션 클라이언트 시크릿값";
     String code = request.getParameter("code");
     String state = request.getParameter("state");
-    String redirectURI = URLEncoder.encode("http://localhost/finalproject/callback", "UTF-8");
+    String redirectURI = URLEncoder.encode("http://localhost/finalproject/naverLogin", "UTF-8");
     String apiURL;
     apiURL = "https://nid.naver.com/oauth2.0/token?grant_type=authorization_code&";
     apiURL += "client_id=" + clientId;
