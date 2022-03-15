@@ -9,7 +9,9 @@ import com.kh.finalproject.common.util.PageInfo;
 
 public interface BookBoardService {
 	
-	int getBookBoardCount();	// 페이징 처리를 위한 전체 독서 일기 게시글 수 확인
+	int saveBookBoard(BookBoard bookBoard);
+	
+	int getBookBoardCount(Map<String, String> param);	// 페이징 처리를 위한 전체 독서 일기 게시글 수 확인
 	
 	List<BookBoard> getBookBoardListByRecommendCount();	// 가장 추천수가 높은 게시글 4개 출력
 	
@@ -22,5 +24,8 @@ public interface BookBoardService {
 	int updateBookBoard(BookBoard bb);	// 독서 일기 수정
 	
 	int deleteBookBoard(int bbNo);	// 독서 일기 삭제
+
+
+
 	
 }

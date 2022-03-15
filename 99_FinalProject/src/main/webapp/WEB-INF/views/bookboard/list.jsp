@@ -214,25 +214,38 @@
         </div>
         <!-- Pagination -->
         <nav aria-label="Page navigation">
-            <ul class="pagination justify-content-center">
-                <li class="page-item disabled">
-                    <a class="page-link" href="${path}/bookboard/view" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                        <span class="sr-only">Previous</span>
-                    </a>
-                </li>
-                <li class="page-item"><a class="page-link" href="${path}/bookboard/view">1</a></li>
-                <li class="page-item"><a class="page-link" href="${path}/bookboard/view">2</a></li>
-                <li class="page-item"><a class="page-link" href="${path}/bookboard/view">3</a></li>
-                <li class="page-item"><a class="page-link" href="${path}/bookboard/view">4</a></li>
-                <li class="page-item"><a class="page-link" href="${path}/bookboard/view">5</a></li>
-                <li class="page-item">
-                    <a class="page-link" href="${path}/bookboard/view" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                        <span class="sr-only">Next</span>
-                    </a>
-                </li>
-            </ul>
+            		<div class="pagination justify-content-center">
+			<!-- 맨 처음으로 -->
+			<button class="page-link page-item rounded-start"
+				onclick="location.href='${ path }/bookboard/list?page=1'">&lt;&lt;</button>
+
+			<!-- 이전 페이지로 -->
+			<button class="page-link page-item"
+				onclick="location.href='${path}/bookboard/list?page=${ pageInfo.prvePage }'">&lt;</button>
+
+			<!--  10개 페이지 목록 -->
+			<c:forEach begin="${ pageInfo.startPage }" end="${ pageInfo.endPage }" step="1" varStatus="status">
+				<c:if test="${ pageInfo.currentPage == status.current}">
+					<button class="page-link page-item" disabled>
+						<c:out value="${ status.current }" />
+					</button>
+				</c:if>
+				<c:if test="${ pageInfo.currentPage != status.current}">
+					<button class="page-link page-item"
+						onclick="location.href='${ path }/bookboard/list?page=${ status.current }'">
+						<c:out value="${ status.current }" />
+					</button>
+				</c:if>
+			</c:forEach>
+
+			<!-- 다음 페이지로 -->
+			<button class="page-link page-item"
+				onclick="location.href='${path}/bookboard/list?page=${ pageInfo.nextPage }'">&gt;</button>
+
+			<!-- 맨 끝으로 -->
+			<button class="page-link page-item rounded-end"
+				onclick="location.href='${path}/bookboard/list?page=${ pageInfo.maxPage }'">&gt;&gt;</button>
+		</div>
         </nav>
     </section>
 

@@ -3,7 +3,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 					"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 					
-<mapper namespace="com.kh.finalproject.book.model.mapper.BookBoardMapper">
+<mapper namespace="com.kh.finalproject.bookboard.model.mapper.BookBoardMapper">
 
 	<resultMap type="BookBoard" id="bookBoardResultMap">
 		<id property="bbNo" column="BB_NO" />
@@ -26,6 +26,14 @@
 		<result property="createDate" column="CREATE_DATE" />
 		<result property="modifyDate" column="MODIFY_DATE" />
 	</resultMap>
+		
+	<!-- <resultMap type="Like" id="likeResultMap">
+		<id property="Lno" column="l_NO" />
+		<result property="bbNo" column="BB_NO" />
+		<result property="uNo" column="U_NO" />
+		<result property="lCheck" column="L_CHECK" />
+		<result property="lDate" column="L_DATE" />
+	</resultMap>-->
 	
 	<select id="selectBookBoardCount" resultType="int">
 		SELECT COUNT(*) FROM BOOKBOARD WHERE BB_STATUS = 'Y'
@@ -73,5 +81,47 @@
 	<update id="deleteBookBoard" parameterType="int">
 		UPDATE BOOKBOARD SET BB_STATUS = 'N' WHERE BB_NO = #{bbNo}
 	</update>
+	
+	<!-- 게시글 추천수 -->
+	<!--<update id="updateLike" parameterType="int">
+		UPDATE BB_BOARD SET
+		BB_RECOMMENDCOUNT = BB_RECOMMENDCOUNT+1
+		WHERE BB_NO = #{bbNo}
+	</update>-->
+	
+	<!-- 게시글 추천수취소 -->
+	<!-- <update id="updateLikeCancel" parameterType="int">
+		UPDATE BB_NO SET
+		BB_RECOMMENDCOUNT = BB_RECOMMENDCOUNT-1
+		WHERE BB_NO = #{bbNo}
+	</update>-->
+	
+	<!-- 게시글 추천 시 Like 테이블에 insert -->
+	<!--<insert id="insertLike">
+	INSERT INTO LIKE(L_NO , BB_NO , U_NO)
+	values((SELECT NVL(MAX(l_no), 0) + 1 FROM LIKE) ,#{bbNo} ,#{uNo})
+	</insert>-->
+
+	<!-- 게시글 추천취소 시 delete -->
+	<!--<delete id="deleteLike">
+		DELETE FROM LIKE WHERE BB_BO = #{bbNo} and U_NO = #{uNo}
+	</delete>-->
+
+	<!-- 게시글 추천 시 Check를 1로 만들어서 중복방지 -->
+	<!--<update id="updateLikeCheck">
+		UPDATE LIKE SET LIKECHECK = 1
+		WHERE BB_NO = #{bbNo} and U_NO = #{uNo}
+	</update>-->
+
+	<!-- 게시글 추천취소 시 다시 0 -->
+	<!--<update id="updateLikeCheckCancel">
+		UPDATE LIKE SET LIKECHECK = 0 
+		WHERE BB_NO = #{bbNo} AND U_NO = #{uNo}
+	</update>-->
+
+	<!-- 게시글 추천 중복방지 select문 -->
+	<!--<select id="likeCheck" resultType="int">
+		SELECT COUNT(*) FROM LIKE WHERE BB_NO = #{bbNo} AND U_NO = #{uNo}
+	</select>-->
 	
 </mapper>

@@ -35,4 +35,5 @@ public class BookBoard {
 	private String bbStatus;
 	private Date createDate;
 	private Date modifyDate;
+
 }

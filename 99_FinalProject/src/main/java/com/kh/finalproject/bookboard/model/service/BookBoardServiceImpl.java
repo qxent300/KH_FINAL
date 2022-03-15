@@ -20,8 +20,21 @@ public class BookBoardServiceImpl implements BookBoardService {
 	private BookBoardMapper mapper;
 
 	@Override
-	public int getBookBoardCount() {
+	public int getBookBoardCount(Map<String, String> param) {
 		return mapper.selectBookBoardCount();
+	}
+	
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public int saveBookBoard(BookBoard bookBoard) {
+		int result = 0;
+
+		if (bookBoard.getBbNo() == 0) {
+			result = mapper.insertBookBoard(bookBoard);
+		} else {
+			result = mapper.updateBookBoard(bookBoard);
+		}
+		return result;
 	}
 
 	@Override
