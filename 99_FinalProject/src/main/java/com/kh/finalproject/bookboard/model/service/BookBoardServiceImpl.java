@@ -20,7 +20,7 @@ public class BookBoardServiceImpl implements BookBoardService {
 	private BookBoardMapper mapper;
 
 	@Override
-	public int getBookBoardCount(Map<String, String> param) {
+	public int getBookBoardCount() {
 		return mapper.selectBookBoardCount();
 	}
 	
@@ -43,7 +43,7 @@ public class BookBoardServiceImpl implements BookBoardService {
 	}
 
 	@Override
-	public List<BookBoard> getAllBookBoardList(PageInfo pageInfo, List<Integer> bbNoList) {
+	public List<BookBoard> getAllBookBoardList(PageInfo pageInfo, List<BookBoard> bbNoList) {
 		Map<String, List<Integer>> map = new HashMap<String, List<Integer>>();
 		map.put("filterList", bbNoList);
 		
