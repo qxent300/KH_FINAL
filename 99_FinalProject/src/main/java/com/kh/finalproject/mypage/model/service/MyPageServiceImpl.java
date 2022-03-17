@@ -1,97 +1,116 @@
 package com.kh.finalproject.mypage.model.service;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Date;
+import java.util.List;
 
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.kh.finalproject.member.model.mapper.MemberMapper;
-import com.kh.finalproject.member.model.service.MemberService;
-import com.kh.finalproject.member.model.vo.Member;
+import com.kh.finalproject.common.util.PageInfo;
+import com.kh.finalproject.mypage.model.mapper.MyPageMapper;
+import com.kh.finalproject.mypage.model.vo.Cart;
+import com.kh.finalproject.mypage.model.vo.Library;
+import com.kh.finalproject.mypage.model.vo.Rent;
+
 
 public class MyPageServiceImpl implements MyPageService {
 
 	@Autowired
-	private MemberMapper mapper;
+	private MyPageMapper mapper;
 
-	@Autowired
-	private BCryptPasswordEncoder passwordEncoder; // SHA-256 Hash code 알고리즘 (일반향 암호)
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public int addCart(int bNo, int uNo) {
+		Cart cart = new Cart();
+		cart.setBNo(bNo);
+		cart.setUNo(uNo);
+		
+		return mapper.insertCart(cart);
+	}
 
-//	@Override
-//	public Member login(String id, String pwd) {
-//		Member member = this.findById(id);
-//
-//		// passwordEncoder 활용법
-//
-//		System.out.println(member.getPassword()); // Hash code로 암호화된 패스워드가 출력
-//		System.out.println(passwordEncoder.encode(pwd)); // encode를 통해 평문에서 암호문으로 바꾸는 코드
-//		System.out.println(passwordEncoder.matches(pwd, member.getPassword()));
-//		// 파라메터로 받아온 pwd를 암호 화하고 기존 암호화 비교하는 코드
-//
-////		return member != null && 
-////				passwordEncoder.matches(pwd, member.getPassword()) ? member : null;
-////		
-//
-//		if (id.equals("admin")) {
-//			return member;
-//		}
-//
-//		if (member != null && passwordEncoder.matches(pwd, member.getPassword()) == true) {
-//			return member;
-//		} else {
-//			return null;
-//		}
-//	}
-//
-//	@Override
-//	@Transactional(rollbackFor = Exception.class)
-//	public int save(Member member) {
-//		int result = 0;
-//
-//		if (member.getNo() != 0) {
-//			result = mapper.updateMember(member);
-//		} else {
-//			String encodePwd = passwordEncoder.encode(member.getPassword()); // 평문을 hash code 변환
-//			member.setPassword(encodePwd);
-//			result = mapper.insertMember(member);
-//		}
-//		return result;
-//	}
-//
-//	@Override
-//	public boolean validate(String userId) {
-//		return this.findById(userId) != null;
-//	}
-//
-//	@Override
-//	public Member findById(String id) {
-//		return mapper.selectMember(id);
-//	}
-//
-//	@Override
-//	@Transactional(rollbackFor = Exception.class)
-//	public int delete(int no) {
-//		return mapper.deleteMember(no);
-//	}
-//
-//	@Override
-//	@Transactional(rollbackFor = Exception.class)
-//	public int updatePwd(Member loginMember, String userPwd) {
-//		Map<String, String> map = new HashMap<String, String>();
-//		map.put("no", "" + loginMember.getNo());
-//		map.put("newPwd", passwordEncoder.encode(userPwd));
-//		return mapper.updatePwd(map);
-//	}
-//
-//	@Override
-//	public Member findByNickname(String nickname) {
-//		return mapper.selectMembern(nickname);
-//	}
-//
-//	@Override
-//	public boolean validaten(String nickname) {
-//		return this.findByNickname(nickname) != null;
-//	}
+	@Override
+	public List<Cart> getAllCartList(int uNo) {
+		return mapper.selectAllCartList(uNo);
+	}
+
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public int deleteCartByNo(int cNo) {
+		return mapper.deleteCartByNo(cNo);
+	}
+
+	@Override
+	public List<Library> getLibraryList(String address) {
+		return mapper.selectLibraryList(address);
+	}
+
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public int insertRent(Cart cart) {
+		return mapper.insertRent(cart);
+	}
+
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public int deleteAllCart(int uNo) {
+		return mapper.deleteAllCart(uNo);
+	}
+
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public int getOverdueCount(int uNo) {
+		List<Rent> rentList = mapper.selectAllRentList(uNo);
+		
+		int overdueCount = 0;
+		
+		for (Rent rent : rentList) {
+			long diffHour = (new Date().getTime() - rent.getStartDate().getTime()) / (60 * 60 * 1000);	// 현재 시간 - 대여 시작 시간
+			
+			if (diffHour >= 24) {	// 대여한지 하루가 지난 경우 배송중 -> 대여중으로 상태 변경
+				mapper.updateRentStatusToRent(rent);
+			}
+			
+			if (new Date().getTime() - rent.getEndDate().getTime() > 0) {	// 반납 날짜가 오늘 기준으로 지난 경우 대여중 -> 미반납으로 상태 변경
+				mapper.updateRentStatusToOverdue(rent);
+			}
+			
+			if (rent.getRStatus().equals("미반납")) {
+				overdueCount++;
+			}
+		}
+		
+		return overdueCount;
+	}
+
+	@Override
+	public int getRentCount(int uNo) {
+		return mapper.selectRentCount(uNo);
+	}
+
+	@Override
+	public List<Rent> getAllRentList(PageInfo pageInfo, int uNo) {
+		int offset = (pageInfo.getCurrentPage() - 1) * pageInfo.getListLimit();
+		RowBounds rowBounds = new RowBounds(offset, pageInfo.getListLimit());
+		
+		List<Rent> rentList = mapper.selectAllRentList(uNo, rowBounds);
+		
+		List<Rent> rentScoreList = mapper.selectRentScoreList(uNo);
+		
+		for (Rent rent : rentList) {
+			for (Rent rent2 : rentScoreList) {
+				if (rent2.getRNo() == rent.getRNo()) {
+					rent.setSNo(rent2.getSNo());
+				}
+			}
+		}
+		
+		return rentList;
+	}
+
+	@Override
+	public int updateRentStatusToReturn(int rNo) {
+		return mapper.updateRentStatusToReturn(rNo);
+	}
+
 }
