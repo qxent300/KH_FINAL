@@ -2,7 +2,6 @@ package com.kh.finalproject.bookboard.controller;
 
 
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -18,7 +17,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.finalproject.bookboard.model.service.BookBoardService;
 import com.kh.finalproject.bookboard.model.vo.BookBoard;
-import com.kh.finalproject.bookboard.model.vo.Like;
 import com.kh.finalproject.common.util.PageInfo;
 import com.kh.finalproject.member.model.vo.Member;
 
@@ -33,18 +31,22 @@ public class BookBoardController {
 	private BookBoardService service;
 
 	@GetMapping("/list")
-	public ModelAndView list(ModelAndView model, @RequestParam Map<String, String> param) {
-		int page = 1;
-		if(param.containsKey("page") == true) {
-			try {
-				page = Integer.parseInt(param.get("page"));
-			} catch (Exception e) {}
-		}
+	public ModelAndView list(ModelAndView model,
+			@RequestParam(value="page", required = false, defaultValue = "1") int page) {
+//		int page = 1;
+//		if(param.containsKey("page") == true) {
+//			try {
+//				page = Integer.parseInt(param.get("page"));
+//			} catch (Exception e) {}
+//		}
 		
-		PageInfo pageInfo = new PageInfo(page, 10, service.getBookBoardCount(param), 10);
-		List<BookBoard> bbNoList = service.getAllBookBoardList(pageInfo, (List<Integer>) param);
+		PageInfo pageInfo = new PageInfo(page, 10, service.getBookBoardCount(), 10);
+		
+		List<BookBoard> list1 = service.getBookBoardListByRecommendCount();
+		List<BookBoard> list2 = service.getAllBookBoardList(pageInfo, list1);
 
-		model.addObject("bbNoList", bbNoList);
+		model.addObject("list1", list1);
+		model.addObject("list2", list2);
 		model.addObject("pageInfo", pageInfo);
 		model.setViewName("/bookboard/list");
 		

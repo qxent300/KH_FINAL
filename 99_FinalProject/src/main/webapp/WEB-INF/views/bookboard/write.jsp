@@ -21,11 +21,12 @@
 
     <!-- 글쓰기 -->
 <section>
+<form class="form" action="${path}/bookboard/write" method="post" onsubmit="return check()">
 	<div class="card container col-sm-7">
-		<div class="row container mx-auto d-grid">
+	  	<div class="row container mx-auto d-grid">
 			<div class="input-group mb-3 mt-3">
-				<label class="form-label fs-6" for="b_search">독서일기에 넣을 책을
-					검색해주세요.</label>
+				<input type="hidden" name="bbNickname" value="${loginMember.uNickname}" readonly>
+				<label class="form-label fs-6" for="b_search">독서일기에 넣을 책을 검색해주세요.</label>
 				<div class="input-group">
 					<select class="btn btn-primary" name="division"
 						onchange="handleOnChange(this)" style="min-width: 6.4rem;">
@@ -38,12 +39,17 @@
 						<button class="btn btn-primary rounded-end bi-search"
 							type="submit">&nbsp;검색</button>
 						<div class="col-sm-12 py-3">
-							<a href="https://book.naver.com/bookdb/book_detail.naver?bid=17583399"><img
-								src="${path}/images/Bboardsearch.png" class="border w-100"></a>
-						</div>
+							<a href="https://book.naver.com/bookdb/book_detail.naver?bid=17583399">
+							<img src="${path}/images/Bboardsearch.png" class="border w-100"></a>
+					<c:if test="${bImage != null}">
+                            <div class="d-grid gap-2 d-md-flex mt-2 justify-content-md-end ">
+                                <button class="btn btn-primary " type="reset">삭제</button>
+                            </div>
+					</c:if>
+                        </div>
+					</div>
 				</div>
 				<div class="col-xl-12 col-lg-10">
-					<form class="form" action="${path}/bookboard/write" method="post" onsubmit="return check()">
 						<div>
 							<div>
 								<label class="form-label fs-6" for="title">글 제목</label> <input
@@ -61,13 +67,13 @@
 							<button class="btn btn-primary" type="submit">등록하기</button>
 							<a href="${path}/bookboard/list" class="btn btn-muted">취소하기</a>
 						</div>
-					</form>
+					</div>
 				</div>
 			</div>
-		</div>
-	</div>
+		</form>
+	<br>
 </section>
-<br>
+
 <script>
 	function check() {
 		if ($("#title").val() == "") {

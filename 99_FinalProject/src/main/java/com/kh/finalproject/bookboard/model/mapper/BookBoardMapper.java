@@ -29,5 +29,6 @@ public interface BookBoardMapper {
 	int updateRecommendPlus(int bbNo);
 	
 	int updateRecommendMinus(int bbNo);
+
 	
 }

@@ -22,23 +22,28 @@
             <div class="row mb-5">
                 <div class="row mb-5">
                     <div class="col-md-8"></div>
-                    <div class="col-md-4 d-md-flex align-items-center justify-content-end">
-                    
-                    <c:if test="${loginMember != null}">
-                    <button type="button" class="btn btn-primary fw-bold bi-pencil-fill"
-					onclick="location.href='${path}/bookboard/write'">&nbsp;글쓰기</button>
-					</c:if>
-                    
-                        </div>
+                    	<div class="col-md-4 pt-3 d-md-flex align-items-center justify-content-end">
+                    	<c:if test="${loginMember != null}">
+                    		<button type="button" class="btn btn-primary fw-bold bi-pencil-fill"
+							onclick="location.href='${path}/bookboard/write'">&nbsp;글쓰기</button>
+						</c:if>
+                <c:if test="${list == null}">
+                	<div class="col-lg-3 col-sm-6 mb-4 hover-animate">
+                		<h3 class="text-lg-center">등록된 게시글이 없습니다.</h3>
+                	</div>
+                </c:if>
+                       </div>
                     <div class="col-md-8">
                         <!-- <h2>인기 독서일지</h2> -->
                     </div>
                 </div>
+        		<c:if test="${list != null }">
+        		<c:forEach var="bookBoard" items="${list1}">
                 <!--인기-->
                 <div class="col-lg-3 col-sm-6 mb-4 hover-animate">
                     <div class="card shadow border-0 h-100">
-                        <a href="${path}/bookboard/view"><img class="img-fluid card-img-top" src="${path}/images/book1.jpg" alt="..." />
-                            <span class="card-img-overlay-top d-flex justify-content-between align-items-center bad">
+                        <a href="${path}/bookboard/view?no=${bookBoard.bbNo}"><img class="img-fluid card-img-top" src="${path}/images/${list1.bImage}" alt="..." />
+                            <span class="card-img-overlay-top d-flex justify-content-between align-items-center">
                                 <div class="icon-rounded bg-warning-light mb-3">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="orange" class="bi bi-star-fill" viewBox="0 0 16 16">
                                         <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
@@ -46,172 +51,35 @@
                                 </div>
                             </span>
                         </a>
-                        <div class="card-body"><a class="text-uppercase text-muted text-sm letter-spacing-2">나는야독서왕</a>
-                            <h5 class="my-2"><a class="text-dark" href="${path}/bookboard/view">메타버스 세상의 주인공들에게를 읽었습니다.        </a></h5>
-                            <p class="text-gray-500 text-sm my-3"><i class="far fa-clock me-2"></i>January 16, 2022</p>
-                            <p class="text-dark text-sm my-3">[50]</p>
+                        <div class="card-body"><a class="text-uppercase text-muted text-sm letter-spacing-2"><c:out value="${bookBoard.uNickName}"/></a>
+                            <h5 class="my-2"><a class="text-dark" href="${path}/bookboard/view"><c:out value="${bookBoard.bbTitle}"/></a></h5>
+                            <p class="text-gray-500 fs-5 my-3"><i class="far fa-clock me-2"></i><fmt:formatDate pattern="yyyy.MM.dd" value="${bookBoard.createDate}"/></p>
+                            <p class="text-dark fs-4 my-3">[<c:out value="${bookBoard.bbRecommendCount}"/>]</p>
                         </div>
                     </div>
                 </div>
-                <!--인기-->
-                <div class="col-lg-3 col-sm-6 mb-4 hover-animate">
-                    <div class="card shadow border-0 h-100">
-                        <a href="${path}/bookboard/view"><img class="img-fluid card-img-top" src="${path}/images/book2.jpg" alt="..." />
-                            <div class="card-img-overlay-top d-flex justify-content-between align-items-center">
-                                <div class="icon-rounded bg-warning-light mb-3">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="orange" class="bi bi-star-fill" viewBox="0 0 16 16">
-                                        <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
-                                      </svg>
-                                </div>
-                            </div>
-                        </a>
-                        <div class="card-body"><a class="text-uppercase text-muted text-sm letter-spacing-2">독서의제왕</a>
-                            <h5 class="my-2"><a class="text-dark" href="${path}/bookboard/view">나의 청소년기가 떠오르는 책         </a></h5>
-                            <p class="text-gray-500 text-sm my-3"><i class="far fa-clock me-2"></i>January 16, 2022</p>
-                            <p class="text-dark text-sm my-3">[48]</p>
-                        </div>
-                    </div>
-                </div>
-                <!--인기-->
-                <div class="col-lg-3 col-sm-6 mb-4 hover-animate">
-                    <div class="card shadow border-0 h-100">
-                        <a href="${path}/bookboard/view"><img class="img-fluid card-img-top" src="${path}/images/book3.jpg" alt="..." />
-                            <div class="card-img-overlay-top d-flex justify-content-between align-items-center">
-                                <div class="icon-rounded bg-warning-light mb-3">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="orange" class="bi bi-star-fill" viewBox="0 0 16 16">
-                                        <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
-                                      </svg>
-                                </div>
-                            </div>
-                        </a>
-                        <div class="card-body"><a class="text-uppercase text-muted text-sm letter-spacing-2">도서관장</a>
-                            <h5 class="my-2"><a class="text-dark" href="${path}/bookboard/view">내 인생의 성장소설         </a></h5>
-                            <p class="text-gray-500 text-sm my-3"><i class="far fa-clock me-2"></i>January 16, 2022</p>
-                            <p class="text-dark text-sm my-3">[45]</p>
-                        </div>
-                    </div>
-                </div>
-                <!--인기-->
-                <div class="col-lg-3 col-sm-6 mb-4 hover-animate">
-                    <div class="card shadow border-0 h-100">
-                        <a href="${path}/bookboard/view"><img class="img-fluid card-img-top" src="${path}/images/book4.jpg" alt="..." />
-                            <div class="card-img-overlay-top d-flex justify-content-between align-items-center">
-                                <div class="icon-rounded bg-warning-light mb-3">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="orange" class="bi bi-star-fill" viewBox="0 0 16 16">
-                                        <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
-                                      </svg>
-                                </div>
-                            </div>
-                        </a>
-                        <div class="card-body"><a class="text-uppercase text-muted text-sm letter-spacing-2">책벌레</a>
-                            <h5 class="my-2"><a class="text-dark" href="${path}/bookboard/view">나의 20번째 독서일지         </a></h5>
-                            <p class="text-gray-500 text-sm my-3"><i class="far fa-clock me-2"></i>January 16, 2022</p>
-                            <p class="text-dark text-sm my-3">[42]</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                </c:forEach>
+                </c:if>
+                <!-- 일반 -->
+        <c:if test="${list2 != null }">
+          <c:forEach var="bookBoard" items="${list2}">
             <div class="row mb-5">
-                <!-- blog item-->
                 <div class="col-lg-3 col-sm-6 mb-4 hover-animate">
                     <div class="card shadow border-0 h-100">
-                        <a href="${path}/bookboard/view"><img class="img-fluid card-img-top" src="${path}/images/book5.jpg" alt="..." />
+                        <a href="${path}/bookboard/view?no=${bookBoard.bbNo}"><img class="img-fluid card-img-top" src="${path}/images/${list2.bImage}" alt="..." />
                         </a>
-                        <div class="card-body"><a class="text-uppercase text-muted text-sm letter-spacing-2">나는야독서왕</a>
-                            <h5 class="my-2"><a class="text-dark" href="${path}/bookboard/view">시간을 찾을 수 있을까?         </a></h5>
-                            <p class="text-gray-500 text-sm my-3"><i class="far fa-clock me-2"></i>January 16, 2022</p>
-                            <p class="text-dark text-sm my-3">[00]</p>
+                        <div class="card-body"><a class="text-uppercase text-muted text-sm letter-spacing-2"><c:out value="${bookBoard.uNickName}"/></a>
+                            <h5 class="my-2"><a class="text-dark" href="${path}/bookboard/view"><c:out value="${bookBoard.bbTitle}"/></a></h5>
+                            <p class="text-gray-500 text-sm my-3"><i class="far fa-clock me-2"></i><fmt:formatDate pattern="yyyy.MM.dd" value="${bookBoard.createDate}"/></p>
+                            <p class="text-dark text-sm my-3">[<c:out value="${bookBoard.bbRecommendCount}"/>]</p>
                         </div>
                     </div>
                 </div>
-                <!-- blog item-->
-                <div class="col-lg-3 col-sm-6 mb-4 hover-animate">
-                    <div class="card shadow border-0 h-100">
-                        <a href="${path}/bookboard/view"><img class="img-fluid card-img-top" src="${path}/images/book6.jpg" alt="..." />
-                        </a>
-                        <div class="card-body"><a class="text-uppercase text-muted text-sm letter-spacing-2">냠냠굿</a>
-                            <h5 class="my-2"><a class="text-dark" href="${path}/bookboard/view">육아 필독도서!!         </a></h5>
-                            <p class="text-gray-500 text-sm my-3"><i class="far fa-clock me-2"></i>January 16, 2022</p>
-                            <p class="text-dark text-sm my-3">[00]</p>
-                        </div>
-                    </div>
-                </div>
-                <!-- blog item-->
-                <div class="col-lg-3 col-sm-6 mb-4 hover-animate">
-                    <div class="card shadow border-0 h-100">
-                        <a href="${path}/bookboard/view"><img class="img-fluid card-img-top" src="${path}/images/book7.jpg" alt="..." />
-                        </a>
-                        <div class="card-body"><a class="text-uppercase text-muted text-sm letter-spacing-2">마음의양식</a>
-                            <h5 class="my-2"><a class="text-dark" href="${path}/bookboard/view">나는 그냥 나대로 살래         </a></h5>
-                            <p class="text-gray-500 text-sm my-3"><i class="far fa-clock me-2"></i>January 16, 2022</p>
-                            <p class="text-dark text-sm my-3">[05]</p>
-                        </div>
-                    </div>
-                </div>
-                <!-- blog item-->
-                <div class="col-lg-3 col-sm-6 mb-4 hover-animate">
-                    <div class="card shadow border-0 h-100">
-                        <a href="${path}/bookboard/view"><img class="img-fluid card-img-top" src="${path}/images/book8.jpg" alt="..." />
-                        </a>
-                        <div class="card-body"><a class="text-uppercase text-muted text-sm letter-spacing-2">무한독서</a>
-                            <h5 class="my-2"><a class="text-dark" href="${path}/bookboard/view">나에게 고맙다를 읽고         </a></h5>
-                            <p class="text-gray-500 text-sm my-3"><i class="far fa-clock me-2"></i>January 16, 2022</p>
-                            <p class="text-dark text-sm my-3">[08]</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row mb-5">
-                <!-- blog item-->
-                <div class="col-lg-3 col-sm-6 mb-4 hover-animate">
-                    <div class="card shadow border-0 h-100">
-                        <a href="${path}/bookboard/view"><img class="img-fluid card-img-top" src="${path}/images/book9.jpg" alt="..." />
-                        </a>
-                        <div class="card-body"><a class="text-uppercase text-muted text-sm letter-spacing-2">독서1등</a>
-                            <h5 class="my-2"><a class="text-dark" href="${path}/bookboard/view">제가 한번 읽어보았습니다.         </a></h5>
-                            <p class="text-gray-500 text-sm my-3"><i class="far fa-clock me-2"></i>January 16, 2022</p>
-                            <p class="text-dark text-sm my-3">[10]</p>
-                        </div>
-                    </div>
-                </div>
-                <!-- blog item-->
-                <div class="col-lg-3 col-sm-6 mb-4 hover-animate">
-                    <div class="card shadow border-0 h-100">
-                        <a href="${path}/bookboard/view"><img class="img-fluid card-img-top" src="${path}/images/book10.jpg" alt="..." />
-                        </a>
-                        <div class="card-body"><a class="text-uppercase text-muted text-sm letter-spacing-2">북북북</a>
-                            <h5 class="my-2"><a class="text-dark" href="${path}/bookboard/view">아직도 이 책을 모르는 사람이 있다고?         </a></h5>
-                            <p class="text-gray-500 text-sm my-3"><i class="far fa-clock me-2"></i>January 16, 2022</p>
-                            <p class="text-dark text-sm my-3">[20]</p>
-                        </div>
-                    </div>
-                </div>
-                <!-- blog item-->
-                <div class="col-lg-3 col-sm-6 mb-4 hover-animate">
-                    <div class="card shadow border-0 h-100">
-                        <a href="${path}/bookboard/view"><img class="img-fluid card-img-top" src="${path}/images/book11.jpg" alt="..." />
-                        </a>
-                        <div class="card-body"><a class="text-uppercase text-muted text-sm letter-spacing-2">췍췍</a>
-                            <h5 class="my-2"><a class="text-dark" href="${path}/bookboard/view">이 책 추천합니다.         </a></h5>
-                            <p class="text-gray-500 text-sm my-3"><i class="far fa-clock me-2"></i>January 16, 2022</p>
-                            <p class="text-dark text-sm my-3">[02]</p>
-                        </div>
-                    </div>
-                </div>
-                <!-- blog item-->
-                <div class="col-lg-3 col-sm-6 mb-4 hover-animate">
-                    <div class="card shadow border-0 h-100">
-                        <a href="${path}/bookboard/view"><img class="img-fluid card-img-top" src="${path}/images/book12.jpg" alt="..." />
-                        </a>
-                        <div class="card-body"><a class="text-uppercase text-muted text-sm letter-spacing-2">책조아</a>
-                            <h5 class="my-2"><a class="text-dark" href="${path}/bookboard/view">책조아의 독서일지         </a></h5>
-                            <p class="text-gray-500 text-sm my-3"><i class="far fa-clock me-2"></i>January 16, 2022</p>
-                            <p class="text-dark text-sm my-3">[11]</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+              </div>
+            </c:forEach>
+         </c:if>
+       </div>
+     </div>
         <!-- Pagination -->
         <nav aria-label="Page navigation">
             		<div class="pagination justify-content-center">
@@ -247,6 +115,6 @@
 				onclick="location.href='${path}/bookboard/list?page=${ pageInfo.maxPage }'">&gt;&gt;</button>
 		</div>
         </nav>
-    </section>
+   </section>
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
