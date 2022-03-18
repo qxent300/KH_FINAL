@@ -31,14 +31,14 @@ public class BookServiceImpl implements BookService {
 		List<Book> list = mapper.selectAllBookList();	// 전체 도서 검색
 		
 		for (Book book : list) {	// 각 도서 별로 평점의 평균을 계산하여 입력
-			book.setBAvgScore(mapper.selectBookAvgScore(book.getBNo()));
+			book.setbAvgScore(mapper.selectBookAvgScore(book.getbNo()));
 			
 			int result = mapper.updateBookAvgScore(book);
 			
 			if (result > 0) {
-				System.out.println("도서 평점 업데이트 성공!");
+//				System.out.println("도서 평점 업데이트 성공!");
 			} else {
-				System.out.println("도서 평점 업데이트 실패...");
+//				System.out.println("도서 평점 업데이트 실패...");
 			}
 		}
 		
@@ -49,9 +49,10 @@ public class BookServiceImpl implements BookService {
 	}
 
 	@Override
-	public int getBookCount(String option, String query) {
+	public int getBookCount(String category, String option, String query) {
 		Map<String, String> map = new HashMap<String, String>();
 		
+		map.put("category", category);
 		map.put("option", option);
 		map.put("query", query);
 		

@@ -57,7 +57,7 @@
             <div class="col-9 d-grid gap-3 container bg-gray-100" style="padding-right: 0px;">
                 <div class="pt-6">
                     <div class="container">
-                        <h4 class="mb-3 text-center" style="color: rgba(175, 170, 170, 0.918);">전체보기</h4>
+                        <h4 class="mb-3 text-center" style="color: rgba(175, 170, 170, 0.918);">검색 결과</h4>
 
                         <ul class="nav justify-content-end">
                             <li class="nav-item">
@@ -92,48 +92,33 @@
                 
                 
                 
-               
-                
 
             <div class="border-top">
                 <!-- Pagination -->
                 <nav aria-label="Page navigation example">
                     <ul class="pagination justify-content-center mt-4 mb-5">
-                  
-            <div class="pagination justify-content-center">
-			<!-- 맨 처음으로 -->
-			<button class="page-link page-item rounded-start"
-				onclick="location.href='${ path }/search/list?page=1'">&lt;&lt;</button>
-
-			<!-- 이전 페이지로 -->
-			<button class="page-link page-item"
-				onclick="location.href='${path}/search/list?page=${ pageInfo.prvePage }'">&lt;</button>
-
-			<!--  10개 페이지 목록 -->
-			<c:forEach begin="${ pageInfo.startPage }"
-				end="${ pageInfo.endPage }" step="1" varStatus="status">
-				<c:if test="${ pageInfo.currentPage == status.current}">
-					<button class="page-link page-item" disabled>
-						<c:out value="${ status.current }" />
-					</button>
-				</c:if>
-				<c:if test="${ pageInfo.currentPage != status.current}">
-					<button class="page-link page-item"
-						onclick="location.href='${ path }/search/list?page=${ status.current }'">
-						<c:out value="${ status.current }" />
-					</button>
-				</c:if>
-			</c:forEach>
-
-			<!-- 다음 페이지로 -->
-			<button class="page-link page-item"
-				onclick="location.href='${path}/search/list?page=${ pageInfo.nextPage }'">&gt;</button>
-
-			<!-- 맨 끝으로 -->
-			<button class="page-link page-item rounded-end"
-				onclick="location.href='${path}/freeboard/list?page=${ pageInfo.maxPage }'">&gt;&gt;</button>
-		</div>
-                      
+                        <li class="page-item">
+                            <a class="page-link" href="#" aria-label="Previous">
+                                <span aria-hidden="true">«</span>
+                                <span class="visually-hidden">Previous</span>
+                            </a>
+                        </li>
+                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item"><a class="page-link" href="#">4</a></li>
+                        <li class="page-item"><a class="page-link" href="#">5</a></li>
+                        <li class="page-item"><a class="page-link" href="#">6</a></li>
+                        <li class="page-item"><a class="page-link" href="#">7</a></li>
+                        <li class="page-item"><a class="page-link" href="#">8</a></li>
+                        <li class="page-item"><a class="page-link" href="#">9</a></li>
+                        <li class="page-item"><a class="page-link" href="#">10</a></li>
+                        <li class="page-item">
+                            <a class="page-link" href="#" aria-label="Next">
+                                <span aria-hidden="true">»</span>
+                                <span class="visually-hidden">Next</span>
+                            </a>
+                        </li>
                     </ul>
                 </nav>
                 <!-- End Pagination -->

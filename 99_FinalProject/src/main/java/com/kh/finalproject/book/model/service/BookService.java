@@ -12,7 +12,7 @@ public interface BookService {
 	
 	List<Book> getAllBookList(PageInfo pageInfo);	// 모든 도서를 최신순으로 정렬
 	
-	int getBookCount(String option, String query);	// option : 검색 종류(제목 / 저자), query : 검색어 -> 검색 결과에 해당하는 도서 권수 확인
+	int getBookCount(String category, String option, String query);	// option : 검색 종류(제목 / 저자), query : 검색어 -> 검색 결과에 해당하는 도서 권수 확인
 	
 	List<Book> getBookList(String category, String option, String query, String sort, PageInfo pageInfo);	// 도서 검색시 출력되는 결과 목록
 	

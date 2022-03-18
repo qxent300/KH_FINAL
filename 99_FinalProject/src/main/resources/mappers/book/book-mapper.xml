@@ -45,6 +45,9 @@
 	<select id="selectBookCountByOption" parameterType="map" resultType="int">
 		SELECT COUNT(*) FROM BOOK
 		<where>
+			<if test="!category.equals('전체')">
+				AND B_CATEGORY LIKE '%'||#{category}||'%'
+			</if>
 			<if test="option.equals('title')">
 				AND B_NAME LIKE '%'||#{query}||'%'
 			</if>
@@ -91,5 +94,6 @@
 	<insert id="insertScore" parameterType="Score">
 		INSERT INTO SCORE VALUES(SEQ_S_NO.NEXTVAL, #{bNo}, #{uNo}, #{sContent}, SYSDATE, #{score})		
 	</insert>
-	
+ 
+ 
 </mapper>
