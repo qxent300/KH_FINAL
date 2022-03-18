@@ -19,19 +19,19 @@
                     <form action="#">
                         <div class="row">
                             <div class="col-lg-2 d-flex align-items-center form-group">
-                                <select name="division" onchange="handleOnChange(this)" style="width: 180px; border-style: none;">
-                                  <option value="title">제목</option>
-                                  <option value="writer">저자</option>
-                                  <option value="genre">장르</option>
+                                <select name="searchType" onchange="handleOnChange(this)" style="width: 180px; border-style: none;">
+                                  <option value="bName">제목</option>
+                                  <option value="bWriter">저자</option>
+                                  <option value="bCategory">장르</option>
                                 </select>
                             </div>
                             <div class="col-lg-7 d-flex align-items-center">
-                                <input class="form-control border-0 shadow-0" type="text" name="search" placeholder="검색어를 입력하세요.">
+                                <input class="form-control border-0 shadow-0" type="text" name="searchValue" placeholder="검색어를 입력하세요.">
                             </div>
                             <div class="col-lg-1 d-flex align-items-center form-group no-divider">
                             </div>
                             <div class="col-lg-2 d-grid">
-                                <button onclick="location.href='#'" class="btn btn-primary rounded-pill h-100 fw-bold bi-search" type="submit">&nbsp;검색</button>
+                                <button class="btn btn-primary rounded-pill h-100 fw-bold bi-search" type="submit">&nbsp;검색</button>
                             </div>
                         </div>
                     </form>
@@ -50,12 +50,18 @@
                 <ol type="submit" style="font-size: large; color: white; font-weight: bold;">인문</ol>
                 <ol type="submit" style="font-size: large; color: white; font-weight: bold;">역사/문화</ol>
             </div>
-            <div class="col-9 d-grid gap-3 container bg-gray-100">
-                <div class="pt-6">
+            <div class="col-10 me-5 d-grid gap-3 container bg-gray-100">
                     <div class="container">
-                        <h4 class="mb-3 text-center" style="color: rgba(175, 170, 170, 0.918);">검색 결과</h4>
-
-                        <ul class="nav justify-content-end">
+						<c:if test="${list == '[]'}">
+								<div class="text-center py-7">
+									<h3>"<span class="text-primary">${param.searchValue}</span>"<br>에 대한 검색결과가 없습니다.</h3>
+								</div>
+						</c:if>
+						<c:if test="${list != '[]'}">
+						<div class="text-center py-3">
+									<h4>"<span class="text-primary">${param.searchValue}</span>"에 대한 검색결과</h4>
+								</div>
+						<ul class="nav justify-content-end">
                             <li class="nav-item">
                                 <a class="nav-link text-dark fw-bold active" href="#">출간일순</a>
                             </li>
@@ -68,130 +74,55 @@
                         </ul>
                         <div class="border-bottom"></div>
                     </div>
-                </div>
-                <div class="row text-center mb-3">
-                    <div class="col-lg-3">
-                        <a href="${path}/book/view"><img src="${path}/images/1.jpg" class="rounded card-img mb-3"></a>
-                        <h3 class="h5">책 제목</h3>
-                        <p class="text-muted">저자</p>
+                <div class="row text-center">
+					<c:forEach var="book" items="${list}"> 
+                    <div class="col-lg-3" style="margin-bottom: 1.7rem;">
+                        <a href="${path}/book/view?bNo=${book.BNo}"><img src="${path}/book/${book.BImage}" style="height: 280px;" class="rounded-0 card-img mb-3 border border-1"></a>
+                        <span class="h5">${book.BName}</span><br>
+                        <span class="text-muted small">${book.BWriter}</span>
                     </div>
-                    <div class="col-lg-3">
-                        <a href="${path}/book/view"><img src="${path}/images/2.jpg" class="rounded card-img mb-3"></a>
-                        <h3 class="h5">책 제목</h3>
-                        <p class="text-muted">저자</p>
-                    </div>
-                    <div class="col-lg-3">
-                        <a href="${path}/book/view"><img src="${path}/images/3.jpg" class="rounded card-img mb-3"></a>
-                        <h3 class="h5">책 제목</h3>
-                        <p class="text-muted">저자</p>
-                    </div>
-                    <div class="col-lg-3">
-                        <a href="${path}/book/view"><img src="${path}/images/4.jpg" class="rounded card-img mb-3"></a>
-                        <h3 class="h5">책 제목</h3>
-                        <p class="text-muted">저자</p>
-                    </div>
+					</c:forEach>
                 </div>
 
-                <div class="row text-center mb-3">
-                    <div class="col-lg-3">
-                        <a href="${path}/book/view"><img src="${path}/images/1.jpg" class="rounded card-img mb-3"></a>
-                        <h3 class="h5">책 제목</h3>
-                        <p class="text-muted">저자</p>
-                    </div>
-                    <div class="col-lg-3">
-                        <a href="${path}/book/view"><img src="${path}/images/2.jpg" class="rounded card-img mb-3"></a>
-                        <h3 class="h5">책 제목</h3>
-                        <p class="text-muted">저자</p>
-                    </div>
-                    <div class="col-lg-3">
-                        <a href="${path}/book/view"><img src="${path}/images/3.jpg" class="rounded card-img mb-3"></a>
-                        <h3 class="h5">책 제목</h3>
-                        <p class="text-muted">저자</p>
-                    </div>
-                    <div class="col-lg-3">
-                        <a href="${path}/book/view"><img src="${path}/images/4.jpg" class="rounded card-img mb-3"></a>
-                        <h3 class="h5">책 제목</h3>
-                        <p class="text-muted">저자</p>
-                    </div>
-                </div>
-
-
-                <div class="row text-center mb-3">
-                    <div class="col-lg-3">
-                        <a href="${path}/book/view"><img src="${path}/images/1.jpg" class="rounded card-img mb-3"></a>
-                        <h3 class="h5">책 제목</h3>
-                        <p class="text-muted">저자</p>
-                    </div>
-                    <div class="col-lg-3">
-                        <a href="${path}/book/view"><img src="${path}/images/2.jpg" class="rounded card-img mb-3"></a>
-                        <h3 class="h5">책 제목</h3>
-                        <p class="text-muted">저자</p>
-                    </div>
-                    <div class="col-lg-3">
-                        <a href="${path}/book/view"><img src="${path}/images/3.jpg" class="rounded card-img mb-3"></a>
-                        <h3 class="h5">책 제목</h3>
-                        <p class="text-muted">저자</p>
-                    </div>
-                    <div class="col-lg-3">
-                        <a href="${path}/book/view"><img src="${path}/images/4.jpg" class="rounded card-img mb-3"></a>
-                        <h3 class="h5">책 제목</h3>
-                        <p class="text-muted">저자</p>
-                    </div>
-                </div>
-
-                <div class="row text-center mb-3">
-                    <div class="col-lg-3">
-                        <a href="${path}/book/view"><img src="${path}/images/1.jpg" class="rounded card-img mb-3"></a>
-                        <h3 class="h5">책 제목</h3>
-                        <p class="text-muted">저자</p>
-                    </div>
-                    <div class="col-lg-3">
-                        <a href="${path}/book/view"><img src="${path}/images/2.jpg" class="rounded card-img mb-3"></a>
-                        <h3 class="h5">책 제목</h3>
-                        <p class="text-muted">저자</p>
-                    </div>
-                    <div class="col-lg-3">
-                        <a href="${path}/book/view"><img src="${path}/images/3.jpg" class="rounded card-img mb-3"></a>
-                        <h3 class="h5">책 제목</h3>
-                        <p class="text-muted">저자</p>
-                    </div>
-                    <div class="col-lg-3">
-                        <a href="${path}/book/view"><img src="${path}/images/4.jpg" class="rounded card-img mb-3"></a>
-                        <h3 class="h5">책 제목</h3>
-                        <p class="text-muted">저자</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="border-top">
+            <div class="border-top mt-n4">
                 <!-- Pagination -->
-                <nav aria-label="Page navigation example">
-                    <ul class="pagination justify-content-center mt-4 mb-5">
-                        <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Previous">
-                                <span aria-hidden="true">«</span>
-                                <span class="visually-hidden">Previous</span>
-                            </a>
-                        </li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item"><a class="page-link" href="#">4</a></li>
-                        <li class="page-item"><a class="page-link" href="#">5</a></li>
-                        <li class="page-item"><a class="page-link" href="#">6</a></li>
-                        <li class="page-item"><a class="page-link" href="#">7</a></li>
-                        <li class="page-item"><a class="page-link" href="#">8</a></li>
-                        <li class="page-item"><a class="page-link" href="#">9</a></li>
-                        <li class="page-item"><a class="page-link" href="#">10</a></li>
-                        <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Next">
-                                <span aria-hidden="true">»</span>
-                                <span class="visually-hidden">Next</span>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
+                
+                
+                <div class="pagination justify-content-center pt-4 pb-7">
+			<!-- 맨 처음으로 -->
+			<button class="page-link page-item rounded-start"
+				onclick="location.href='${ path }/book/search?page=1'">&lt;&lt;</button>
+
+			<!-- 이전 페이지로 -->
+			<button class="page-link page-item"
+				onclick="location.href='${path}/book/search?page=${ pageInfo.prvePage }'">&lt;</button>
+
+			<!--  10개 페이지 목록 -->
+			<c:forEach begin="${ pageInfo.startPage }"
+				end="${ pageInfo.endPage }" step="1" varStatus="status">
+				<c:if test="${ pageInfo.currentPage == status.current}">
+					<button class="page-link page-item" disabled>
+						<c:out value="${ status.current }" />
+					</button>
+				</c:if>
+				<c:if test="${ pageInfo.currentPage != status.current}">
+					<button class="page-link page-item"
+						onclick="location.href='${ path }/book/search?page=${ status.current }'">
+						<c:out value="${ status.current }" />
+					</button>
+				</c:if>
+			</c:forEach>
+
+			<!-- 다음 페이지로 -->
+			<button class="page-link page-item"
+				onclick="location.href='${path}/book/search?page=${ pageInfo.nextPage }'">&gt;</button>
+
+			<!-- 맨 끝으로 -->
+			<button class="page-link page-item rounded-end"
+				onclick="location.href='${path}/book/search?page=${ pageInfo.maxPage }'">&gt;&gt;</button>
+		</div>
                 <!-- End Pagination -->
+                </c:if>
             </div>
         </div>
     </div>
