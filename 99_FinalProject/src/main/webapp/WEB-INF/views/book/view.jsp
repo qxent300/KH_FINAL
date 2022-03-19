@@ -92,13 +92,10 @@
 			<div class="tab-pane fade show active" id="featuresOne"
 				role="tabpanel" aria-labelledby="featuresOne-tab">
 				<h2>책 소개</h2>
-
 				<div class="list-unstyled list-pointer pt-2">
 					<p>${fn:replace(book.BContent, BR, "<br/>")}</p>
 				</div>
-
 			</div>
-
 			<div class="tab-pane fade" id="featuresTwo" role="tabpanel"
 				aria-labelledby="featuresTwo-tab">
 				<form action="${path}/book/score" method="post" onsubmit="return check()">
@@ -110,11 +107,6 @@
 							</h4>
 							<label class="form-label" for="commentarea">한줄평을 남겨주세요!</label>
 							<div class="flex-grow-1 mb-2 pt-2">
-								<!-- <span class="fw-bold">평점</span> -->
-								
-								
-								
-								
         <span class="fw-bold" style="margin-top: -350px;">평점</span>
 								<div class="starpoint_wrap">
         <div class="starpoint_box" style="top:2px;">
@@ -141,7 +133,6 @@
             <span class="starpoint_bg"></span>
         </div>
     </div></div>
-							<!-- <input type="hidden" name="score" value="5" /> -->
 							<input type="hidden" name="bNo" value="${book.BNo}" />
 							<textarea id="sContent" name="sContent" class="form-control"
 								placeholder="한글 기준 50자까지 작성 가능합니다." style="width: 770px"
@@ -164,10 +155,6 @@
 										<span class="text-primary fw-bold">${scoreCount}</span>명의 회원이
 										평가한 평균별점
 									</h4>
-									
-									<%-- <c:forEach var="scoreavg" begin="1" end="${scoreAvgs}" step="1">
-										<img src="${path}/images/star.svg" width="40" class="mt-n4">
-									</c:forEach> --%>
 									<c:if test="${scoreAvg ne 'NaN'}">
 										<div class="starpoint_box starpoint_wrap" style="margin-right: 9rem">
 											<c:forEach var="star" begin="1" end="${scoreAvgs*3}" step="1">
@@ -270,10 +257,14 @@
 <!-- End Content -->
 <script>
 	function check() {
+		if ($('input[name=score]:radio:checked').length < 1) {
+			alert("평점을 선택해주세요!");
+			return false;
+		}
 		if ($('#sContent').val() == "") {
 			alert("내용을 입력해주세요!");
 			return false;
 		}
-	}//
+	}
 </script>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
