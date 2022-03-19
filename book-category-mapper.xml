@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kh.finalproject.book.model.mapper.BookCategoryMapper">
+	
+	<resultMap type="Book" id="bookResultMap">
+		<id property="bNo" column="B_NO" />
+		<result property="bName" column="B_NAME" />
+		<result property="bWriter" column="B_WRITER" />
+		<result property="bImage" column="B_IMAGE" />
+		<result property="bContent" column="B_CONTENT" />
+		<result property="bCategory" column="B_CATEGORY" />
+		<result property="publishDate" column="PUBLISH_DATE" />
+		<result property="bRentCount" column="B_RENTCOUNT" />
+		<result property="bAvgScore" column="B_AVGSCORE" />
+	</resultMap>
+	
+	<resultMap type="Score" id="bookScoreResultMap">
+		<id property="sNo" column="S_NO" />
+		<result property="bNo" column="B_NO" />
+		<result property="uNo" column="U_NO" />
+		<result property="sContent" column="S_CONTENT" />
+		<result property="createDate" column="CREATE_DATE" />
+		<result property="score" column="SCORE" />
+	</resultMap>
+	
+	<select id="selectNovelList" resultMap="bookResultMap">
+		<![CDATA[
+			SELECT B_NO
+				   , B_NAME
+				   , B_WRITER
+				   , B_IMAGE
+				   , B_RENTCOUNT
+		   	FROM	BOOK
+		   	WHERE	B_CATEGORY = '소설'
+		]]>
+	</select>	
+ 
+ 
+</mapper>
