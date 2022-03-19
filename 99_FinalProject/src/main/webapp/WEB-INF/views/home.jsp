@@ -94,11 +94,11 @@
     <section class="py-5">
         <div class="container">
             <div class="row mb-3">
-                <div class="col-md-8">
+                <div class="text-center">
                     <p class="subtitle text-primary">Best seller</p>
                     <h2>베스트셀러</h2>
                 </div>
-                <div class="col-md-4 d-lg-flex align-items-center justify-content-end"><a class="text-muted text-sm" href="book/search">
+                <div class="d-lg-flex align-items-center justify-content-end"><a class="text-muted text-sm" href="book/search">
             View more<i class="fas fa-angle-double-right ms-2"></i></a></div>
             </div>
             <div class="swiper-container guides-slider mx-n2 pt-3">
@@ -127,11 +127,11 @@
    <section class="py-3">
         <div class="container">
             <div class="row mb-3">
-                <div class="col-md-8">
+                <div class="text-center">
                     <p class="subtitle text-danger">New</p>
                     <h2>요즘 뜨는 책</h2>
                 </div>
-                <div class="col-md-4 d-lg-flex align-items-center justify-content-end"><a class="text-muted text-sm" href="book/search">
+                <div class="d-lg-flex align-items-center justify-content-end"><a class="text-muted text-sm" href="book/search">
             View more<i class="fas fa-angle-double-right ms-2"></i></a></div>
             </div>
             <div class="swiper-container guides-slider mx-n2 pt-3">
