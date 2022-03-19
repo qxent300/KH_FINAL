@@ -96,7 +96,7 @@
 
 			<div class="tab-pane fade" id="featuresTwo" role="tabpanel"
 				aria-labelledby="featuresTwo-tab">
-				<form action="${path}/book/score" method="post">
+				<form action="${path}/book/score" method="post" onsubmit="return check()">
 					<div
 						class="row justify-content-sm-between align-items-sm-center border-bottom pb-3 mb-4">
 						<div class="col-sm-9 mb-2 mb-sm-0">
@@ -118,7 +118,7 @@
 
 							<input type="hidden" name="score" value="5" /> <input
 								type="hidden" name="bNo" value="${book.BNo}" />
-							<textarea id="commentarea" name="sContent" class="form-control"
+							<textarea id="sContent" name="sContent" class="form-control"
 								placeholder="한글 기준 50자까지 작성 가능합니다." style="width: 770px"
 								rows="2"></textarea>
 						</div>
@@ -131,7 +131,7 @@
 
 						<!-- Media -->
 						<div class="align-items-center text-center">
-							<div class="flex-grow-1 mt-3">
+							<div class="flex-grow-1 mt-3 pb-1">
 								<!-- Rating -->
 
 								<c:if test="${scoreAvg ne 'NaN'}">
@@ -141,9 +141,9 @@
 									</h3>
 									
 									<c:forEach var="scoreavg" begin="1" end="${scoreAvgs}" step="1">
-										<img src="${path}/images/star.svg" width="50">
+										<img src="${path}/images/star.svg" width="40" class="mt-n4">
 									</c:forEach>
-									<br><span class="display-5 text-dark fw-bold">${scoreAvg}<span class="text-muted h3">/5.0</span></span>
+										<span class="display-5 text-dark fw-bold ms-2">${scoreAvg}<span class="text-muted h3">/5.0</span></span>
 								</c:if>
 								<!-- End Rating -->
 							</div>
@@ -230,5 +230,12 @@
 	</div>
 </div>
 <!-- End Content -->
-
+<script>
+	function check() {
+		if ($('#sContent').val() == "") {
+			alert("내용을 입력해주세요!");
+			return false;
+		}
+	}//
+</script>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
