@@ -106,19 +106,22 @@ public class BookController {
 
 		int scoreCount = 0;
 		String scoreAvg = "0.0";
+		int scoreAvgs = 0;
 		try {
 			int sum = 0;
 			scoreCount = book.getReviews().size();
 			for (Score s : book.getReviews()) {
 				sum += s.getScore();
 			}
-			scoreAvg = String.format("%.2f", (double) sum / scoreCount);
+			scoreAvg = String.format("%.1f", (double) sum / scoreCount);
+			scoreAvgs = sum / scoreCount;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
 		model.addObject("scoreCount", scoreCount);
 		model.addObject("scoreAvg", scoreAvg);
+		model.addObject("scoreAvgs", scoreAvgs);
 		model.addObject("book", book);
 		model.addObject("scoreList", book.getReviews());
 		model.setViewName("/book/view");

@@ -57,6 +57,7 @@
 			<!-- 인터셉터를 적용시켜야 할 URL(컨트롤러) 선택 -->
 			<!-- <mapping path="/member/view"/> <mapping path="/member/update"/> -->
 
+			<mapping path="/book/score" />
 			<mapping path="/member/**" />
 			<mapping path="/bookboard/**" />
 			<mapping path="/freeboard/**" />

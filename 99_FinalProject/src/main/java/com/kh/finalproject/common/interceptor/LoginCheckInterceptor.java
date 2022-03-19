@@ -22,7 +22,7 @@ public class LoginCheckInterceptor extends HandlerInterceptorAdapter{
 		
 		if(loginMember == null) {
 			request.setAttribute("msg", "로그인 후 이용이 가능합니다.");
-			request.setAttribute("location", "/");
+			request.setAttribute("location", "/login");
 			request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp").forward(request, response);
 		
 			return false; // false 이면 이후에 컨트롤러가 수행되지 않는다!
