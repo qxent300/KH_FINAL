@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kh.finalproject.book.model.mapper.BookMapper">
+	
+	<resultMap type="Book" id="bookResultMap">
+		<id property="bNo" column="B_NO" />
+		<result property="bName" column="B_NAME" />
+		<result property="bWriter" column="B_WRITER" />
+		<result property="bImage" column="B_IMAGE" />
+		<result property="bContent" column="B_CONTENT" />
+		<result property="bCategory" column="B_CATEGORY" />
+		<result property="publishDate" column="PUBLISH_DATE" />
+		<result property="bRentCount" column="B_RENTCOUNT" />
+		<result property="bAvgScore" column="B_AVGSCORE" />
+	</resultMap>
+	
+	<resultMap type="Book" extends="bookResultMap" id="BookDetailResultMap">
+		<collection property="reviews" javaType="arraylist" columnPrefix="SC_" resultMap="bookScoreResultMap"/>
+	</resultMap>
+	
+	<resultMap type="Score" id="bookScoreResultMap">
+		<id property="sNo" column="S_NO" />
+		<result property="bNo" column="B_NO" />
+		<result property="uNo" column="U_NO" />
+		<result property="uNickName" column="U_NICKNAME" />
+		<result property="sContent" column="S_CONTENT" />
+		<result property="createDate" column="CREATE_DATE" />
+		<result property="score" column="SCORE" />
+	</resultMap>
+	
+	<select id="selectBookCount" resultType="int">
+		SELECT COUNT(*) FROM BOOK
+	</select>
+	
+	<select id="selectAllBookList" resultMap="bookResultMap">
+		SELECT B_NO
+			   , B_NAME
+			   , B_WRITER
+			   , B_IMAGE
+			   , B_CATEGORY
+			   , PUBLISH_DATE
+			   , B_RENTCOUNT
+			   , B_AVGSCORE 
+	   	FROM	BOOK 
+	   	ORDER BY PUBLISH_DATE DESC
+	</select>
+	
+	<select id="selectBookAvgScore" parameterType="int" resultType="_float">
+		SELECT NVL(AVG(SCORE), 0) FROM SCORE WHERE B_NO = #{bNo}
+	</select>
+	
+	<update id="updateBookAvgScore" parameterType="Book">
+		UPDATE BOOK SET B_AVGSCORE = #{bAvgScore} WHERE B_NO = #{bNo}
+	</update>
+	
+	<select id="selectBookCountByOption" parameterType="map" resultType="int">
+		SELECT COUNT(*) FROM BOOK
+		<where>
+			<if test="!category.equals('전체')">
+				AND B_CATEGORY LIKE '%'||#{category}||'%'
+			</if>
+			<if test="option.equals('title')">
+				AND B_NAME LIKE '%'||#{query}||'%'
+			</if>
+			<if test="option.equals('author')">
+				AND B_WRITER LIKE '%'||#{query}||'%'
+			</if>
+		</where>
+	</select>
+	
+	<select id="selectBookList" parameterType="map" resultMap="bookResultMap">
+		SELECT B_NO, B_NAME, B_WRITER, B_IMAGE, B_CATEGORY, PUBLISH_DATE, B_RENTCOUNT, B_AVGSCORE FROM BOOK
+		<where>
+			<if test="!category.equals('전체')">
+				AND B_CATEGORY LIKE '%'||#{category}||'%'
+			</if>
+			<if test="option.equals('title')">
+				AND B_NAME LIKE '%'||#{query}||'%'
+			</if>
+			<if test="option.equals('author')">
+				AND B_WRITER LIKE '%'||#{query}||'%'
+			</if>
+		</where>
+		<choose>
+			<when test="sort.equals('publishDate')">
+				ORDER BY PUBLISH_DATE DESC
+			</when>
+			<when test="sort.equals('rentCount')">
+				ORDER BY B_RENTCOUNT DESC
+			</when>
+			<when test="sort.equals('score')">
+				ORDER BY B_AVGSCORE DESC
+			</when>
+		</choose>
+	</select>
+	
+	<select id="selectBook" parameterType="_int" resultMap="BookDetailResultMap">
+		SELECT B.B_NO,
+		B.B_NAME,
+		B.B_WRITER,
+		B.B_IMAGE,
+		B.B_CONTENT,
+		B.B_CATEGORY,
+		B.PUBLISH_DATE,
+		B.B_RENTCOUNT,
+		B.B_AVGSCORE,
+		S.S_NO AS SC_S_NO, 
+		S.B_NO AS SC_B_NO,
+		S.U_NO AS SC_U_NO,
+		M.U_NICKNAME AS SC_U_NICKNAME,
+		S.S_CONTENT AS SC_S_CONTENT,
+		S.CREATE_DATE AS SC_CREATE_DATE,
+		S.SCORE  AS SC_SCORE
+		FROM BOOK B
+		LEFT OUTER JOIN SCORE S ON(B.B_NO = S.B_NO)
+		LEFT OUTER JOIN MEMBER M ON(M.U_NO = S.U_NO)
+		WHERE B.B_NO=#{bNo}
+	</select>
+	
+	<select id="selectScoreList" parameterType="int" resultMap="bookScoreResultMap">
+		SELECT * FROM SCORE WHERE B_NO = #{bNo}
+	</select>
+	
+	<insert id="insertScore" parameterType="Score">
+		INSERT INTO SCORE VALUES(SEQ_S_NO.NEXTVAL, #{bNo}, #{uNo}, #{sContent}, SYSDATE, #{score})		
+	</insert>
+	
+	
+
+
+
+
+	<select id="selectAllHomeList" resultMap="bookResultMap">
+		<![CDATA[
+		SELECT B_NO
+			   , B_NAME
+			   , B_WRITER
+			   , B_IMAGE
+	   	FROM	
+	   			(
+	   			SELECT *
+	   			FROM   BOOK
+	   			ORDER BY DBMS_RANDOM.VALUE
+	   			) where ROWNUM <= 4
+		]]>
+	</select>
+	
+	<select id="selectBestsellerList" resultMap="bookResultMap">
+		<![CDATA[
+			SELECT B_NO
+				   , B_NAME
+				   , B_WRITER
+				   , B_IMAGE
+				   , B_RENTCOUNT
+		   	FROM	
+		   			(
+		   			SELECT *
+		   			FROM   BOOK
+		   			ORDER BY b_rentcount DESC
+		   			) where ROWNUM <= 10
+		]]>
+	</select>
+	
+	<select id="selectNewBookList" resultMap="bookResultMap">
+		<![CDATA[
+		SELECT B_NO
+			   , B_NAME
+			   , B_WRITER
+			   , B_IMAGE
+			   , B_CATEGORY
+			   , PUBLISH_DATE
+			   , B_RENTCOUNT
+			   , B_AVGSCORE 
+	   	FROM	
+	   			(
+	   			SELECT *
+	   			FROM   BOOK
+	   			ORDER BY B_AVGSCORE DESC
+	   			) where ROWNUM <= 10
+		]]>
+	</select>
+	
+	
+	<select id="selectSearchBookList" parameterType="map" resultMap="bookResultMap">
+		SELECT B_NO
+			   , B_NAME
+			   , B_WRITER
+			   , B_IMAGE
+			   , B_CATEGORY
+			   , PUBLISH_DATE
+			   , B_RENTCOUNT
+			   , B_AVGSCORE 
+	   	FROM	BOOK
+	   	<where>
+		   	<if test="option.equals('title')">
+				AND B_NAME LIKE '%'||#{keyword}||'%'
+			</if>
+			<if test="option.equals('writer')">
+				AND B_WRITER LIKE '%'||#{keyword}||'%'
+			</if>
+		</where>
+	</select>
+	
+ 
+ 
+</mapper>
