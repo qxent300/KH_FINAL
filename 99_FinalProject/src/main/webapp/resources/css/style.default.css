@@ -16797,3 +16797,66 @@ STYLE SWITCHER FOR DEMO
 .nav-segment.nav-pills .nav-link {
     border-radius: 50rem
 }
+        .yesTb table {
+            border-collapse: collapse !important;
+            table-layout: fixed;
+            border-top: solid 1px #d8d8d8;
+            border-bottom: solid 1px #d8d8d8;
+        }
+        .yesTb table thead th {
+            padding: 6px 0 6px 0;
+            line-height: 18px;
+            font-size: 12px;
+            text-align: center;
+            color: #333;
+            text-indent: 0;
+            font-weight: bold;
+            border-right: solid 1px #ebebeb;
+            border-bottom: solid 1px #ebebeb;
+            background-color: #f8f8f8;
+        }
+        
+        .yesTb table thead.b_size th {
+            padding: 12px 0;
+            font-size: 13px;
+        }
+                
+        .yesTb table tbody th {
+            padding: 6px 0 6px 0;
+            line-height: 16px;
+            font-size: 13px;
+            text-align: center;
+            color: #333;
+            text-indent: 0;
+            border-top: solid 1px #ebebeb;
+            border-right: solid 1px #ebebeb;
+            background-color: #f8f8f8;
+        }
+        
+        .yesTb table tbody.b_size th {
+            padding: 12px 0 12px 0;
+            font-size: 13px;
+        }
+        
+        .yesTb table tbody td {
+            padding: 6px 14px 6px;
+            line-height: 16px;
+            color: #666;
+            text-indent: 0;
+            border-top: solid 1px #ebebeb;
+            border-right: solid 1px #ebebeb;
+        }
+        
+        .yesTb table tbody.b_size td {
+            padding: 12px 14px 12px;
+            line-height: 16px;
+            font-size: 12px;
+        }
+
+        .yesTb table .lastCol {
+            border-right: none;
+        }
+        
+        .yesTb table td {
+            text-align: left;
+        }

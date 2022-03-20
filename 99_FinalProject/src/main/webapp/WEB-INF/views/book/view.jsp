@@ -54,9 +54,8 @@
 			<!-- End Row -->
 			<input type="hidden" name="bNo" id="bNo" value="${book.BNo}">
 			<input type="hidden" name="uNo" id="uNo" value="1">
-			<button type="submit" id="addCart" class="btn btn-primary">
-			<em class="bi-cart fw-bold"> 장바구니에 담기</em></button>
-			<button type="submit" id="addRent" class="btn btn-info"><em class="bi-book fw-bold"> 대여하기</em></button>
+			<button id="addCart" class="btn btn-primary bi-cart">&nbsp;장바구니 담기</button>
+			<button id="addRent" class="btn btn-info bi-book">&nbsp;대여하기</button>
 		</div>
 		<!-- End Col -->
 	</div>
@@ -213,37 +212,52 @@
 			<div class="tab-pane fade" id="featuresThree" role="tabpanel"
 				aria-labelledby="featuresThree-tab">
 				<h4 class="mb-3">대여 안내</h4>
-				<div class="d-grid gap-2 mb-5">
-					<!-- Card -->
-					<div class="card card-sm card-bordered shadow-none">
-						<div class="card-body">
-							<div class="row align-items-sm-center">
-								<div class="col">
-									<div class="d-flex align-items-center">
-										<div class="flex-shrink-0">
-											<span class="svg-icon svg-icon-sm text-center text-primary"
-												style="min-width: 3rem;"> </span>
-										</div>
-										<div>
-                   						<p class="fw-bold">도서 대여 기간</p>
-                    					<p>도서 대여는 최대 2주까지 가능합니다.</p><br>
-                  						<p class="fw-bold">도서 연체 시</p>
-                   						<p>도서를 반납기한을 초과한 경우, 반납일로부터 연체일수 만큼 대출이 일시 정지되며, 연체도서 중 연체일수가 가장 긴 도서의 연체일수 만큼 대출할 수 없습니다. 반납한 자료의 당일 재대출은 불가하며, 다음날부터 대출이 가능합니다.</p><br>
-                    					<p class="fw-bold">도서 분실 / 훼손</p>
-                    					<p>도서를 분실, 훼손 하였을 경우에는 해당 도서와 동일한 자료로 변상하는 것을 원칙으로 합니다. 다만, 변상당시 구하기 어렵다고 여겨지는 도서는 유사한 도서로 변상할 수 있습니다.</p>
-                    					<p>분실한 도서를 같은 도서로 변상하지 못할 경우에는 현금으로 변상해야 합니다.</p>
-                    					<p>1. 그 도서의 출간년이 변상당시를 기준으로 5년 전 이내일 경우, 변상대금은 시가의 1.5배.</p>
-                    					<p>2. 그 도서의 발행년이 변상당시를 기준으로 5년 전 이상일 경우, 변상대금은 시가의 매년 10%를 가산한 금액.</p>
-                    					<p>3. 악보의 변상대금은 발행년에 관계 없이 시가의 5배</p>
-                    					<p>4. 귀중하다고 여겨지는 자료 (문학작품의 초판본, 연속간행물 등), 고서 및 특정 집서의 자료의 변상대금은 별도로 산정한 금액.</p>
-                    
-                				</div>
-										
-							<!-- End Row -->
-						</div>
-					</div>
-					<!-- End Card -->
-				</div>
+				<div class="d-grid gap-2 mb-5 yesTb">
+                        <table class="tb_nor" width="100%">
+                            <colgroup>
+                                <col width="170">
+                                <col width="*">
+                            </colgroup>
+                            <tbody class="b_size">
+                                <tr>
+                                    <th>대여 기간</th>
+                                    <td class="lastCol">
+                                        <span class="text-black fw-bold">도서 대여는 최대 2주까지 가능합니다.</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>반납 연체</th>
+                                    <td class="lastCol">
+                                        <span>반납기한을 초과한 경우, 반납일로부터 연체일수 만큼 대출이 일시 정지되며,<br>
+                                            연체도서 중 연체일수가 가장 긴 도서의 연체일수 만큼 대출할 수 없습니다.<br>
+                                            반납한 자료의 당일 재대출은 불가하며, 다음날부터 대출이 가능합니다.</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>분실/훼손</th>
+                                    <td class="lastCol">
+                                        <span>도서를 분실, 훼손 하였을 경우에는 해당 도서와 동일한 자료로 변상하는 것을 원칙으로 합니다.</span><br>
+                                        <p><b><u>다만, 변상당시 구하기 어렵다고 여겨지는 도서는 유사한 도서로 변상할 수 있습니다.</u></b></p>
+                                        <p class="text-black fw-bold">분실한 도서를 같은 도서로 변상하지 못할 경우에는 현금으로 변상해야 합니다.</p>
+                                        <ul>
+                                            <li>
+                                                해당 도서의 출간년이 변상당시를 기준으로 5년 전 이내일 경우, 변상대금은 시가의 1.5배.
+                                            </li>
+                                            <li>
+                                                해당 도서의 발행년이 변상당시를 기준으로 5년 전 이상일 경우, 변상대금은 시가의 매년 10%를 가산한 금액.
+                                            </li>
+                                            <li>
+                                                악보의 변상대금은 발행년에 관계 없이 시가의 5배.
+                                            </li>
+                                            <li>
+                                                귀중하다고 여겨지는 자료(문학작품의 초판본, 연속간행물 등), 고서 및 특정 집서의 자료의 변상대금은 별도로 산정한 금액.
+                                            </li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
 			</div>
 		</div>
 		<!-- End Tab Content -->
@@ -272,7 +286,7 @@
 					if (${login} == 0) {
                         alert("로그인 후 이용 가능합니다.")
                     } else {
-                        alert("도서를 카트에 담았습니다.")
+                        alert("도서를 장바구니에 담았습니다.")
 				}}
 			});
 		});
