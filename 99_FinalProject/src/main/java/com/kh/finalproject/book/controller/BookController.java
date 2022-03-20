@@ -44,14 +44,14 @@ public class BookController {
 			PageInfo pageInfo = new PageInfo(page, 10, service.getBookCount(), 12);
 			List<Book> list = service.getAllBookList(pageInfo);
 			
-			System.out.println("list :" + list);
+//			System.out.println("list :" + list);
 			
 			model.addObject("list", list);
 			model.addObject("pageInfo", pageInfo);
 		}else {
 			PageInfo pageInfo = new PageInfo(page, 10, service.getBookCount(category, option, query), 12);
 			List<Book> list = service.getBookList(category, option, query, sort, pageInfo);
-			System.out.println("list :" + list);
+//			System.out.println("list :" + list);
 			model.addObject("list", list);
 			model.addObject("pageInfo", pageInfo);
 		}
@@ -90,14 +90,16 @@ public class BookController {
 		model.addObject("map", map); // modelandview에 map를 저장
 		List<Book> searchList = service.getSearchBookList(keyword, search_option);
 		model.addObject("list", searchList);
-		System.out.println("map : " + map);
+//		System.out.println("map : " + map);
 		model.setViewName("book/searchlist"); // 자료를 넘길 뷰의 이름
 
 		return model; // 게시판 페이지로 이동
 	}
 	
 	@GetMapping("/view")
-	public ModelAndView view(ModelAndView model, int bNo) {
+	public ModelAndView view(ModelAndView model,
+			@SessionAttribute(name = "loginMember", required = false) Member loginMember,
+			int bNo) {
 		Book book = service.findBookByNo(bNo);
 
 		int scoreCount = 0;
@@ -119,6 +121,7 @@ public class BookController {
 		model.addObject("scoreAvg", scoreAvg);
 		model.addObject("scoreAvgs", scoreAvgs);
 		model.addObject("book", book);
+		model.addObject("login", loginMember == null ? 0:1);
 		model.addObject("scoreList", book.getReviews());
 		model.setViewName("/book/view");
 

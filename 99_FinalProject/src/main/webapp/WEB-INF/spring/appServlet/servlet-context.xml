@@ -58,6 +58,8 @@
 			<!-- <mapping path="/member/view"/> <mapping path="/member/update"/> -->
 
 			<mapping path="/book/score" />
+			<mapping path="/mypage/cart" />
+			<mapping path="/mypage/rent" />
 			<mapping path="/member/**" />
 			<mapping path="/bookboard/**" />
 			<mapping path="/freeboard/**" />

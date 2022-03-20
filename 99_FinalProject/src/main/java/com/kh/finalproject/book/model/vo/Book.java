@@ -16,6 +16,7 @@ import lombok.Setter;
 @Setter
 public class Book {
 	private int bNo;
+	private int uNo;
 	private String bName;
 	private String bWriter;
 	private String bImage;

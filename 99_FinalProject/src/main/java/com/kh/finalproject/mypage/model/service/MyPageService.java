@@ -18,6 +18,7 @@ public interface MyPageService {
 	List<Library> getLibraryList(String address);	// 주소 검색을 통한 도서관 목록 조회
 	
 	int insertRent(Cart cart);	// 장바구니에 있는 도서 대여하기
+	int insertRent(Rent rent);	// 도서 페이지에서 도서 대여하기
 	
 	int deleteAllCart(int uNo);	// 대여 후 장바구니 비우기
 	
@@ -28,5 +29,6 @@ public interface MyPageService {
 	List<Rent> getAllRentList(PageInfo pageInfo, int uNo);	// 대여현황 목록 조회(페이징 적용)
 	
 	int updateRentStatusToReturn(int rNo);	// 도서 반납하기
-	
+
+	int addCart(Cart cart);
 }

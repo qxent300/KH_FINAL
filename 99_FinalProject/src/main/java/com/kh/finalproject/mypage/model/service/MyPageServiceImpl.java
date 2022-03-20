@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.finalproject.common.util.PageInfo;
@@ -13,7 +14,7 @@ import com.kh.finalproject.mypage.model.vo.Cart;
 import com.kh.finalproject.mypage.model.vo.Library;
 import com.kh.finalproject.mypage.model.vo.Rent;
 
-
+@Service
 public class MyPageServiceImpl implements MyPageService {
 
 	@Autowired
@@ -49,6 +50,12 @@ public class MyPageServiceImpl implements MyPageService {
 	@Transactional(rollbackFor = Exception.class)
 	public int insertRent(Cart cart) {
 		return mapper.insertRent(cart);
+	}
+	
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public int insertRent(Rent rent) {
+		return mapper.insertRent(rent);
 	}
 
 	@Override
@@ -113,4 +120,8 @@ public class MyPageServiceImpl implements MyPageService {
 		return mapper.updateRentStatusToReturn(rNo);
 	}
 
+	@Override
+	public int addCart(Cart cart) {
+		return mapper.insertCart(cart);
+	}
 }

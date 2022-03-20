@@ -21,6 +21,7 @@ public interface MyPageMapper {
 	List<Library> selectLibraryList(String address);
 
 	int insertRent(Cart cart);
+	int insertRent(Rent rent);
 	
 	int deleteAllCart(int uNo);
 	

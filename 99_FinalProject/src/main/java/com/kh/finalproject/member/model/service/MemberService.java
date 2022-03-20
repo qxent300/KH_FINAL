@@ -21,5 +21,4 @@ public interface MemberService {
 	Member findByNickname(String uNickName);
 
 	String FindUserPwd(String uId, String uName);
-	
 }

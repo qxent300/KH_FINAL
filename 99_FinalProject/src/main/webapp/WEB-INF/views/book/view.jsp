@@ -52,9 +52,11 @@
 
 			<div class="row align-items-center mb-3"></div>
 			<!-- End Row -->
-			<a href="${path}/mypage/cart" class="btn btn-primary"><em
-				class="bi-cart fw-bold"> 카트에 넣기</em></a> <a href="#"
-				class="btn btn-info"><em class="bi-book fw-bold"> 대여하기</em></a>
+			<input type="hidden" name="bNo" id="bNo" value="${book.BNo}">
+			<input type="hidden" name="uNo" id="uNo" value="1">
+			<button type="submit" id="addCart" class="btn btn-primary">
+			<em class="bi-cart fw-bold"> 카트에 넣기</em></button>
+			<button type="submit" id="addRent" class="btn btn-info"><em class="bi-book fw-bold"> 대여하기</em></button>
 		</div>
 		<!-- End Col -->
 	</div>
@@ -231,7 +233,7 @@
 								<!-- End Col -->
 
 								<div class="col-sm-7 col-md-6">
-									<p class="card-text small">TBD</p>
+									<p class="card-text small">${book.BNo}, ${book.UNo}, ${cart.UNo}, ${cart.uNo}</p>
 								</div>
 								<!-- End Col -->
 
@@ -255,6 +257,50 @@
 	</div>
 </div>
 <!-- End Content -->
+<!-- <script>
+        $(function() {
+            $("#addTest").on("click", function(event) {
+                $(this).attr("href", function(i, val) {
+                    return $("#bNo").val();
+                });
+            });
+        })
+</script> -->
+<script>
+	$(function() {
+		$("#addCart").on("click", function() {
+			$.ajax({
+				url : "${path}/mypage/cart",
+				data : {
+					bNo : "${book.BNo}"
+				},
+				type : "post",
+				success : function(data) {
+					if (${login} == 0) {
+                        alert("로그인 후 이용 가능합니다.")
+                    } else {
+                        alert("도서를 카트에 담았습니다.")
+				}}
+			});
+		});
+		$("#addRent").on("click", function() {
+			$.ajax({
+				url : "${path}/mypage/rent",
+				data : {
+					bNo : "${book.BNo}"
+				},
+				type : "post",
+				
+				success: function(data) {
+                    if (${login} == 0) {
+                    	alert("로그인 후 이용 가능합니다.")
+                    } else {
+                        alert("도서를 대여하였습니다.")
+				}}
+			});
+		});
+	});
+</script>
 <script>
 	function check() {
 		if ($('input[name=score]:radio:checked').length < 1) {
