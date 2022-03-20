@@ -153,7 +153,7 @@
             </div>
             <div>
                 <p style="text-align: center; color: slategrey;">(↑ click 해서 옆으로 미세요.)</p>
-            </div><!--  -->
+            </div>
         </div>
     </section>
 
