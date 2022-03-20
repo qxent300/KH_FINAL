@@ -56,10 +56,11 @@
 		FROM CART C, BOOK B, MEMBER U
 		WHERE C.B_NO = B.B_NO AND C.U_NO = U.U_NO
 		AND C.U_NO = #{uNo}
+		ORDER BY C.C_NO DESC
 	</select>
 	
-	<delete id="deleteCartByNo" parameterType="int">
-		DELETE FROM CART WHERE C_NO = #{cNo}
+	<delete id="deleteCartByNo" parameterType="Cart">
+		DELETE FROM CART WHERE C_NO = #{cNo} AND U_NO = #{uNo}
 	</delete>
 	
 	<select id="selectLibraryList" parameterType="string" resultMap="libraryResultMap">

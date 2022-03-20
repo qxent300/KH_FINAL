@@ -1,9 +1,6 @@
 package com.kh.finalproject.mypage.model.vo;
 
 import java.util.Date;
-import java.util.List;
-
-import com.kh.finalproject.book.model.vo.Score;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

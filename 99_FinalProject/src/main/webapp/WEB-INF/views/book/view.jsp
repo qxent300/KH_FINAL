@@ -54,8 +54,8 @@
 			<!-- End Row -->
 			<input type="hidden" name="bNo" id="bNo" value="${book.BNo}">
 			<input type="hidden" name="uNo" id="uNo" value="1">
-			<button id="addCart" class="btn btn-primary bi-cart">&nbsp;장바구니 담기</button>
-			<button id="addRent" class="btn btn-info bi-book">&nbsp;대여하기</button>
+			<button id="addCart" class="btn btn-primary bi-cart" onclick="location.href='${path}/mypage/cart?bNo=${book.BNo}'">&nbsp;장바구니 담기</button>
+			<button id="addRent" class="btn btn-info bi-book" onclick="location.href='${path}/mypage/rent?bNo=${book.BNo}'">&nbsp;대여하기</button>
 		</div>
 		<!-- End Col -->
 	</div>

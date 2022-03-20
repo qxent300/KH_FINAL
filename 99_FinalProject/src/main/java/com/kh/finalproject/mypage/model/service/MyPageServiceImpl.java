@@ -37,8 +37,8 @@ public class MyPageServiceImpl implements MyPageService {
 
 	@Override
 	@Transactional(rollbackFor = Exception.class)
-	public int deleteCartByNo(int cNo) {
-		return mapper.deleteCartByNo(cNo);
+	public int deleteCartByNo(Cart cart) {
+		return mapper.deleteCartByNo(cart);
 	}
 
 	@Override
@@ -50,12 +50,6 @@ public class MyPageServiceImpl implements MyPageService {
 	@Transactional(rollbackFor = Exception.class)
 	public int insertRent(Cart cart) {
 		return mapper.insertRent(cart);
-	}
-	
-	@Override
-	@Transactional(rollbackFor = Exception.class)
-	public int insertRent(Rent rent) {
-		return mapper.insertRent(rent);
 	}
 
 	@Override
@@ -72,14 +66,17 @@ public class MyPageServiceImpl implements MyPageService {
 		int overdueCount = 0;
 		
 		for (Rent rent : rentList) {
-			long diffHour = (new Date().getTime() - rent.getStartDate().getTime()) / (60 * 60 * 1000);	// 현재 시간 - 대여 시작 시간
+			if (rent.getRStatus().equals("반납완료") == false) {
+				long diffHour = (new Date().getTime() - rent.getStartDate().getTime()) / (60 * 60 * 1000);	// 현재 시간 - 대여 시작 시간
+				
+				if (diffHour >= 24) {	// 대여한지 하루가 지난 경우 배송중 -> 대여중으로 상태 변경
+					mapper.updateRentStatusToRent(rent);
+				}
 			
-			if (diffHour >= 24) {	// 대여한지 하루가 지난 경우 배송중 -> 대여중으로 상태 변경
-				mapper.updateRentStatusToRent(rent);
-			}
 			
-			if (new Date().getTime() - rent.getEndDate().getTime() > 0) {	// 반납 날짜가 오늘 기준으로 지난 경우 대여중 -> 미반납으로 상태 변경
-				mapper.updateRentStatusToOverdue(rent);
+				if (new Date().getTime() - rent.getEndDate().getTime() > 0) {	// 반납 날짜가 오늘 기준으로 지난 경우 대여중 -> 미반납으로 상태 변경
+					mapper.updateRentStatusToOverdue(rent);
+				}
 			}
 			
 			if (rent.getRStatus().equals("미반납")) {
@@ -116,12 +113,9 @@ public class MyPageServiceImpl implements MyPageService {
 	}
 
 	@Override
+	@Transactional(rollbackFor = Exception.class)
 	public int updateRentStatusToReturn(int rNo) {
 		return mapper.updateRentStatusToReturn(rNo);
 	}
 
-	@Override
-	public int addCart(Cart cart) {
-		return mapper.insertCart(cart);
-	}
 }

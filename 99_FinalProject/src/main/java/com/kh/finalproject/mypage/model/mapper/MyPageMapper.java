@@ -16,12 +16,11 @@ public interface MyPageMapper {
 	
 	List<Cart> selectAllCartList(int uNo);
 	
-	int deleteCartByNo(int cNo);
+	int deleteCartByNo(Cart cart);
 	
 	List<Library> selectLibraryList(String address);
 
 	int insertRent(Cart cart);
-	int insertRent(Rent rent);
 	
 	int deleteAllCart(int uNo);
 	

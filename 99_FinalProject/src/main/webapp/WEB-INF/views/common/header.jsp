@@ -62,7 +62,7 @@
 						<a class="nav-link dropdown-toggle" style="font-size: medium;" type="button"
 							data-bs-toggle="dropdown" aria-haspopup="true" role="button">마이페이지</a>
 						<div class="dropdown-menu megamenu py-lg-2" style="min-width: 107px;">
-							<a class="dropdown-item" href="${path}/mypage/rent"
+							<a class="dropdown-item" href="${path}/mypage/rentList"
 								style="background-color: rgb(255, 255, 255)">대여현황</a> <a
 								class="dropdown-item" href="${path}/member/view"
 								style="background-color: rgb(255, 255, 255)">회원정보</a> <a
@@ -72,7 +72,7 @@
 					</div>
 					<li class="nav-item"><a class="nav-link" href="${path}/faq"
 						style="font-size: medium;">고객센터</a></li>
-					<li class="nav-item"><a class="nav-link" href="${path}/mypage/cart"
+					<li class="nav-item"><a class="nav-link" href="${path}/mypage/cartList"
 						style="font-size: medium;">장바구니</a></li>
 					<c:if test="${ loginMember == null }">
 						<li class="nav-item"><a class="nav-link" href="${path}/login"
