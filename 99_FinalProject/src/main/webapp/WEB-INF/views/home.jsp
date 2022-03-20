@@ -72,9 +72,9 @@
     
     <section class="py-5 bg-gray-100">
         <div class="container d-grid col-sm-9" style="max-width: 1000px;">
-            <div class="text-center pb-lg-4">
+            <div class="text-center">
                 <p class="subtitle text-secondary">Book of the day</p>
-                <h2 class="mb-3">오늘의 책</h2>
+                <h2 class="mb-5">오늘의 책</h2>
             </div>
             <div class="row">
             <c:if test="${todayBookList != null }">
@@ -98,10 +98,10 @@
                     <p class="subtitle text-primary">Best seller</p>
                     <h2>베스트셀러</h2>
                 </div>
-                <div class="d-lg-flex align-items-center justify-content-end"><a class="text-muted text-sm" href="book/search">
-            View more<i class="fas fa-angle-double-right ms-2"></i></a></div>
+                <div class="d-lg-flex align-items-center justify-content-end"><a class="text-muted text-sm fw-bold" href="book/search">
+            더 보기<i class="fas fa-angle-right ms-2"></i></a></div>
             </div>
-            <div class="swiper-container guides-slider mx-n2 pt-3">
+            <div class="swiper-container guides-slider mx-n2">
                 <!-- Additional required wrapper-->
                 <div class="swiper-wrapper pb-3">
                     <!-- Slides-->
@@ -124,17 +124,17 @@
             </div>
         </div>
     </section>
-   <section class="py-3">
+   <section class="py-5">
         <div class="container">
             <div class="row mb-3">
                 <div class="text-center">
                     <p class="subtitle text-danger">New</p>
                     <h2>요즘 뜨는 책</h2>
                 </div>
-                <div class="d-lg-flex align-items-center justify-content-end"><a class="text-muted text-sm" href="book/search">
-            View more<i class="fas fa-angle-double-right ms-2"></i></a></div>
+                <div class="d-lg-flex align-items-center justify-content-end"><a class="text-muted text-sm fw-bold" href="book/search">
+            더 보기<i class="fas fa-angle-right ms-2"></i></a></div>
             </div>
-            <div class="swiper-container guides-slider mx-n2 pt-3">
+            <div class="swiper-container guides-slider mx-n2">
                 <!-- Additional required wrapper-->
                 <div class="swiper-wrapper pb-3">
                     <!-- Slides-->
@@ -152,8 +152,8 @@
                 </div>
             </div>
             <div>
-                <p style="text-align: center; color: slategrey">(↑ click 해서 옆으로 미세요.)</p>
-            </div>
+                <p style="text-align: center; color: slategrey;">(↑ click 해서 옆으로 미세요.)</p>
+            </div><!--  -->
         </div>
     </section>
 
