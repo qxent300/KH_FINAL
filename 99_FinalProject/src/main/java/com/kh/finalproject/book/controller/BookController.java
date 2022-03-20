@@ -125,7 +125,7 @@ public class BookController {
 		return model;
 	}
 
-	@RequestMapping("/score")
+	@RequestMapping("/score")//
 	public ModelAndView insertScore(ModelAndView model,
 			@SessionAttribute(name = "loginMember", required = false) Member loginMember, @ModelAttribute Score score) {
 		score.setUNo(loginMember.getUNo());
