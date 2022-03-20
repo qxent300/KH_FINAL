@@ -9,31 +9,35 @@
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param value="대여 현황" name="title"/>
 </jsp:include>
-
+<style>
+#tdWidth1 {width: 5%;}.tdWidth2 {max-width: 10px;}#tdWidth3 {width: 20%;}#tdWidth4 {width: 10%;}#tdWidth5 {width: 10%;}#tdWidth6 {width: 10%;}#tdWidth7 {width: 10%;}
+</style>
+<div class="bg-cover"
+	style="background-image: url(${path}/images/card-11.svg);">
 	<section class="py-5">
       <div class="container" style="padding-top: 100px;">
-        <div class="d-flex justify-content-between align-items-end mb-5">
+        <div class="d-flex justify-content-between align-items-end mb-3">
           <h1 class="hero-heading mb-0">대여 현황</h1>
         </div>
-        
-		<table class="table">
-		  <thead>
+        <!--  -->
+		<table class="table text-center" style="border-top: .0625rem solid rgba(33, 50, 91, .1)">
+		  <thead class="table-light">
 		    <tr>
-		      <th scope="col">#</th>
-		      <th scope="col">책 제목</th>
-		      <th scope="col">저자</th>
-		      <th scope="col">대여날짜</th>
-		      <th scope="col">반납날짜</th>
-		      <th scope="col">상태</th>
-		      <th scope="col">한줄평</th>
+				<th id="tdWidth1">#</th>
+				<th>책 제목</th>
+				<th id="tdWidth3">저자</th>
+				<th id="tdWidth4">대여일</th>
+				<th id="tdWidth5">반납기한</th>
+				<th id="tdWidth6">상태</th>
+				<th id="tdWidth7">한줄평</th>
 		    </tr>
 		  </thead>
 		  <tbody>
 		    <c:forEach var="rent" items="${rentList }" varStatus="status">
 		    	<tr>
 		    		<td>${status.index + 1 }</td>
-		    		<td><a href="${path }/book/view?bNo=${rent.BNo}">${rent.BName }</a></td>
-		    		<td>${rent.BWriter }</td>
+		    		<td class="text-truncate tdWidth2"><a href="${path }/book/view?bNo=${rent.BNo}">${rent.BName }</a></td>
+		    		<td class="text-truncate tdWidth2">${rent.BWriter }</td>
 		    		<td>
 		    			<fmt:formatDate value="${rent.startDate }" pattern="yyyy-MM-dd"/>
 		    		</td>
@@ -71,12 +75,12 @@
 		    	</tr>
 		    </c:forEach>
 		  </tbody>
+		  <tr></tr>
 		</table>
-		
 
          <!-- Pagination -->
          <nav aria-label="Page navigation example">
-             <div class="pagination justify-content-center pt-4 pb-7 me-5">
+             <div class="pagination justify-content-center pt-4 pb-7">
      			<div class="pagination justify-content-center">
 			<!-- 맨 처음으로 -->
 			<button class="page-link page-item rounded-start" onclick="location.href='${ path }/mypage/rentList?page=1'">&lt;&lt;</button>
@@ -113,7 +117,7 @@
       </div>
 
 	</section>
-
+</div>
 
 <script>
 	if (${overdueCount > 0}) {

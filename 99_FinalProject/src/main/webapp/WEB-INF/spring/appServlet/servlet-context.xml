@@ -59,7 +59,9 @@
 
 			<mapping path="/book/score" />
 			<mapping path="/mypage/cart" />
+			<mapping path="/mypage/cartList" />
 			<mapping path="/mypage/rent" />
+			<mapping path="/mypage/rentList" />
 			<mapping path="/member/**" />
 			<mapping path="/bookboard/**" />
 			<mapping path="/freeboard/**" />

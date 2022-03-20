@@ -39,7 +39,7 @@
 			<!-- Title -->
 			<div class="container justify-content-center col-9">
 				<div class="row card card-body">
-						<h2>${board.type})${board.title}</h2>
+						<h2>${board.type}) ${board.title}</h2>
 						<div id="bg" class="border border-dark border-1 border-start-0 border-end-0 text-dark">
 							글쓴이&nbsp;<span id="font">${board.writerId}</span>&nbsp;&nbsp;<span
 								class="line"></span>&nbsp;&nbsp;조회&nbsp;<span id="font">${board.readCount}</span>&nbsp;&nbsp;<span

@@ -12,14 +12,17 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.finalproject.book.model.service.BookService;
 import com.kh.finalproject.book.model.vo.Book;
 import com.kh.finalproject.common.util.PageInfo;
+import com.kh.finalproject.member.model.vo.Member;
 
 /**
  * Handles requests for the application home page.
@@ -45,5 +48,9 @@ public class HomeController {
 		
 		model.setViewName("home");
 		return model;
+	}
+	
+	@GetMapping("/faq")
+	public void faq() {
 	}
 }

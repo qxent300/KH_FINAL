@@ -9,7 +9,7 @@
 	<jsp:param value="자유공간" name="title"/>
 </jsp:include>
 	<style>
-	#tdWidth1 {width: 10%;}#tdWidth2 {max-width: 10px;}#tdWidth3 {width: 20%;}#tdWidth4 {width: 15%;}#tdWidth5 {width: 10%;}
+	#tdWidth1 {width: 10%;}.tdWidth2 {max-width: 10px;}#tdWidth3 {width: 20%;}#tdWidth4 {width: 15%;}#tdWidth5 {width: 10%;}
 	.thead-light {background-color: #f8fafd;}
 	</style>
     <!-- Hero -->
@@ -39,7 +39,7 @@
 					<c:forEach var="board" items="${list}">
 						<tr>
 							<td><c:out value="${board.type}"/></td>
-							<td class="text-start" id="tdWidth2"><a
+							<td class="text-start text-turncate tdWidth2"><a
 								href="${path}/freeboard/view?no=${board.no}"> <c:out
 										value="${board.title}" />
 							</a></td>
