@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
@@ -125,7 +126,7 @@ public class BookController {
 		return model;
 	}
 
-	@RequestMapping("/score")
+	@PostMapping("/score")
 	public ModelAndView insertScore(ModelAndView model,
 			@SessionAttribute(name = "loginMember", required = false) Member loginMember, @ModelAttribute Score score) {
 		score.setUNo(loginMember.getUNo());
@@ -136,7 +137,7 @@ public class BookController {
 			Book book = service.findBookByNo(score.getBNo());
 			model.addObject("book", book);
 			model.addObject("scoreList", book.getReviews());
-			model.setViewName("book/view");
+			model.setViewName("redirect:/book/view?bNo="+book.getBNo());
 		} else {
 			model.addObject("msg", "한줄평을 등록할 수 없습니다.");
 			model.addObject("location", "/");
