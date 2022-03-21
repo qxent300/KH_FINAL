@@ -27,22 +27,22 @@
                     		<button type="button" class="btn btn-primary fw-bold bi-pencil-fill"
 							onclick="location.href='${path}/bookboard/write'">&nbsp;글쓰기</button>
 						</c:if>
-                <c:if test="${list == null}">
-                	<div class="col-lg-3 col-sm-6 mb-4 hover-animate">
-                		<h3 class="text-lg-center">등록된 게시글이 없습니다.</h3>
-                	</div>
-                </c:if>
+		                <c:if test="${list1 == null && list2 == null}">
+		                	<div class="col-lg-3 col-sm-6 mb-4 hover-animate">
+		                		<h3 class="text-lg-center">등록된 게시글이 없습니다.</h3>
+		                	</div>
+		                </c:if>
                        </div>
                     <div class="col-md-8">
                         <!-- <h2>인기 독서일지</h2> -->
                     </div>
                 </div>
-        		<c:if test="${list != null }">
+        		<c:if test="${list1 != null }">
         		<c:forEach var="bookBoard" items="${list1}">
                 <!--인기-->
                 <div class="col-lg-3 col-sm-6 mb-4 hover-animate">
                     <div class="card shadow border-0 h-100">
-                        <a href="${path}/bookboard/view?no=${bookBoard.bbNo}"><img class="img-fluid card-img-top" src="${path}/images/${list1.bImage}" alt="..." />
+                        <a href="${path}/bookboard/view?bbNo=${bookBoard.bbNo}"><img class="img-fluid card-img-top" src="${path}/book/${bookBoard.BImage}" alt="..." />
                             <span class="card-img-overlay-top d-flex justify-content-between align-items-center">
                                 <div class="icon-rounded bg-warning-light mb-3">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="orange" class="bi bi-star-fill" viewBox="0 0 16 16">
@@ -51,10 +51,10 @@
                                 </div>
                             </span>
                         </a>
-                        <div class="card-body"><a class="text-uppercase text-muted text-sm letter-spacing-2"><c:out value="${bookBoard.uNickName}"/></a>
+                        <div class="card-body"><a class="text-uppercase text-muted text-sm letter-spacing-2"><c:out value="${bookBoard.UNickName}"/></a>
                             <h5 class="my-2"><a class="text-dark" href="${path}/bookboard/view"><c:out value="${bookBoard.bbTitle}"/></a></h5>
                             <p class="text-gray-500 fs-5 my-3"><i class="far fa-clock me-2"></i><fmt:formatDate pattern="yyyy.MM.dd" value="${bookBoard.createDate}"/></p>
-                            <p class="text-dark fs-4 my-3">[<c:out value="${bookBoard.bbRecommendCount}"/>]</p>
+                            <p class="text-dark fs-4 my-3">추천수 : [<c:out value="${bookBoard.bbRecommendCount}"/>]</p>
                         </div>
                     </div>
                 </div>
@@ -62,22 +62,26 @@
                 </c:if>
                 <!-- 일반 -->
         <c:if test="${list2 != null }">
-          <c:forEach var="bookBoard" items="${list2}">
+          <c:forEach var="bookBoard" items="${list2}" varStatus="status">
+          <c:if test="${status.index % 4 == 0}">
             <div class="row mb-5">
+          </c:if>
                 <div class="col-lg-3 col-sm-6 mb-4 hover-animate">
                     <div class="card shadow border-0 h-100">
-                        <a href="${path}/bookboard/view?no=${bookBoard.bbNo}"><img class="img-fluid card-img-top" src="${path}/images/${list2.bImage}" alt="..." />
+                        <a href="${path}/bookboard/view?bbNo=${bookBoard.bbNo}"><img class="img-fluid card-img-top" src="${path}/book/${bookBoard.BImage}" alt="..." />
                         </a>
-                        <div class="card-body"><a class="text-uppercase text-muted text-sm letter-spacing-2"><c:out value="${bookBoard.uNickName}"/></a>
+                        <div class="card-body"><a class="text-uppercase text-muted text-sm letter-spacing-2"><c:out value="${bookBoard.UNickName}"/></a>
                             <h5 class="my-2"><a class="text-dark" href="${path}/bookboard/view"><c:out value="${bookBoard.bbTitle}"/></a></h5>
                             <p class="text-gray-500 text-sm my-3"><i class="far fa-clock me-2"></i><fmt:formatDate pattern="yyyy.MM.dd" value="${bookBoard.createDate}"/></p>
-                            <p class="text-dark text-sm my-3">[<c:out value="${bookBoard.bbRecommendCount}"/>]</p>
+                            <p class="text-dark text-sm my-3">추천수 : [<c:out value="${bookBoard.bbRecommendCount}"/>]</p>
                         </div>
                     </div>
                 </div>
+          <c:if test="${status.index % 4 == 3 }">
               </div>
-            </c:forEach>
-         </c:if>
+          </c:if>
+          </c:forEach>
+        </c:if>
        </div>
      </div>
         <!-- Pagination -->

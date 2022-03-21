@@ -77,6 +77,9 @@
 			<exclude-mapping path="/freeboard/list" />
 			<exclude-mapping path="/freeboard/view" />
 			<exclude-mapping path="/freeboard/fileDown" />
+			<exclude-mapping path="/mypage/libAddr" />
+			<exclude-mapping path="/bookboard/recommendPlus" />
+			<exclude-mapping path="/bookboard/recommendMinus" />
 
 			<!-- 인터셉터 등록 -->
 			<beans:bean id="loginCheckInterceptor"

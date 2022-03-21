@@ -48,7 +48,7 @@
 				AND BB.B_NO = B.B_NO AND BB.U_NO = U.U_NO
 				ORDER BY BB.BB_RECOMMENDCOUNT DESC) 
 		WHERE ROWNUM <![CDATA[ <= ]]> 4 
-		ORDER BY MODIFY_DATE DESC
+		ORDER BY BB_RECOMMENDCOUNT DESC
 	</select>
 	
 	<select id="selectAllBookBoardList" parameterType="map" resultMap="bookBoardResultMap">

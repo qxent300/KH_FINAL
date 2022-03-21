@@ -49,9 +49,10 @@ public class BookBoardServiceImpl implements BookBoardService {
 	}
 
 	@Override
-	public List<BookBoard> getAllBookBoardList(PageInfo pageInfo, List<BookBoard> bbNoList) {
+	public List<BookBoard> getAllBookBoardList(PageInfo pageInfo, List<Integer> bbNoList) {
 		Map<String, List<Integer>> map = new HashMap<String, List<Integer>>();
-//		map.put("filterList", bbNoList);
+		map.put("filterList", bbNoList);
+		
 		int offset = (pageInfo.getCurrentPage() - 1) * pageInfo.getListLimit();
 		RowBounds rowBounds = new RowBounds(offset, pageInfo.getListLimit());
 		

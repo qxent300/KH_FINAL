@@ -1,6 +1,7 @@
 package com.kh.finalproject.bookboard.controller;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -33,17 +35,16 @@ public class BookBoardController {
 	@GetMapping("/list")
 	public ModelAndView list(ModelAndView model,
 			@RequestParam(value="page", required = false, defaultValue = "1") int page) {
-//		int page = 1;
-//		if(param.containsKey("page") == true) {
-//			try {
-//				page = Integer.parseInt(param.get("page"));
-//			} catch (Exception e) {}
-//		}
-		
-		PageInfo pageInfo = new PageInfo(page, 10, service.getBookBoardCount(), 10);
-		
+
 		List<BookBoard> list1 = service.getBookBoardListByRecommendCount();
-		List<BookBoard> list2 = service.getAllBookBoardList(pageInfo, list1);
+		List<Integer> bbNoList = new ArrayList<Integer>();
+		
+		for (BookBoard bb : list1) {
+			bbNoList.add(bb.getBbNo());
+		}
+		
+		PageInfo pageInfo = new PageInfo(page, 10, service.getBookBoardCount(), 8);
+		List<BookBoard> list2 = service.getAllBookBoardList(pageInfo, bbNoList);
 
 		model.addObject("list1", list1);
 		model.addObject("list2", list2);
@@ -56,12 +57,26 @@ public class BookBoardController {
 	@GetMapping("/view")
 	public ModelAndView view(ModelAndView model, int bbNo) {
 		BookBoard bookBoard = service.getBookBoardByNo(bbNo);
-//		System.out.println(bookBoard);
+
 		model.addObject("bookBoard", bookBoard);
 		model.addObject("recommendCount", bookBoard.getBbRecommendCount());
 		model.setViewName("/bookboard/view");
 
 		return model;
+	}
+	
+	@PostMapping("/recommendPlus")
+	@ResponseBody
+	public int recommendPlus(int bbNo) {
+		return service.updateRecommendPlus(bbNo);
+		
+	}
+	
+	@PostMapping("/recommendMinus")
+	@ResponseBody
+	public int recommendMinus(int bbNo) {
+		return service.updateRecommendMinus(bbNo);
+		
 	}
 	
 	@GetMapping("/write")

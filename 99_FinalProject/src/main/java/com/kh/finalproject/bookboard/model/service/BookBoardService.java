@@ -15,7 +15,7 @@ public interface BookBoardService {
 	
 	List<BookBoard> getBookBoardListByRecommendCount();	// 가장 추천수가 높은 게시글 4개 출력
 	
-	List<BookBoard> getAllBookBoardList(PageInfo pageInfo, List<BookBoard> bbNoList);	// bbNoList에는 위의 추천수 높은 게시글 4개의 게시글 번호가 저장되어 4개를 제외한 나머지 게시글 목록 출력
+	List<BookBoard> getAllBookBoardList(PageInfo pageInfo, List<Integer> bbNoList);	// bbNoList에는 위의 추천수 높은 게시글 4개의 게시글 번호가 저장되어 4개를 제외한 나머지 게시글 목록 출력
 	
 	BookBoard getBookBoardByNo(int bbNo);	// 독서 일기 상세 정보 조회
 	

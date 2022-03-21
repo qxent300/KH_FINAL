@@ -63,11 +63,15 @@
 							data-bs-toggle="dropdown" aria-haspopup="true" role="button">마이페이지</a>
 						<div class="dropdown-menu megamenu py-lg-2" style="min-width: 107px;">
 							<a class="dropdown-item" href="${path}/mypage/rentList"
-								style="background-color: rgb(255, 255, 255)">대여현황</a> <a
-								class="dropdown-item" href="${path}/member/view"
-								style="background-color: rgb(255, 255, 255)">회원정보</a> <a
-								class="dropdown-item" href="#"
-								style="background-color: rgb(255, 255, 255)">내 활동</a>
+								style="background-color: rgb(255, 255, 255)">대여현황</a> 
+								<c:if test="${ loginMember == null }">
+									<a class="dropdown-item" href="${path}/login"
+									style="background-color: rgb(255, 255, 255)">내 활동</a>
+								</c:if>
+								<c:if test="${ loginMember != null }">
+									 <a class="dropdown-item" href="${path}/myPageBook/MyPageBookBoardList.do?nowPage=1&cntPerPage=5&loginMember=${loginMember}"
+									style="background-color: rgb(255, 255, 255)">내 활동</a>
+								</c:if>
 						</div>
 					</div>
 					<li class="nav-item"><a class="nav-link" href="${path}/faq"
