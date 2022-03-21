@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kh.finalproject.mypage.model.mapper.MyPageBookMapper">
+	<select id="myPageBookBoardList" parameterType="java.util.Map" resultType="com.kh.finalproject.mypage.model.vo.MyPageBookVo">
+		SELECT	*
+		FROM (
+				SELECT ROWNUM RN, A.* 
+				FROM (
+						SELECT	B2.BB_NO AS BBNO,
+								B2.BB_TITLE AS BBTITLE,
+								B1.B_NAME AS BNAME,
+								B2.CREATE_DATE AS CREATEDATE,
+								B2.BB_READCOUNT AS BBREADCOUNT
+						FROM	BOOKBOARD B2,
+								BOOK B1
+						where	B2.B_NO = B1.B_NO
+						<!-- and u_no = #{loginMember} -->
+						ORDER BY B2.CREATE_DATE DESC 
+					 ) A
+				)
+		WHERE RN BETWEEN #{start} AND #{end}
+	</select>
+	
+	
+	<!-- 총 게시글 갯수 출력 -->
+<select id="countBoard" resultType="int">
+	SELECT COUNT(*) FROM BOOKBOARD
+</select>
+
+<!-- 페이징 처리 후 게시글 조회 -->
+<select id="selectBoard" resultType="com.kh.finalproject.mypage.model.vo.MyPagePagingVo">
+SELECT * 
+		FROM (
+			SELECT ROWNUM RN, A.* 
+				FROM (
+						SELECT * 
+						FROM BOOKBOARD
+						ORDER BY CREATE_DATE DESC 
+						) A
+				)
+	WHERE RN BETWEEN #{start} AND #{end}
+</select>
+
+ <delete id="deleteMyPage">
+        delete from BOOKBOARD
+        where BB_NO = #{no}
+ </delete>
+ 
+
+<update id="myPageMemberUpdate">
+		UPDATE 	MEMBER
+		SET 	U_ID = #{uId},
+				U_NAME = #{uName},
+				U_NICKNAME = #{uNickName},
+				U_ADDRESS = #{uAddress},
+				U_PHONE = #{uPhone}
+		WHERE U_NO = #{uNo}
+</update>
+	
+<select id="selectMember" parameterType="java.util.Map" resultType="com.kh.finalproject.member.model.vo.Member">
+		SELECT	U_NO AS uNo,
+				U_ID AS uId,
+				U_NAME AS uNAME,
+				U_NICKNAME AS uNickName,
+				U_ADDRESS AS uAddress,
+				U_PHONE AS uPhone
+		FROM MEMBER
+		WHRER U_ID = #{loginMember}
+</select>
+
+<update id="pwdUpdate">
+		UPDATE 	MEMBER
+		SET 	U_PWD = #{UPwd}
+		WHERE 	U_ID = #{UId}
+
+</update>
+
+<select id="pwdSearch" parameterType="java.lang.String" resultType="com.kh.finalproject.member.model.vo.Member">
+	SELECT	U_PWD AS uPwd
+	FROM	MEMBER
+	WHERE	U_ID = #{uId}
+</select>
+
+<select id="myPageBookReply" parameterType="java.util.Map" resultType="com.kh.finalproject.mypage.model.vo.MyPageBookVo">
+		
+		SELECT	*
+		FROM (
+				SELECT ROWNUM RN, A.* 
+				FROM (
+						SELECT	R1.R_NO AS RNo,
+								F1.FB_TITLE AS FBTITLE,
+								R1.R_CONTENT AS RCONTENT,
+								R1.CREATE_DATE AS CREATEDATE
+				
+						FROM	FREEBOARD F1,
+								REPLY R1
+						where	F1.U_NO = R1.U_NO
+						<!-- and u_no = #{loginMember} -->
+						ORDER BY R1.CREATE_DATE DESC 
+					 ) A
+				)
+		WHERE RN BETWEEN #{start} AND #{end}
+</select>
+
+<select id="replyList" parameterType="java.util.Map" resultType="java.util.Map" >
+	SELECT	*
+		FROM (
+				SELECT ROWNUM RN, A.* 
+				FROM (
+						SELECT	R1.R_NO AS RNO,
+                                F1.FB_TITLE AS FBTITLE,
+                                R1.R_CONTENT AS RCONTENT,
+                                TO_CHAR(R1.CREATE_DATE, 'YYYY-MM-DD') AS CREATEDATE     
+                        FROM	REPLY R1 
+                        LEFT OUTER JOIN FREEBOARD F1
+                        ON R1.FB_NO = F1.FB_NO
+                        WHERE	R1.U_NO = #{uNo}
+                        ORDER BY R1.CREATE_DATE DESC
+					 ) A
+				)
+		WHERE RN BETWEEN #{start} AND #{end} 
+</select>
+
+<select id="replyCount" parameterType="int" resultType="int">
+	SELECT	count(1) AS replyCnt
+	FROM	REPLY R1 
+	LEFT OUTER JOIN FREEBOARD F1
+	ON R1.FB_NO = F1.FB_NO
+	WHERE	R1.U_NO = #{uNo}
+	ORDER BY R1.CREATE_DATE DESC 
+</select>
+
+	
+</mapper>
