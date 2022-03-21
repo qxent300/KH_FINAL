@@ -92,7 +92,7 @@
 $(document).ready(() => {
 	$("#btnDelete").on("click", (e) => {
 		if(confirm("정말 삭제하시겠습니까?")) {
-			location.replace("${path}/bookboard/delete?boardNo=${bookBoard.bbNo}");
+			location.replace("${path}/bookboard/delete?bbNo=${bookBoard.bbNo}");
 		}
 	});
 });

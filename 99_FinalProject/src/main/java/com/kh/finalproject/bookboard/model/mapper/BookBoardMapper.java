@@ -35,5 +35,5 @@ public interface BookBoardMapper {
 
 	int selectTest();
 
-	
+	int updateReadCount(int bbNo);
 }

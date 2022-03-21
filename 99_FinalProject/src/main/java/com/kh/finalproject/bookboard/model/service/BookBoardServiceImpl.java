@@ -99,4 +99,9 @@ public class BookBoardServiceImpl implements BookBoardService {
 		return mapper.selectBook(bNo);
 	}
 
+	@Override
+	public int updateReadCount(int bbNo) {
+		return mapper.updateReadCount(bbNo);
+	}
+
 }

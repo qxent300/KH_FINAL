@@ -80,6 +80,7 @@
 			<exclude-mapping path="/mypage/libAddr" />
 			<exclude-mapping path="/bookboard/recommendPlus" />
 			<exclude-mapping path="/bookboard/recommendMinus" />
+			<exclude-mapping path="/bookboard/searchBook" />
 
 			<!-- 인터셉터 등록 -->
 			<beans:bean id="loginCheckInterceptor"

@@ -25,8 +25,8 @@
 		<div class="card container col-sm-7">
 			<div class="row container mx-auto d-grid">
 				<div class="input-group mb-3 mt-3">
-					<input type="hidden" name="bbWriter"
-						value="${loginMember.uNickname}" readonly> <label
+					<%-- <input type="hidden" name="bbWriter"
+						value="${loginMember.UNickName}" readonly> <label
 						class="form-label fs-6" for="b_search">독서일기에 넣을 책을 검색해주세요.</label>
 					<div class="input-group">
 						<select class="btn btn-primary" name="division"
@@ -39,27 +39,34 @@
 						<button class="btn btn-primary rounded-end bi-search"
 							type="submit">&nbsp;검색</button>
 						<div class="col-sm-12 py-3 ">
-							<a href="${path}/bookboard/list?page=${book.bNo}"><img
+							<a href="${path}/bookboard/list?page=${bookboard.BNo}"><img
 								src="${path}img/photo/Bboardsearch.png "></a>
-								<c:if test="${bookboard.bNo != null}">
+								<c:if test="${bookboard.BNo != null}">
 							<div class="d-grid gap-2 d-md-flex mt-2 justify-content-md-end ">
 								<button class="btn btn-primary " type="reset">삭제</button>
 							</div>
 							</c:if>
 						</div>
-					</div>
+					</div> --%>
 					<div class="col-xl-12 col-lg-10">
+						<input type="hidden" name="bbNo" value="${bookboard.bbNo }">
 						<div>
 							<div>
-								<label class="form-label fs-6" for="title">글 제목</label> <input
-									class="form-control" type="text" name="title" id="title"
-									placeholder="제목을 입력해주세요.">${bookBoard.bbTitle}
+								<label class="form-label fs-6" for="bNo">책 번호</label> <input
+									class="form-control" type="text" name="bNo" id="bNo" value="${bookboard.BNo }" readonly="readonly">
+							</div>
+						</div>
+						<div>
+							<div>
+								<label class="form-label fs-6 mt-3" for="title">글 제목</label> <input
+									class="form-control" type="text" name="title" id="title" value="${bookboard.bbTitle }"
+									placeholder="제목을 입력해주세요.">
 							</div>
 						</div>
 						<div>
 							<label class="form-label fs-6 mt-3" for="content">내용</label>
 							<textarea class="form-control" rows="8" name="content"
-								id="content" placeholder="독서일기를 작성해주세요.">${bookBoard.bbContent }</textarea>
+								id="content" placeholder="독서일기를 작성해주세요.">${bookboard.bbContent }</textarea>
 						</div>
 						<br>
 						<div class="text-md-center">

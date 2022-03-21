@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kh.finalproject.book.model.service.BookService;
+import com.kh.finalproject.book.model.vo.Book;
 import com.kh.finalproject.bookboard.model.service.BookBoardService;
 import com.kh.finalproject.bookboard.model.vo.BookBoard;
 import com.kh.finalproject.common.util.PageInfo;
@@ -31,6 +33,9 @@ public class BookBoardController {
 
 	@Autowired
 	private BookBoardService service;
+	
+	@Autowired
+	private BookService bookService;
 
 	@GetMapping("/list")
 	public ModelAndView list(ModelAndView model,
@@ -56,6 +61,7 @@ public class BookBoardController {
 	
 	@GetMapping("/view")
 	public ModelAndView view(ModelAndView model, int bbNo) {
+		service.updateReadCount(bbNo);
 		BookBoard bookBoard = service.getBookBoardByNo(bbNo);
 
 		model.addObject("bookBoard", bookBoard);
@@ -85,24 +91,35 @@ public class BookBoardController {
 		//return "bookboard/write"; 
 	}
 	
+	@PostMapping("/searchBook")
+	@ResponseBody
+	public List<Book> searchBookList(String keyword, String option) {
+		List<Book> searchBookList = bookService.getSearchBookList(keyword, option);
+
+		return searchBookList;
+	}
+	
 	@PostMapping("/write")
 	public ModelAndView write(ModelAndView model, HttpServletRequest request,
 			@SessionAttribute(name = "loginMember", required = false) Member loginMember, 
-			@ModelAttribute BookBoard bookBoard) {
+			int bbNo, int bNo, String title, String content) {
 		log.info("게시글 작성 요청");
 
-		if (loginMember.getUNo() == (bookBoard.getUNo()) == false) {
-			model.addObject("msg", "잘못된 접근입니다");
-			model.addObject("location", "/");
-			model.setViewName("/common/msg");
-			return model;
-		}
+//		if (loginMember.getUNo() == (bookBoard.getUNo()) == false) {
+//			model.addObject("msg", "잘못된 접근입니다");
+//			model.addObject("location", "/");
+//			model.setViewName("/common/msg");
+//			return model;
+//		}
 		
-		bookBoard.setUNo(loginMember.getUNo());
-		
-		System.out.println(bookBoard);
+		BookBoard bb = new BookBoard();
+		bb.setBbNo(bbNo);
+		bb.setBNo(bNo);
+		bb.setUNo(loginMember.getUNo());
+		bb.setBbTitle(title);
+		bb.setBbContent(content);
 
-		int result = service.saveBookBoard(bookBoard);
+		int result = service.saveBookBoard(bb);
 
 		if (result > 0) {
 			model.addObject("msg", "게시글이 정상적으로 등록되었습니다.");

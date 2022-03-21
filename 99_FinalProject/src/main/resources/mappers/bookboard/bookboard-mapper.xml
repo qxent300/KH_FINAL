@@ -132,4 +132,8 @@
 		UPDATE BOOKBOARD SET BB_RECOMMENDCOUNT = BB_RECOMMENDCOUNT - 1 WHERE BB_NO = #{bbNo}
 	</update>
 	
+	<update id="updateReadCount" parameterType="int">
+		UPDATE BOOKBOARD SET BB_READCOUNT = BB_READCOUNT + 1 WHERE BB_NO = #{bbNo}
+	</update>
+	
 </mapper>

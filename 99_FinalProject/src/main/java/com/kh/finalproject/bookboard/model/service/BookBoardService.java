@@ -33,4 +33,6 @@ public interface BookBoardService {
 	
 	int selectTest();
 	
+	int updateReadCount(int bbNo);	// 조회수 증가
+	
 }
