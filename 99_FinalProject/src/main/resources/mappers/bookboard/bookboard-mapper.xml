@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+					"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+					
+<mapper namespace="com.kh.finalproject.bookboard.model.mapper.BookBoardMapper">
+
+	<resultMap type="BookBoard" id="bookBoardResultMap">
+		<id property="bbNo" column="BB_NO" />
+		<result property="bNo" column="B_NO" />
+		<result property="uNo" column="U_NO" />
+		
+		<result property="bName" column="B_NAME" />
+		<result property="bWriter" column="B_WRITER" />
+		<result property="bImage" column="B_IMAGE" />
+		<result property="bCategory" column="B_CATEGORY" />
+		<result property="publishDate" column="PUBLISH_DATE" />
+		
+		<result property="uNickName" column="U_NICKNAME" />
+		
+		<result property="bbTitle" column="BB_TITLE" />
+		<result property="bbContent" column="BB_CONTENT" />
+		<result property="bbReadCount" column="BB_READCOUNT" />
+		<result property="bbRecommendCount" column="BB_RECOMMENDCOUNT" />
+		<result property="bbStatus" column="BB_STATUS" />
+		<result property="createDate" column="CREATE_DATE" />
+		<result property="modifyDate" column="MODIFY_DATE" />
+	</resultMap>
+		
+	<!-- <resultMap type="Like" id="likeResultMap">
+		<id property="Lno" column="l_NO" />
+		<result property="bbNo" column="BB_NO" />
+		<result property="uNo" column="U_NO" />
+		<result property="lCheck" column="L_CHECK" />
+		<result property="lDate" column="L_DATE" />
+	</resultMap>-->
+	
+	<select id="selectBookBoardCount" resultType="int">
+		SELECT COUNT(*) FROM BOOKBOARD WHERE BB_STATUS = 'Y'
+	</select>
+	
+	<select id="selectBookBoardListByRecommendCount" resultMap="bookBoardResultMap">
+		SELECT BB_NO, B_NO, U_NO, B_IMAGE, U_NICKNAME, BB_TITLE, BB_READCOUNT, BB_RECOMMENDCOUNT, BB_STATUS, CREATE_DATE, MODIFY_DATE 
+		FROM 
+			(SELECT BB.BB_NO, BB.B_NO, BB.U_NO, B.B_IMAGE, U.U_NICKNAME, BB.BB_TITLE, BB.BB_READCOUNT, BB.BB_RECOMMENDCOUNT, BB.BB_STATUS, BB.CREATE_DATE, BB.MODIFY_DATE 
+				FROM BOOKBOARD BB, BOOK B, MEMBER U 
+				WHERE BB.BB_STATUS = 'Y' 
+				AND BB.B_NO = B.B_NO AND BB.U_NO = U.U_NO
+				ORDER BY BB.BB_RECOMMENDCOUNT DESC) 
+		WHERE ROWNUM <![CDATA[ <= ]]> 4 
+		ORDER BY BB_RECOMMENDCOUNT DESC
+	</select>
+	
+	<select id="selectAllBookBoardList" parameterType="map" resultMap="bookBoardResultMap">
+		SELECT BB.BB_NO, BB.B_NO, BB.U_NO, B.B_IMAGE, U.U_NICKNAME, BB.BB_TITLE, BB.BB_READCOUNT, BB.BB_RECOMMENDCOUNT, BB.BB_STATUS, BB.CREATE_DATE, BB.MODIFY_DATE 
+		FROM BOOKBOARD BB, BOOK B, MEMBER U 
+		WHERE BB.BB_STATUS = 'Y' 
+		AND BB.B_NO = B.B_NO AND BB.U_NO = U.U_NO
+		AND NOT BB.BB_NO IN
+		<foreach collection="filterList" index="i" item="filterKey" open="(" separator="," close=")">
+		 	#{filterKey}
+		</foreach>
+		ORDER BY BB.MODIFY_DATE DESC
+	</select>
+	
+	<select id="selectBookBoardByNo" parameterType="int" resultMap="bookBoardResultMap">
+		SELECT BB.*, B.B_NAME, B.B_WRITER, B.B_IMAGE, B.B_CATEGORY, B.PUBLISH_DATE, U.U_NICKNAME 
+		FROM BOOKBOARD BB, BOOK B, MEMBER U 
+		WHERE BB.BB_STATUS = 'Y' AND BB.B_NO = B.B_NO AND BB.U_NO = U.U_NO
+		AND BB.BB_NO = #{bbNo}
+	</select>
+	
+	<insert id="insertBookBoard" parameterType="BookBoard">
+		INSERT INTO BOOKBOARD VALUES(SEQ_BB_NO.NEXTVAL, #{bNo}, #{uNo}, #{bbTitle}, #{bbContent}, 0, 0, 'Y', SYSDATE, SYSDATE)
+	</insert>
+	
+	<update id="updateBookBoard" parameterType="BookBoard">
+		UPDATE BOOKBOARD SET B_NO = #{bNo}, U_NO = #{uNo}, BB_TITLE = #{bbTitle}, BB_CONTENT = #{bbContent}, MODIFY_DATE = SYSDATE WHERE BB_NO = #{bbNo}
+	</update>
+	
+	<update id="deleteBookBoard" parameterType="int">
+		UPDATE BOOKBOARD SET BB_STATUS = 'N' WHERE BB_NO = #{bbNo}
+	</update>
+	
+	<!-- 게시글 추천수 -->
+	<!--<update id="updateLike" parameterType="int">
+		UPDATE BB_BOARD SET
+		BB_RECOMMENDCOUNT = BB_RECOMMENDCOUNT+1
+		WHERE BB_NO = #{bbNo}
+	</update>-->
+	
+	<!-- 게시글 추천수취소 -->
+	<!-- <update id="updateLikeCancel" parameterType="int">
+		UPDATE BB_NO SET
+		BB_RECOMMENDCOUNT = BB_RECOMMENDCOUNT-1
+		WHERE BB_NO = #{bbNo}
+	</update>-->
+	
+	<!-- 게시글 추천 시 Like 테이블에 insert -->
+	<!--<insert id="insertLike">
+	INSERT INTO LIKE(L_NO , BB_NO , U_NO)
+	values((SELECT NVL(MAX(l_no), 0) + 1 FROM LIKE) ,#{bbNo} ,#{uNo})
+	</insert>-->
+
+	<!-- 게시글 추천취소 시 delete -->
+	<!--<delete id="deleteLike">
+		DELETE FROM LIKE WHERE BB_BO = #{bbNo} and U_NO = #{uNo}
+	</delete>-->
+
+	<!-- 게시글 추천 시 Check를 1로 만들어서 중복방지 -->
+	<!--<update id="updateLikeCheck">
+		UPDATE LIKE SET LIKECHECK = 1
+		WHERE BB_NO = #{bbNo} and U_NO = #{uNo}
+	</update>-->
+
+	<!-- 게시글 추천취소 시 다시 0 -->
+	<!--<update id="updateLikeCheckCancel">
+		UPDATE LIKE SET LIKECHECK = 0 
+		WHERE BB_NO = #{bbNo} AND U_NO = #{uNo}
+	</update>-->
+
+	<!-- 게시글 추천 중복방지 select문 -->
+	<!--<select id="likeCheck" resultType="int">
+		SELECT COUNT(*) FROM LIKE WHERE BB_NO = #{bbNo} AND U_NO = #{uNo}
+	</select>-->
+	
+	<update id="updateRecommendPlus" parameterType="int">
+		UPDATE BOOKBOARD SET BB_RECOMMENDCOUNT = BB_RECOMMENDCOUNT + 1 WHERE BB_NO = #{bbNo}
+	</update>
+	
+	<update id="updateRecommendMinus" parameterType="int">
+		UPDATE BOOKBOARD SET BB_RECOMMENDCOUNT = BB_RECOMMENDCOUNT - 1 WHERE BB_NO = #{bbNo}
+	</update>
+	
+	<update id="updateReadCount" parameterType="int">
+		UPDATE BOOKBOARD SET BB_READCOUNT = BB_READCOUNT + 1 WHERE BB_NO = #{bbNo}
+	</update>
+	
+</mapper>
