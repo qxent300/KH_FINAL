@@ -7,6 +7,7 @@ import org.apache.ibatis.session.RowBounds;
 
 import com.kh.finalproject.book.model.vo.Book;
 import com.kh.finalproject.book.model.vo.Score;
+import com.kh.finalproject.mypage.model.vo.Cart;
 
 public interface BookMapper {
 	
@@ -39,5 +40,7 @@ public interface BookMapper {
 	List<Book> selectSearchBookList(Map<String, Object> params);
 
 	List<Book> selectSearchBookSort();
+
+	int updateRentCount(Cart cart);
 	
 }

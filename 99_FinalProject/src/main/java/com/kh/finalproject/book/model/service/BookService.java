@@ -5,6 +5,7 @@ import java.util.List;
 import com.kh.finalproject.book.model.vo.Book;
 import com.kh.finalproject.book.model.vo.Score;
 import com.kh.finalproject.common.util.PageInfo;
+import com.kh.finalproject.mypage.model.vo.Cart;
 
 public interface BookService {
 
@@ -32,4 +33,6 @@ public interface BookService {
 	List<Book> getSearchBookList(String keyword, String option);
 
 	List<Book> getSearchBookSort();
+
+	int updateRentCount(Cart cart);
 }

@@ -13,6 +13,7 @@ import com.kh.finalproject.book.model.mapper.BookMapper;
 import com.kh.finalproject.book.model.vo.Book;
 import com.kh.finalproject.book.model.vo.Score;
 import com.kh.finalproject.common.util.PageInfo;
+import com.kh.finalproject.mypage.model.vo.Cart;
 
 @Service
 public class BookServiceImpl implements BookService {
@@ -138,5 +139,10 @@ public class BookServiceImpl implements BookService {
 	public List<Book> getSearchBookSort() {
 		List<Book> list = mapper.selectSearchBookSort();	// 전체 도서 검색
 		return list;
+	}
+
+	@Override
+	public int updateRentCount(Cart cart) {
+		return mapper.updateRentCount(cart);
 	}
 }

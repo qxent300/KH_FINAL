@@ -204,5 +204,8 @@
 		</where>
 	</select>
 	
+	<update id="updateRentCount" parameterType="Cart">
+		UPDATE BOOK SET B_RENTCOUNT = B_RENTCOUNT + 1 WHERE B_NO = #{bNo}
+	</update>
  
 </mapper>

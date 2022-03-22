@@ -77,7 +77,7 @@
                 <h6 class="sidebar-heading ms-3">회원정보</h6>
                 <nav class="nav nav-pills flex-column">
                 <a class="nav-link mb-2 active" href="${path}/myPageBook/myPageMemberView">회원정보수정</a>
-                <a class="nav-link mb-2" href="#">탈퇴하기</a>
+                <a class="nav-link mb-2" href="${path}/member/delete">탈퇴하기</a>
                 </nav>
               </div>
             </div>

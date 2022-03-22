@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kh.finalproject.book.model.service.BookService;
 import com.kh.finalproject.common.util.PageInfo;
 import com.kh.finalproject.member.model.vo.Member;
 import com.kh.finalproject.mypage.model.service.MyPageService;
@@ -32,6 +33,9 @@ public class MyPageController {
 
 	@Autowired
 	private MyPageService service;
+	
+	@Autowired
+	private BookService bookService;
 
 	@GetMapping("/cart")
 	public ModelAndView cart(ModelAndView model, @SessionAttribute(name = "loginMember", required = false) Member loginMember, int bNo) {
@@ -137,6 +141,10 @@ public class MyPageController {
 				
 				return model;
 			}
+		}
+		
+		for (Cart cart : cartList) {
+			int result = bookService.updateRentCount(cart);
 		}
 		
 		int result = service.deleteAllCart(loginMember.getUNo());
