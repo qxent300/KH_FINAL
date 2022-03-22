@@ -1,6 +1,7 @@
 package com.kh.finalproject.naver.member.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -14,8 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.github.scribejava.core.model.OAuth2AccessToken;
+import com.kh.finalproject.book.model.service.BookService;
+import com.kh.finalproject.book.model.vo.Book;
 import com.kh.finalproject.member.model.service.MemberService;
 import com.kh.finalproject.member.model.vo.Member;
 import com.kh.finalproject.naver.member.NaverLoginBO;
@@ -23,6 +27,8 @@ import com.kh.finalproject.naver.member.NaverLoginBO;
 @SessionAttributes("loginMember")
 @Controller
 public class naverController {
+	@Autowired
+	private BookService service2;
 	
 	@Autowired
 	private MemberService service;
@@ -36,7 +42,7 @@ public class naverController {
 
 	//네이버 로그인 성공시 callback호출 메소드
 	@RequestMapping(value = "/callback", method = { RequestMethod.GET, RequestMethod.POST })
-	public String callback(Model model, @RequestParam String code, @RequestParam String state, HttpSession session) throws IOException, ParseException {
+	public ModelAndView callback(ModelAndView model, @RequestParam String code, @RequestParam String state, HttpSession session) throws IOException, ParseException {
 	System.out.println("여기는 callback");
 	OAuth2AccessToken oauthToken;
 	oauthToken = naverLoginBO.getAccessToken(session, code, state);
@@ -68,13 +74,22 @@ public class naverController {
 		member.setUPhone(phone);
 		int result = service.save(member);
 	}
+	List<Book> todayBookList = service2.getAllTodayBookList();
+	model.addObject("todayBookList", todayBookList);
 	
+	List<Book> bestsellerList = service2.getBestsellerList();
+	model.addObject("bestsellerList", bestsellerList);
+	
+	List<Book> newBookList = service2.getNewBookList();
+	model.addObject("newBookList", newBookList);
+	
+	model.setViewName("home");
 	System.out.println(member.toString());
 
 	//4.파싱 닉네임 세션으로 저장
-	model.addAttribute("loginMember",findid); //세션 생성
-	model.addAttribute("result", apiResult);
-	return "home";
+	model.addObject("loginMember",findid); //세션 생성
+	model.addObject("result", apiResult);
+	return model;
 	
 	}
 
