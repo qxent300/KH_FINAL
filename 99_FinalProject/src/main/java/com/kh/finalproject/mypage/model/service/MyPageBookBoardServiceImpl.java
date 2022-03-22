@@ -25,7 +25,7 @@ public class MyPageBookBoardServiceImpl implements MyPageBookBoardService {
 	@Autowired
 	private MemberMapper memberMapper;
  
-	public List<MyPageBookVo> myPageBookBoardList(String nowPage, String cntPerPage, String loginMember) {
+	public List<MyPageBookVo> myPageBookBoardList(String nowPage, String cntPerPage, Member loginMember) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		
 		MyPagePagingVo vo = new MyPagePagingVo();

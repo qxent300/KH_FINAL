@@ -44,7 +44,7 @@ public class MyPageBookBoardController {
     										MyPagePagingVo vo,
     										@RequestParam(value="nowPage", required=false)String nowPage,
     										@RequestParam(value="cntPerPage", required=false)String cntPerPage,
-    										@RequestParam(value="loginMember", required=false)String loginMember) {
+    										@SessionAttribute(name ="loginMember", required = false) Member loginMember) {
         
     	
         List<MyPageBookVo> list = service.myPageBookBoardList(nowPage, cntPerPage, loginMember);

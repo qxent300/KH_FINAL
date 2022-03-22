@@ -17,6 +17,7 @@
 						FROM	BOOKBOARD B2,
 								BOOK B1
 						where	B2.B_NO = B1.B_NO
+						and		B2.U_NO = #{loginMember.uNo}
 						<!-- and u_no = #{loginMember} -->
 						ORDER BY B2.CREATE_DATE DESC 
 					 ) A

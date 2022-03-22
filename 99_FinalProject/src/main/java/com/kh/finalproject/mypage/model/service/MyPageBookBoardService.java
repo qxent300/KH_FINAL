@@ -15,7 +15,7 @@ import com.kh.finalproject.mypage.model.vo.MyPagePagingVo;
 public interface MyPageBookBoardService {
 	
 	//게시판 리스트
-    public List<MyPageBookVo> myPageBookBoardList(String nowPage, String cntPerPage, String loginMember);
+    public List<MyPageBookVo> myPageBookBoardList(String nowPage, String cntPerPage, Member loginMember);
  
     // 게시물 총 갯수
     public int countBoard();
